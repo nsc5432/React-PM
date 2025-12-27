@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { DashboardHeader } from "@/components/dashboard-header"
 import { DashboardTabs } from "@/components/dashboard-tabs"
-import { TimelinePlayer } from "@/components/timeline-player"
 import { MapView } from "@/components/map-view"
 import { CounterStatusView } from "@/components/counter-status-view"
 import { DetailedGridView } from "@/components/detailed-grid-view"
@@ -39,8 +38,6 @@ export default function AirportDashboard() {
                     </div>
                 )}
             </main>
-
-            <TimelinePlayer />
         </div>
     )
 }

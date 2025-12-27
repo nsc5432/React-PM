@@ -3,20 +3,23 @@
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Users, Clock } from "lucide-react"
-import { useFacilityStatus } from "@/hooks/useFacilityStatus"
+import { getFacilityDataByTime } from "@/lib/mock-data"
+import { TimelinePlayer } from "@/components/timeline-player"
+import { useState } from "react"
 
 export function MapView() {
-  const { data: facilityStatusData, loading } = useFacilityStatus()
+  // 시간 상태 관리 (10:00부터 시작)
+  const [currentTime, setCurrentTime] = useState(600)
+
+  // 현재 시간에 해당하는 시설 혼잡도 데이터 가져오기
+  const facilityStatusData = getFacilityDataByTime(currentTime)
 
   const islands = ["N", "M", "L", "K", "E", "F", "G", "H", "I", "J", "K", "C", "B", "A"]
   const islandNumbers = ["6", "5", "4", "3", "2", "1"]
 
-  if (loading) {
-    return <div className="p-6">Loading...</div>
-  }
-
   return (
-    <div className="p-6 space-y-4">
+    <div className="flex flex-col h-full">
+      <div className="flex-1 p-6 space-y-4 overflow-auto">
       <Card className="p-4">
         <div className="bg-amber-50 border border-amber-200 px-4 py-2 rounded-md flex items-center gap-2">
           <span className="text-lg">🏢</span>
@@ -114,6 +117,10 @@ export function MapView() {
           ))}
         </div>
       </div>
+      </div>
+
+      {/* TimelinePlayer - MapView 전용 */}
+      <TimelinePlayer time={currentTime} onTimeChange={setCurrentTime} />
     </div>
   )
 }
