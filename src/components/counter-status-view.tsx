@@ -1,5 +1,3 @@
-"use client"
-
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { useCounterStatus } from "@/hooks/useCounterStatus"

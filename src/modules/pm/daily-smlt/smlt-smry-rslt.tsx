@@ -85,11 +85,10 @@ const SmltSmryRslt = () => {
                     <button
                         key={index}
                         onClick={() => setSelectedTab(index)}
-                        className={`rounded-lg text-center py-3 font-medium shadow transition-all duration-300 hover:opacity-90 ${
-                            selectedTab === index
-                                ? `bg-gradient-to-r ${currentTheme.gradient} text-white`
-                                : 'bg-white border text-gray-500 hover:border-gray-400'
-                        }`}
+                        className={`rounded-lg text-center py-3 font-medium shadow transition-all duration-300 hover:opacity-90 ${selectedTab === index
+                            ? `bg-gradient-to-r ${currentTheme.gradient} text-white`
+                            : 'bg-white border text-gray-500 hover:border-gray-400'
+                            }`}
                     >
                         {tab}
                     </button>
@@ -119,12 +118,10 @@ const SmltSmryRslt = () => {
                                         </svg>
                                     </div>
                                 </div>
-                                {idx === 0 && (
-                                    <div className="text-center ml-5 border p-2 rounded">
-                                        <div className="text-gray-500 text-sm">모델설명 (R2 Square)</div>
-                                        <h3 className={`text-xl font-bold ${currentTheme.accentText}`}>86%</h3>
-                                    </div>
-                                )}
+                                <div className="text-center ml-5 border p-2 rounded">
+                                    <div className="text-gray-500 text-sm">모델설명 (R2 Square)</div>
+                                    <h3 className={`text-xl font-bold ${currentTheme.accentText}`}>86%</h3>
+                                </div>
                             </div>
                         ))
                     }
