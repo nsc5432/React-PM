@@ -1,40 +1,8 @@
 // Mock data for the Airport Check-in Counter Congestion Simulation Dashboard
 
-export interface CounterStatus {
-  counter: number
-  airline: string
-  status: "busy" | "closed" | "warning" | "available"
-  waitPeople: number
-  waitTime: number
-  processedPeople: number
-}
-
-export interface FacilityStatus {
-  island: string
-  waitPeople: number
-  waitTime: number
-  revenue: number
-  status: "normal" | "warning" | "busy"
-}
-
-export interface TimeSlotData {
-  time: string
-  leftCounter: string
-  rightCounter: string
-  leftProcessed: string
-  rightProcessed: string
-  leftWait: string
-  rightWait: string
-  highlight?: boolean
-}
-
-export interface ChartDataPoint {
-  time: string
-  processedPeople: number
-  waitingCurrent: number
-  waitingForecast: number
-  waitingPrevWeek: number
-}
+// 타입 정의는 별도 파일로 분리
+export * from '@/types/api.types'
+import type { CounterStatus, FacilityStatus, TimeSlotData, ChartDataPoint } from '@/types/api.types'
 
 // Counter Status Data (ref: pm_002.JPG)
 export const counterStatusData: CounterStatus[] = [

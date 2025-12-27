@@ -2,10 +2,12 @@
 
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { counterStatusData } from "@/lib/mock-data"
+import { useCounterStatus } from "@/hooks/useCounterStatus"
 import { Users, Clock } from "lucide-react"
 
 export function CounterStatusView() {
+    const { data: counterStatusData, loading } = useCounterStatus()
+
     const getStatusColor = (status: string) => {
         switch (status) {
             case "busy":
@@ -16,6 +18,10 @@ export function CounterStatusView() {
             default:
                 return "bg-card text-card-foreground border"
         }
+    }
+
+    if (loading) {
+        return <div className="p-6">Loading...</div>
     }
 
     //   const airlines = counterStatusData.map((c) => c.airline).filter((v, i, a) => a.indexOf(v) === i)

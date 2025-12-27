@@ -2,9 +2,15 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
-import { chartData } from "@/lib/mock-data"
+import { useChartData } from "@/hooks/useChartData"
 
 export function ChartView() {
+  const { data: chartData, loading } = useChartData()
+
+  if (loading) {
+    return <div className="p-6">Loading...</div>
+  }
+
   return (
     <div className="p-6">
       <Card>

@@ -3,11 +3,17 @@
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Users, Clock } from "lucide-react"
-import { facilityStatusData } from "@/lib/mock-data"
+import { useFacilityStatus } from "@/hooks/useFacilityStatus"
 
 export function MapView() {
+  const { data: facilityStatusData, loading } = useFacilityStatus()
+
   const islands = ["N", "M", "L", "K", "E", "F", "G", "H", "I", "J", "K", "C", "B", "A"]
   const islandNumbers = ["6", "5", "4", "3", "2", "1"]
+
+  if (loading) {
+    return <div className="p-6">Loading...</div>
+  }
 
   return (
     <div className="p-6 space-y-4">

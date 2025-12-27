@@ -11,4 +11,13 @@ export default defineConfig({
             "@": path.resolve(__dirname, "src"), // src 폴더를 @로 매핑
         },
     },
+    server: {
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, ''),
+            },
+        },
+    },
 })
