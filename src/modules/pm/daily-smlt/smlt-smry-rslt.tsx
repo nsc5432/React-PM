@@ -1,10 +1,61 @@
+import { useState } from 'react';
+
 const SmltSmryRslt = () => {
+    // 선택된 탭 상태 (0: 터미널 여객수, 1: 체크인카운터, 2: 출국장, 3: 보안검색대)
+    const [selectedTab, setSelectedTab] = useState(0);
+
+    // 각 탭별 색상 테마 정의
+    const themeColors = {
+        0: { // 터미널에 여객수가 가장 많을때 - 파란색
+            primary: 'blue',
+            gradient: 'from-blue-600 to-cyan-400',
+            headerBg: 'bg-[#003366]',
+            chartGradient: 'from-blue-500 to-cyan-300',
+            accentText: 'text-blue-600',
+            terminalBg: ['bg-teal-500', 'bg-[#55b9c9]']
+        },
+        1: { // 체크인카운터가 가장 혼잡할 때 - 주황색
+            primary: 'orange',
+            gradient: 'from-orange-600 to-amber-400',
+            headerBg: 'bg-orange-900',
+            chartGradient: 'from-orange-500 to-amber-300',
+            accentText: 'text-orange-600',
+            terminalBg: ['bg-orange-500', 'bg-amber-500']
+        },
+        2: { // 출국장이 가장 혼잡할 때 - 초록색
+            primary: 'green',
+            gradient: 'from-green-600 to-emerald-400',
+            headerBg: 'bg-green-900',
+            chartGradient: 'from-green-500 to-emerald-300',
+            accentText: 'text-green-600',
+            terminalBg: ['bg-green-500', 'bg-emerald-500']
+        },
+        3: { // 보안검색대가 가장 혼잡할 때 - 보라색
+            primary: 'purple',
+            gradient: 'from-purple-600 to-violet-400',
+            headerBg: 'bg-purple-900',
+            chartGradient: 'from-purple-500 to-violet-300',
+            accentText: 'text-purple-600',
+            terminalBg: ['bg-purple-500', 'bg-violet-500']
+        }
+    };
+
+    const currentTheme = themeColors[selectedTab as keyof typeof themeColors];
+
+    // 탭 목록
+    const tabs = [
+        '터미널에 여객수가 가장 많을때',
+        '체크인카운터가 가장 혼잡할 때',
+        '출국장이 가장 혼잡할 때',
+        '보안검색대가 가장 혼잡할 때'
+    ];
+
     return (
         <div className="max-w-[1800px] mx-auto p-5 bg-gray-100 min-h-screen">
             {/* Header */}
             <header className="bg-white p-4 rounded-lg mb-5 shadow flex justify-between items-center">
                 <div className="flex items-center space-x-5">
-                    <div className="bg-[#003366] text-white px-5 py-2 rounded text-lg font-bold">운항계획</div>
+                    <div className={`${currentTheme.headerBg} text-white px-5 py-2 rounded text-lg font-bold`}>운항계획</div>
                     <div className="text-blue-700 font-semibold">
                         총운항편 <span className="font-bold text-xl">1,354 편</span>
                     </div>
@@ -17,7 +68,7 @@ const SmltSmryRslt = () => {
                     <div className="flex items-center bg-gray-200 px-4 py-1 rounded-full space-x-1">
                         <span>기준일자 2025-06-02 10시 20분</span>
                     </div>
-                    <button className="bg-blue-600 text-white px-4 py-1 rounded">SEARCH</button>
+                    <button className={`bg-${currentTheme.primary}-600 text-white px-4 py-1 rounded hover:bg-${currentTheme.primary}-700 transition-colors`}>SEARCH</button>
                     <div className="text-right text-gray-600 text-sm">
                         마지막 계산 시각: 2025-10-18 10:17:00
                         <br />
@@ -29,18 +80,27 @@ const SmltSmryRslt = () => {
             </header >
 
             {/* Navigation Tabs */}
-            < nav className="grid grid-cols-4 gap-2 mb-5" >
-                <div className="bg-gradient-to-r from-blue-600 to-cyan-400 text-white rounded-lg text-center py-3 font-medium shadow">터미널에 여객수가 가장 많을때</div>
-                <div className="bg-white border rounded-lg text-center py-3 text-gray-500 font-medium">체크인카운터가 가장 혼잡할 때</div>
-                <div className="bg-white border rounded-lg text-center py-3 text-gray-500 font-medium">출국장이 가장 혼잡할 때</div>
-                <div className="bg-white border rounded-lg text-center py-3 text-gray-500 font-medium">보안검색대가 가장 혼잡할 때</div>
-            </nav >
+            <nav className="grid grid-cols-4 gap-2 mb-5">
+                {tabs.map((tab, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setSelectedTab(index)}
+                        className={`rounded-lg text-center py-3 font-medium shadow transition-all duration-300 hover:opacity-90 ${
+                            selectedTab === index
+                                ? `bg-gradient-to-r ${currentTheme.gradient} text-white`
+                                : 'bg-white border text-gray-500 hover:border-gray-400'
+                        }`}
+                    >
+                        {tab}
+                    </button>
+                ))}
+            </nav>
 
             {/* Main Content */}
             < main className="grid grid-cols-2 gap-5" >
 
                 {/* Mini Charts Row */}
-                < div className="col-span-2 grid grid-cols-2 gap-5 mb-5" >
+                <div className="col-span-2 grid grid-cols-2 gap-5 mb-5">
                     {
                         [1, 2].map((_, idx) => (
                             <div key={idx} className="bg-white p-4 rounded-lg flex justify-between items-center">
@@ -50,7 +110,7 @@ const SmltSmryRslt = () => {
                                         <svg width="100%" height="100%" viewBox="0 0 100 50" preserveAspectRatio="none">
                                             {idx === 0 ? (
                                                 <>
-                                                    <polyline points="0,40 20,20 40,30 60,10 80,25 100,5" className="fill-none stroke-blue-500 stroke-2" />
+                                                    <polyline points="0,40 20,20 40,30 60,10 80,25 100,5" className={`fill-none stroke-${currentTheme.primary}-500 stroke-2`} />
                                                     <polyline points="0,45 20,30 40,35 60,20 80,35 100,15" className="fill-none stroke-green-500 stroke-2" />
                                                 </>
                                             ) : (
@@ -62,13 +122,13 @@ const SmltSmryRslt = () => {
                                 {idx === 0 && (
                                     <div className="text-center ml-5 border p-2 rounded">
                                         <div className="text-gray-500 text-sm">모델설명 (R2 Square)</div>
-                                        <h3 className="text-xl font-bold">86%</h3>
+                                        <h3 className={`text-xl font-bold ${currentTheme.accentText}`}>86%</h3>
                                     </div>
                                 )}
                             </div>
                         ))
                     }
-                </div >
+                </div>
 
                 {/* Terminal Cards T1, T2 */}
                 {
@@ -151,9 +211,9 @@ const SmltSmryRslt = () => {
                                 }
                             ]
                         }
-                    ].map((terminal) => (
+                    ].map((terminal, tIdx) => (
                         <article key={terminal.id} className="bg-white rounded-xl shadow overflow-hidden">
-                            <div className={`${terminal.headerBg} text-white flex justify-between p-3 font-bold`}>
+                            <div className={`${currentTheme.terminalBg[tIdx]} text-white flex justify-between p-3 font-bold`}>
                                 시뮬레이션 요약 <span>+</span>
                             </div>
                             <div className="p-5">
@@ -161,7 +221,7 @@ const SmltSmryRslt = () => {
 
                                 <div className="flex gap-5 mb-5">
                                     <div className="flex-1 bg-gray-100 p-3 rounded text-center">
-                                        <div className="text-blue-600 text-2xl font-bold">
+                                        <div className={`${currentTheme.accentText} text-2xl font-bold`}>
                                             {terminal.flightCount} <span className="text-sm mt-2">편</span>
                                         </div>
                                         <div className="text-red-600 text-sm mt-1">지난주 목요일 대비 {terminal.flightDiff}</div>
@@ -178,13 +238,13 @@ const SmltSmryRslt = () => {
                                     {terminal.chartData.map((h, idx) => (
                                         <div
                                             key={idx}
-                                            className="w-[5%] bg-gradient-to-t from-blue-500 to-cyan-300 rounded-t"
+                                            className={`w-[5%] bg-gradient-to-t ${currentTheme.chartGradient} rounded-t`}
                                             style={{ height: `${h}%` }}
                                         ></div>
                                     ))}
                                 </div>
 
-                                <div className="bg-blue-100 text-blue-800 font-bold text-center py-1 rounded mb-5">
+                                <div className={`bg-${currentTheme.primary}-100 text-${currentTheme.primary}-800 font-bold text-center py-1 rounded mb-5`}>
                                     2025-11-08 FRI 10:00:AM
                                 </div>
 
