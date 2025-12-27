@@ -15,6 +15,17 @@ export interface FacilityStatus {
   waitTime: number
   revenue: number
   status: "normal" | "warning" | "busy"
+  // 추가 필드들
+  processedPeople?: number // 처리인원
+  processTime?: number // 처리시간
+  totalRevenue?: number // 총 매출
+  commercialCount?: number // 상업시설 수
+  revenuePerPerson?: number // 인원대비 매출
+  peopleChange?: number // 매출 인원 증감
+  changeRate?: number // 증감률 (%)
+  checkInRate?: number // 체크인카운터 처리율 (%)
+  selfCheckInRate?: number // 셀프체크인 처리율 (%)
+  facilityCode?: string // 시설 코드 (예: T1-3RD-M01-01)
 }
 
 export interface TimeSlotData {

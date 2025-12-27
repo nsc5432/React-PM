@@ -181,30 +181,136 @@ export function MapView() {
                     </button>
                   </PopoverTrigger>
                   {counter && (
-                    <PopoverContent className="w-80">
+                    <PopoverContent className="w-[600px] max-h-[700px] overflow-y-auto">
                       <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <h3 className="font-semibold">체크인카운터 {letter}구역 혼잡 현황</h3>
-                          <button className="text-muted-foreground hover:text-foreground">✕</button>
+                        {/* 헤더 */}
+                        <div className="flex items-center justify-between border-b pb-3">
+                          <h3 className="font-bold text-lg">
+                            {letter}아일랜드 {counter.facilityCode ? `(${counter.facilityCode})` : ''}
+                          </h3>
+                          <button className="text-muted-foreground hover:text-foreground text-xl">✕</button>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 text-center">
-                          <div className="space-y-2">
-                            <div className="w-12 h-12 mx-auto rounded-full bg-destructive/10 flex items-center justify-center">
-                              <Users className="h-6 w-6 text-destructive" />
+                        {/* 상단 3개 시설 카드 */}
+                        <div className="grid grid-cols-3 gap-4">
+                          {/* 체크인카운터 */}
+                          <div className="border rounded-lg p-3 text-center space-y-2">
+                            <div className="w-16 h-16 mx-auto bg-gray-100 rounded flex items-center justify-center">
+                              <div className="text-3xl">✈️</div>
                             </div>
-                            <div className="text-2xl font-bold text-destructive">{counter.waitPeople}명</div>
-                            <div className="text-xs text-muted-foreground">대기인원</div>
+                            <div className="text-sm font-medium">체크인카운터</div>
+                            <div className="text-xs text-muted-foreground">
+                              (처리율 : {counter.checkInRate || 90}%)
+                            </div>
                           </div>
 
-                          <div className="space-y-2">
-                            <div className="w-12 h-12 mx-auto rounded-full bg-muted flex items-center justify-center">
-                              <Clock className="h-6 w-6 text-muted-foreground" />
+                          {/* 셀프체크인 */}
+                          <div className="border rounded-lg p-3 text-center space-y-2">
+                            <div className="w-16 h-16 mx-auto bg-gray-100 rounded flex items-center justify-center">
+                              <div className="text-3xl">🖥️</div>
                             </div>
-                            <div className="text-2xl font-bold">{counter.waitTime}분</div>
-                            <div className="text-xs text-muted-foreground">대기시간</div>
+                            <div className="text-sm font-medium">셀프체크인</div>
+                            <div className="text-xs text-muted-foreground">
+                              (처리율 : {counter.selfCheckInRate || 100}%)
+                            </div>
+                          </div>
+
+                          {/* 상업시설 */}
+                          <div className="border rounded-lg p-3 text-center space-y-2">
+                            <div className="w-16 h-16 mx-auto bg-gray-100 rounded flex items-center justify-center">
+                              <div className="text-3xl">🏪</div>
+                            </div>
+                            <div className="text-sm font-medium">상업시설</div>
+                            <div className="text-xs text-muted-foreground">&nbsp;</div>
                           </div>
                         </div>
+
+                        {/* 시설 혼잡 현황 */}
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <h4 className="font-bold text-base">시설 혼잡 현황</h4>
+                            {counter.status === "busy" && (
+                              <span className="bg-red-500 text-white text-xs px-2 py-1 rounded">혼잡</span>
+                            )}
+                          </div>
+
+                          <div className="grid grid-cols-4 gap-3 text-center">
+                            {/* 대기인원 */}
+                            <div className="space-y-2">
+                              <div className="w-12 h-12 mx-auto rounded-full bg-purple-100 flex items-center justify-center">
+                                <Users className="h-6 w-6 text-purple-600" />
+                              </div>
+                              <div className="text-2xl font-bold text-red-600">{counter.waitPeople}명</div>
+                              <div className="text-xs text-muted-foreground">대기인원</div>
+                            </div>
+
+                            {/* 대기시간 */}
+                            <div className="space-y-2">
+                              <div className="w-12 h-12 mx-auto rounded-full bg-gray-100 flex items-center justify-center">
+                                <Clock className="h-6 w-6 text-gray-600" />
+                              </div>
+                              <div className="text-2xl font-bold text-red-600">{counter.waitTime}분</div>
+                              <div className="text-xs text-muted-foreground">대기시간</div>
+                            </div>
+
+                            {/* 처리인원 */}
+                            <div className="space-y-2">
+                              <div className="w-12 h-12 mx-auto rounded-full bg-purple-100 flex items-center justify-center">
+                                <Users className="h-6 w-6 text-purple-600" />
+                              </div>
+                              <div className="text-2xl font-bold">{counter.processedPeople || 0}명</div>
+                              <div className="text-xs text-muted-foreground">처리인원</div>
+                            </div>
+
+                            {/* 처리시간 */}
+                            <div className="space-y-2">
+                              <div className="w-12 h-12 mx-auto rounded-full bg-gray-100 flex items-center justify-center">
+                                <Clock className="h-6 w-6 text-gray-600" />
+                              </div>
+                              <div className="text-2xl font-bold">{counter.processTime || 0}분</div>
+                              <div className="text-xs text-muted-foreground">처리시간</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* 재정 정보 */}
+                        <div className="border rounded-lg p-4 space-y-3 bg-gray-50">
+                          <div className="grid grid-cols-2 gap-3 text-sm">
+                            <div className="flex items-center justify-between border-r pr-3">
+                              <span className="text-blue-600 border border-blue-600 rounded px-2 py-1 text-xs">총 매출</span>
+                              <span className="font-medium">
+                                {counter.totalRevenue?.toLocaleString() || counter.revenue.toLocaleString()}원
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between pl-3">
+                              <span className="text-blue-600 border border-blue-600 rounded px-2 py-1 text-xs">상업시설 수</span>
+                              <span className="font-medium">{counter.commercialCount || 0}개</span>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between text-sm border-t pt-3">
+                            <span className="text-blue-600 border border-blue-600 rounded px-2 py-1 text-xs">인원대비 매출</span>
+                            <span className="font-medium">
+                              {counter.revenuePerPerson?.toLocaleString() || counter.revenue.toLocaleString()}원
+                            </span>
+                          </div>
+
+                          <div className="flex items-center justify-between text-sm border-t pt-3">
+                            <span className="text-blue-600 border border-blue-600 rounded px-2 py-1 text-xs">매출 인원 증감</span>
+                            <div className="flex items-center gap-2">
+                              <span className="font-medium">{counter.peopleChange || 0}명</span>
+                              <span className="text-blue-600 flex items-center">
+                                ▲ {counter.changeRate || 0}% vs 2023
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* 상세보기 버튼 */}
+                        <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+                          <span>+</span>
+                          <span>상세보기</span>
+                        </button>
                       </div>
                     </PopoverContent>
                   )}
