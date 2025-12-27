@@ -134,10 +134,10 @@ const SmltSmryRslt = () => {
     ];
 
     return (
-        <div className="max-w-[1800px] mx-auto p-2 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+        <div className="min-w-[1432px] max-w-[1800px] mx-auto p-2 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
             {/* Header */}
             <header className="bg-white p-5 rounded-2xl mb-6 shadow-lg border border-gray-200">
-                <div className="flex justify-between items-center whitespace-nowrap gap-1 xl:gap-4 2xl:gap-8">
+                <div className="flex justify-between items-center whitespace-nowrap gap-4">
                     {/* 1. 운항계획 버튼 */}
                     <div className={`${currentTheme.headerBg} text-white px-8 rounded-xl text-base font-bold shadow-md flex items-center gap-2 h-16 w-[151px] flex-0`}>
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@ const SmltSmryRslt = () => {
                     {/* 2. 통계 박스: 총 운항편 + 총여객수 */}
                     <div className="flex bg-white border-2 border-blue-300 rounded-xl px-6 shadow-sm gap-6 h-16 flex-1">
                         {/* 총 운항편 */}
-                        <div className="flex items-center gap-2.5">
+                        <div className="flex items-center gap-2.5 flex-1">
                             <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
                                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
@@ -164,7 +164,7 @@ const SmltSmryRslt = () => {
                             </div>
                         </div>
                         {/* 총여객수 */}
-                        <div className="flex items-center gap-2.5">
+                        <div className="flex items-center gap-2.5 flex-1">
                             <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
                                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
@@ -181,7 +181,7 @@ const SmltSmryRslt = () => {
                     </div>
 
                     {/* 3. 검색 영역 */}
-                    <div className="flex items-center gap-2.5 bg-white border-2 border-blue-300 rounded-xl px-4 shadow-sm h-16 flex-1">
+                    <div className="flex items-center gap-2.5 bg-white border-2 border-blue-300 rounded-xl px-4 shadow-sm h-16 flex-2">
                         <div className="flex items-center gap-2 text-xs text-gray-600">
                             <span className="font-semibold">기준일자</span>
                         </div>
@@ -411,15 +411,17 @@ const SmltSmryRslt = () => {
                             }
                         ].slice(0, 1).map((terminal, tIdx) => (
                             <article key={terminal.id} className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
-                                <div className={`${currentTheme.simulationHeaderBg[tIdx]} text-white flex justify-between items-center px-6 py-4 font-bold shadow-md`}>
-                                    <div className="flex items-center gap-2">
+                                <div className={`${currentTheme.simulationHeaderBg[tIdx]} flex justify-between items-center px-6 py-4 font-bold shadow-md`}>
+                                    <div className="flex items-center gap-2 text-white">
                                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
                                         </svg>
                                         <span className="text-lg">시뮬레이션 요약</span>
                                     </div>
-                                    <button className="w-8 h-8 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all flex items-center justify-center text-xl">
-                                        +
+                                    <button className="w-8 h-8 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all flex items-center justify-center">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                        </svg>
                                     </button>
                                 </div>
                                 <div className="p-6">
@@ -474,7 +476,7 @@ const SmltSmryRslt = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center justify-between bg-blue-600 text-white font-bold text-center py-3 rounded-xl mb-6 shadow-md px-4">
+                                    <div className={`flex items-center justify-between bg-gradient-to-r ${currentTheme.gradient} text-white font-bold text-center py-3 rounded-xl mb-6 shadow-md px-4`}>
                                         <div className="flex items-center gap-2">
                                             <span>2025-11-08 FRI</span>
                                             <span>10</span>
@@ -483,9 +485,6 @@ const SmltSmryRslt = () => {
                                             <span>:</span>
                                             <span>AM</span>
                                         </div>
-                                        <button className="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-1 rounded-lg text-sm transition-all">
-                                            여객수
-                                        </button>
                                     </div>
 
                                     {/* Detail Rows */}
@@ -700,20 +699,21 @@ const SmltSmryRslt = () => {
                             }
                         ].map((terminal) => (
                             <article key={terminal.id} className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
-                                <div className={`${currentTheme.simulationHeaderBg[1]} text-white flex justify-between items-center px-6 py-4 font-bold shadow-md`}>
-                                    <div className="flex items-center gap-2">
+                                <div className={`${currentTheme.simulationHeaderBg[1]} flex justify-between items-center px-6 py-4 font-bold shadow-md`}>
+                                    <div className="flex items-center gap-2 text-white">
                                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
                                         </svg>
                                         <span className="text-lg">시뮬레이션 요약</span>
                                     </div>
-                                    <button className="w-8 h-8 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all flex items-center justify-center text-xl">
-                                        +
+                                    <button className="w-8 h-8 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all flex items-center justify-center">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                        </svg>
                                     </button>
                                 </div>
                                 <div className="p-6">
                                     <h4 className="text-center text-lg font-bold text-gray-700 mb-4">{terminal.title}</h4>
-
                                     <div className="grid grid-cols-[1fr_2fr] gap-4 mb-6">
                                         {/* 왼쪽: 운항편수/여객수 */}
                                         <div className="space-y-3">
@@ -763,7 +763,7 @@ const SmltSmryRslt = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center justify-between bg-blue-600 text-white font-bold text-center py-3 rounded-xl mb-6 shadow-md px-4">
+                                    <div className={`flex items-center justify-between bg-gradient-to-r ${currentTheme.gradient} text-white font-bold text-center py-3 rounded-xl mb-6 shadow-md px-4`}>
                                         <div className="flex items-center gap-2">
                                             <span>2025-11-08 FRI</span>
                                             <span>10</span>
@@ -772,9 +772,6 @@ const SmltSmryRslt = () => {
                                             <span>:</span>
                                             <span>AM</span>
                                         </div>
-                                        <button className="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-1 rounded-lg text-sm transition-all">
-                                            여객수
-                                        </button>
                                     </div>
 
                                     {/* Detail Rows */}
