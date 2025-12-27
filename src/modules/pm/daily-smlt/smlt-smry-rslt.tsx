@@ -488,22 +488,24 @@ const SmltSmryRslt = () => {
                                     </div>
 
                                     {/* Detail Rows */}
-                                    <div className="relative">
-                                        <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-100 transition-all">
-                                            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                            </svg>
-                                        </button>
-                                        <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-100 transition-all">
-                                            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                            </svg>
-                                        </button>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        {terminal.detailRows.map((row, idx) => (
+                                            <div key={idx} className="relative">
+                                                {/* 왼쪽 화살표 */}
+                                                <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all">
+                                                    <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                                                    </svg>
+                                                </button>
+                                                {/* 오른쪽 화살표 */}
+                                                <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all">
+                                                    <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                </button>
 
-                                        <div className="grid grid-cols-2 gap-4">
-                                            {terminal.detailRows.map((row, idx) => (
-                                                <div key={idx} className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                                                    <div className="bg-gradient-to-r from-gray-100 to-gray-50 flex justify-between px-4 py-3 font-bold text-sm border-b-2 border-gray-200">
+                                                <div className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                                                    <div className={`flex justify-between px-4 py-3 font-bold text-sm border-b-2 ${row.title === "출국장" ? "bg-green-50 border-green-200" : "bg-blue-50 border-blue-200"}`}>
                                                         <span className={row.title === "출국장" ? "text-green-600" : "text-blue-600"}>{row.title}</span>
                                                         <span className="text-red-600 bg-red-50 px-2 py-1 rounded-lg text-xs">{row.congestion}</span>
                                                     </div>
@@ -540,8 +542,8 @@ const SmltSmryRslt = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            ))}
-                                        </div>
+                                            </div>
+                                        ))}
                                     </div>
 
                                 </div>
@@ -775,22 +777,24 @@ const SmltSmryRslt = () => {
                                     </div>
 
                                     {/* Detail Rows */}
-                                    <div className="relative">
-                                        <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-100 transition-all">
-                                            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                            </svg>
-                                        </button>
-                                        <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-100 transition-all">
-                                            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                            </svg>
-                                        </button>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        {terminal.detailRows.map((row, idx) => (
+                                            <div key={idx} className="relative">
+                                                {/* 왼쪽 화살표 */}
+                                                <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all">
+                                                    <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                                                    </svg>
+                                                </button>
+                                                {/* 오른쪽 화살표 */}
+                                                <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all">
+                                                    <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                </button>
 
-                                        <div className="grid grid-cols-2 gap-4">
-                                            {terminal.detailRows.map((row, idx) => (
-                                                <div key={idx} className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                                                    <div className="bg-gradient-to-r from-gray-100 to-gray-50 flex justify-between px-4 py-3 font-bold text-sm border-b-2 border-gray-200">
+                                                <div className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                                                    <div className={`flex justify-between px-4 py-3 font-bold text-sm border-b-2 ${row.title === "출국장" ? "bg-green-50 border-green-200" : "bg-blue-50 border-blue-200"}`}>
                                                         <span className={row.title === "출국장" ? "text-green-600" : "text-blue-600"}>{row.title}</span>
                                                         <span className="text-red-600 bg-red-50 px-2 py-1 rounded-lg text-xs">{row.congestion}</span>
                                                     </div>
@@ -827,8 +831,8 @@ const SmltSmryRslt = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            ))}
-                                        </div>
+                                            </div>
+                                        ))}
                                     </div>
 
                                 </div>
