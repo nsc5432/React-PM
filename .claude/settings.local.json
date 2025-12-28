@@ -11,7 +11,8 @@
       "Bash(npm run lint:*)",
       "Bash(npx tsc:*)",
       "Bash(npx --package=typescript tsc:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(rm:*)"
     ]
   }
 }

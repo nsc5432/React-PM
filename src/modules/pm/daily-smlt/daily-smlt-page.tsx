@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { DashboardHeader } from "@/components/dashboard-header"
+import { DashboardHeader } from "@/components/chkn/dashboard-header"
 import { DashboardTabs } from "@/components/dashboard-tabs"
-import { MapView } from "@/components/map-view"
-import { CounterStatusView } from "@/components/counter-status-view"
-import { DetailedGridView } from "@/components/detailed-grid-view"
-import { ChartView } from "@/components/chart-view"
+import { MapView } from "@/components/map/map-view"
+import { CounterStatusView } from "@/components/map/counter-status-view"
+import { DetailedGridView } from "@/components/chkn/detailed-grid-view"
+import { ChartView } from "@/components/chkn/chart-view"
 import SmltSmryRslt from "./smlt-smry-rslt"
 
 export default function AirportDashboard() {
