@@ -1,8 +1,8 @@
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { getCheckInCounterDataByTime } from "@/lib/mock-data"
-import { TimelinePlayer } from "@/modules/pm/timeline-player"
 import { useState } from "react"
+import { TimelinePlayer } from "@/modules/pm/common/timeline-player"
 
 interface KioskData {
     number: number
@@ -187,7 +187,7 @@ export function MapView() {
                 </Card>
             </div>
 
-            {/* TimelinePlayer - 재사용 */}
+            {/* TimelinePlayer */}
             <TimelinePlayer time={currentTime} onTimeChange={setCurrentTime} />
         </div>
     )

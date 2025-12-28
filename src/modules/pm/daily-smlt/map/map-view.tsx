@@ -2,8 +2,8 @@ import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Users, Clock } from "lucide-react"
 import { getFacilityDataByTime, getSecurityDataByTime, getCheckInCounterDataByTime } from "@/lib/mock-data"
-import { TimelinePlayer } from "@/modules/pm/timeline-player"
 import { useState } from "react"
+import { TimelinePlayer } from "@/modules/pm/common/timeline-player"
 
 export function MapView() {
     // 시간 상태 관리 (10:00부터 시작)
@@ -317,7 +317,7 @@ export function MapView() {
                 </div>
             </div>
 
-            {/* TimelinePlayer - MapView 전용 */}
+            {/* TimelinePlayer */}
             <TimelinePlayer time={currentTime} onTimeChange={setCurrentTime} />
         </div>
     )

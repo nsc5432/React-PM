@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { getCheckInCounterDataByTime } from "@/lib/mock-data"
-import { TimelinePlayer } from "@/modules/pm/timeline-player"
+import { TimelinePlayer } from "@/modules/pm/common/timeline-player"
 import { useState } from "react"
 import { Users, Clock } from "lucide-react"
 
