@@ -17,7 +17,7 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
     const [date, setDate] = useState<Date | undefined>(new Date(2024, 9, 18))
 
     return (
-        <div className="bg-gradient-to-br from-indigo-600 via-indigo-500 to-blue-500 shadow-lg mt-2">
+        <div className="bg-gradient-to-br from-green-600 via-green-500 to-emerald-400 shadow-lg mt-2">
             <div className="px-8 py-6">
                 <div className="flex items-start justify-between gap-6">
                     {/* Title Section */}

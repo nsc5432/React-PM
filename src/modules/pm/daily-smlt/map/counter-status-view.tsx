@@ -40,8 +40,6 @@ export function CounterStatusView() {
         return <div className="p-6">Loading...</div>
     }
 
-    //   const airlines = counterStatusData.map((c) => c.airline).filter((v, i, a) => a.indexOf(v) === i)
-
     return (
         <div className="flex flex-col h-full">
             <div className="flex-1 p-6 space-y-4 overflow-auto">
@@ -149,7 +147,9 @@ export function CounterStatusView() {
             </div>
 
             {/* TimelinePlayer - 재사용 */}
-            <TimelinePlayer time={currentTime} onTimeChange={setCurrentTime} />
+            <div className="absolute bottom-0 left-0 w-full">
+                <TimelinePlayer time={currentTime} onTimeChange={setCurrentTime} />
+            </div>
         </div>
     )
 }

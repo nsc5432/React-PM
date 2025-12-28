@@ -112,7 +112,7 @@ const SmltSmryRslt = () => {
             terminalIcon: ['bg-orange-500', 'bg-amber-500'],
             simulationHeaderBg: ['bg-gradient-to-r from-orange-500 to-amber-400', 'bg-gradient-to-r from-amber-500 to-orange-400']
         },
-        2: { // 출국장이 가장 혼잡할 때 - 초록색
+        2: { // 셀프체크인/백드롭이 가장 혼잡할 때 - 초록색
             primary: 'green',
             gradient: 'from-green-600 to-emerald-400',
             headerBg: 'bg-gradient-to-r from-green-900 to-green-700',
@@ -121,7 +121,7 @@ const SmltSmryRslt = () => {
             terminalIcon: ['bg-green-500', 'bg-emerald-500'],
             simulationHeaderBg: ['bg-gradient-to-r from-green-500 to-emerald-400', 'bg-gradient-to-r from-emerald-500 to-green-400']
         },
-        3: { // 보안검색대가 가장 혼잡할 때 - 보라색
+        3: { // 출국장이 가장 혼잡할 때 - 보라색
             primary: 'purple',
             gradient: 'from-purple-600 to-violet-400',
             headerBg: 'bg-gradient-to-r from-purple-900 to-purple-700',
