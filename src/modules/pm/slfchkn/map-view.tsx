@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { getCheckInCounterDataByTime } from "@/lib/mock-data"
-import { TimelinePlayer } from "@/components/timeline-player"
+import { TimelinePlayer } from "@/modules/pm/timeline-player"
 import { useState } from "react"
 
 interface KioskData {
@@ -144,42 +144,42 @@ export function MapView() {
                                                 {label}
                                             </button>
                                         </PopoverTrigger>
-                                    <PopoverContent className="w-80">
-                                        <div className="space-y-3">
-                                            <h3 className="font-bold text-center border-b pb-2">셀프체크인/백드롭 {label}</h3>
+                                        <PopoverContent className="w-80">
+                                            <div className="space-y-3">
+                                                <h3 className="font-bold text-center border-b pb-2">셀프체크인/백드롭 {label}</h3>
 
-                                            <div className="space-y-2">
-                                                <div className="bg-gray-50 p-3 rounded">
-                                                    <div className="font-semibold mb-2 text-sm">키오스크</div>
-                                                    <div className="grid grid-cols-8 gap-1">
-                                                        {kiosks.map((kiosk) => (
-                                                            <div
-                                                                key={kiosk.number}
-                                                                className="h-8 flex items-center justify-center bg-white border rounded text-xs font-medium"
-                                                            >
-                                                                {kiosk.number}
-                                                            </div>
-                                                        ))}
+                                                <div className="space-y-2">
+                                                    <div className="bg-gray-50 p-3 rounded">
+                                                        <div className="font-semibold mb-2 text-sm">키오스크</div>
+                                                        <div className="grid grid-cols-8 gap-1">
+                                                            {kiosks.map((kiosk) => (
+                                                                <div
+                                                                    key={kiosk.number}
+                                                                    className="h-8 flex items-center justify-center bg-white border rounded text-xs font-medium"
+                                                                >
+                                                                    {kiosk.number}
+                                                                </div>
+                                                            ))}
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div className="bg-gray-50 p-3 rounded">
-                                                    <div className="font-semibold mb-2 text-sm">셀프백드롭</div>
-                                                    <div className="grid grid-cols-8 gap-1">
-                                                        {backdrops.map((backdrop) => (
-                                                            <div
-                                                                key={backdrop.number}
-                                                                className="h-8 flex items-center justify-center bg-white border rounded text-xs"
-                                                            >
-                                                                X
-                                                            </div>
-                                                        ))}
+                                                    <div className="bg-gray-50 p-3 rounded">
+                                                        <div className="font-semibold mb-2 text-sm">셀프백드롭</div>
+                                                        <div className="grid grid-cols-8 gap-1">
+                                                            {backdrops.map((backdrop) => (
+                                                                <div
+                                                                    key={backdrop.number}
+                                                                    className="h-8 flex items-center justify-center bg-white border rounded text-xs"
+                                                                >
+                                                                    X
+                                                                </div>
+                                                            ))}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </PopoverContent>
-                                </Popover>
+                                        </PopoverContent>
+                                    </Popover>
                                 )
                             })}
                         </div>
