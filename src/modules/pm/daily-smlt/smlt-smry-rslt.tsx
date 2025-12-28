@@ -31,7 +31,7 @@ const SmltSmryRslt = () => {
     // Mini Charts Mock 데이터
     const miniChartsData: MiniChartData[] = [
         {
-            title: "CAST/Xovis 비교선 그래프",
+            title: "CAST/Xovis 비교선 그래프 T1",
             r2Score: 86,
             data: [
                 { time: "04:00", cast: 45, xoivs: 40, actual: 30, hasAlert: false },
@@ -61,7 +61,7 @@ const SmltSmryRslt = () => {
             ]
         },
         {
-            title: "CAST/Xovis 비교선 그래프",
+            title: "CAST/Xovis 비교선 그래프 T2",
             r2Score: 92,
             data: [
                 { time: "04:00", cast: 40, xoivs: 38, actual: 25, hasAlert: false },
@@ -551,61 +551,61 @@ const SmltSmryRslt = () => {
 
                                                 {/* 차트 영역 */}
                                                 <div className="flex gap-2 flex-1">
-                                                        {/* Y축 좌측 라벨 (대기인원 수) */}
-                                                        <div className="flex flex-col text-[10px] text-gray-500 pr-1">
-                                                            <span className="text-[9px] mb-1 whitespace-nowrap">대기인원 수</span>
-                                                            <div className="flex-1 flex flex-col justify-between">
-                                                                <span>500</span>
-                                                                <span>400</span>
-                                                                <span>300</span>
-                                                                <span>200</span>
-                                                                <span>100</span>
-                                                                <span>0</span>
-                                                            </div>
-                                                        </div>
-
-                                                        {/* 막대 그래프 영역 */}
-                                                        <div className="flex-1 flex items-end justify-between gap-1 border-l border-b border-gray-300 pl-2 pb-2">
-                                                            {terminal.chartData.map((value, idx) => {
-                                                                const timeLabels = ['04', '09', '12', '15', '21', '02', '04', '09', '12', '15', '21'];
-                                                                const waitingCount = Math.floor(Math.random() * 400 + 100); // 임시 데이터
-                                                                const waitingTime = value;
-                                                                const maxWaitingTime = 500; // 대기시간 최대값
-
-                                                                return (
-                                                                    <div key={idx} className="flex-1 flex flex-col items-center">
-                                                                        <div className="w-full flex items-end justify-center gap-0.5" style={{ height: '160px' }}>
-                                                                            {/* 대기인원 수 막대 (파란색) */}
-                                                                            <div
-                                                                                className="w-[45%] bg-blue-500 rounded-t hover:opacity-80 transition-opacity cursor-pointer"
-                                                                                style={{ height: `${(waitingCount / 500) * 100}%` }}
-                                                                            ></div>
-                                                                            {/* 대기시간 막대 (민트색) */}
-                                                                            <div
-                                                                                className="w-[45%] bg-emerald-400 rounded-t hover:opacity-80 transition-opacity cursor-pointer"
-                                                                                style={{ height: `${(waitingTime / maxWaitingTime) * 100}%` }}
-                                                                            ></div>
-                                                                        </div>
-                                                                        {/* X축 라벨 */}
-                                                                        <span className="text-[10px] text-gray-500 mt-1">{timeLabels[idx]}</span>
-                                                                    </div>
-                                                                );
-                                                            })}
-                                                        </div>
-
-                                                        {/* Y축 우측 라벨 (대기시간) */}
-                                                        <div className="flex flex-col text-[10px] text-gray-500 pl-1">
-                                                            <span className="text-[9px] mb-1 text-right whitespace-nowrap">대기시간</span>
-                                                            <div className="flex-1 flex flex-col justify-between">
-                                                                <span className="text-right">500</span>
-                                                                <span className="text-right">400</span>
-                                                                <span className="text-right">300</span>
-                                                                <span className="text-right">200</span>
-                                                                <span className="text-right">100</span>
-                                                                <span className="text-right">0</span>
-                                                            </div>
+                                                    {/* Y축 좌측 라벨 (대기인원 수) */}
+                                                    <div className="flex flex-col text-[10px] text-gray-500 pr-1">
+                                                        <span className="text-[9px] mb-1 whitespace-nowrap">대기인원 수</span>
+                                                        <div className="flex-1 flex flex-col justify-between">
+                                                            <span>500</span>
+                                                            <span>400</span>
+                                                            <span>300</span>
+                                                            <span>200</span>
+                                                            <span>100</span>
+                                                            <span>0</span>
                                                         </div>
                                                     </div>
+
+                                                    {/* 막대 그래프 영역 */}
+                                                    <div className="flex-1 flex items-end justify-between gap-1 border-l border-b border-gray-300 pl-2 pb-2">
+                                                        {terminal.chartData.map((value, idx) => {
+                                                            const timeLabels = ['04', '09', '12', '15', '21', '02', '04', '09', '12', '15', '21'];
+                                                            const waitingCount = Math.floor(Math.random() * 400 + 100); // 임시 데이터
+                                                            const waitingTime = value;
+                                                            const maxWaitingTime = 500; // 대기시간 최대값
+
+                                                            return (
+                                                                <div key={idx} className="flex-1 flex flex-col items-center">
+                                                                    <div className="w-full flex items-end justify-center gap-0.5" style={{ height: '160px' }}>
+                                                                        {/* 대기인원 수 막대 (파란색) */}
+                                                                        <div
+                                                                            className="w-[45%] bg-blue-500 rounded-t hover:opacity-80 transition-opacity cursor-pointer"
+                                                                            style={{ height: `${(waitingCount / 500) * 100}%` }}
+                                                                        ></div>
+                                                                        {/* 대기시간 막대 (민트색) */}
+                                                                        <div
+                                                                            className="w-[45%] bg-emerald-400 rounded-t hover:opacity-80 transition-opacity cursor-pointer"
+                                                                            style={{ height: `${(waitingTime / maxWaitingTime) * 100}%` }}
+                                                                        ></div>
+                                                                    </div>
+                                                                    {/* X축 라벨 */}
+                                                                    <span className="text-[10px] text-gray-500 mt-1">{timeLabels[idx]}</span>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+
+                                                    {/* Y축 우측 라벨 (대기시간) */}
+                                                    <div className="flex flex-col text-[10px] text-gray-500 pl-1">
+                                                        <span className="text-[9px] mb-1 text-right whitespace-nowrap">대기시간</span>
+                                                        <div className="flex-1 flex flex-col justify-between">
+                                                            <span className="text-right">500</span>
+                                                            <span className="text-right">400</span>
+                                                            <span className="text-right">300</span>
+                                                            <span className="text-right">200</span>
+                                                            <span className="text-right">100</span>
+                                                            <span className="text-right">0</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                 {/* 범례 */}
                                                 <div className="flex items-center justify-center gap-4 mt-2 text-xs text-gray-600">
@@ -964,61 +964,61 @@ const SmltSmryRslt = () => {
 
                                                 {/* 차트 영역 */}
                                                 <div className="flex gap-2 flex-1">
-                                                        {/* Y축 좌측 라벨 (대기인원 수) */}
-                                                        <div className="flex flex-col text-[10px] text-gray-500 pr-1">
-                                                            <span className="text-[9px] mb-1 whitespace-nowrap">대기인원 수</span>
-                                                            <div className="flex-1 flex flex-col justify-between">
-                                                                <span>500</span>
-                                                                <span>400</span>
-                                                                <span>300</span>
-                                                                <span>200</span>
-                                                                <span>100</span>
-                                                                <span>0</span>
-                                                            </div>
-                                                        </div>
-
-                                                        {/* 막대 그래프 영역 */}
-                                                        <div className="flex-1 flex items-end justify-between gap-1 border-l border-b border-gray-300 pl-2 pb-2">
-                                                            {terminal.chartData.map((value, idx) => {
-                                                                const timeLabels = ['04', '09', '12', '15', '21', '02', '04', '09', '12', '15', '21'];
-                                                                const waitingCount = Math.floor(Math.random() * 400 + 100); // 임시 데이터
-                                                                const waitingTime = value;
-                                                                const maxWaitingTime = 500; // 대기시간 최대값
-
-                                                                return (
-                                                                    <div key={idx} className="flex-1 flex flex-col items-center">
-                                                                        <div className="w-full flex items-end justify-center gap-0.5" style={{ height: '160px' }}>
-                                                                            {/* 대기인원 수 막대 (파란색) */}
-                                                                            <div
-                                                                                className="w-[45%] bg-blue-500 rounded-t hover:opacity-80 transition-opacity cursor-pointer"
-                                                                                style={{ height: `${(waitingCount / 500) * 100}%` }}
-                                                                            ></div>
-                                                                            {/* 대기시간 막대 (민트색) */}
-                                                                            <div
-                                                                                className="w-[45%] bg-emerald-400 rounded-t hover:opacity-80 transition-opacity cursor-pointer"
-                                                                                style={{ height: `${(waitingTime / maxWaitingTime) * 100}%` }}
-                                                                            ></div>
-                                                                        </div>
-                                                                        {/* X축 라벨 */}
-                                                                        <span className="text-[10px] text-gray-500 mt-1">{timeLabels[idx]}</span>
-                                                                    </div>
-                                                                );
-                                                            })}
-                                                        </div>
-
-                                                        {/* Y축 우측 라벨 (대기시간) */}
-                                                        <div className="flex flex-col text-[10px] text-gray-500 pl-1">
-                                                            <span className="text-[9px] mb-1 text-right whitespace-nowrap">대기시간</span>
-                                                            <div className="flex-1 flex flex-col justify-between">
-                                                                <span className="text-right">500</span>
-                                                                <span className="text-right">400</span>
-                                                                <span className="text-right">300</span>
-                                                                <span className="text-right">200</span>
-                                                                <span className="text-right">100</span>
-                                                                <span className="text-right">0</span>
-                                                            </div>
+                                                    {/* Y축 좌측 라벨 (대기인원 수) */}
+                                                    <div className="flex flex-col text-[10px] text-gray-500 pr-1">
+                                                        <span className="text-[9px] mb-1 whitespace-nowrap">대기인원 수</span>
+                                                        <div className="flex-1 flex flex-col justify-between">
+                                                            <span>500</span>
+                                                            <span>400</span>
+                                                            <span>300</span>
+                                                            <span>200</span>
+                                                            <span>100</span>
+                                                            <span>0</span>
                                                         </div>
                                                     </div>
+
+                                                    {/* 막대 그래프 영역 */}
+                                                    <div className="flex-1 flex items-end justify-between gap-1 border-l border-b border-gray-300 pl-2 pb-2">
+                                                        {terminal.chartData.map((value, idx) => {
+                                                            const timeLabels = ['04', '09', '12', '15', '21', '02', '04', '09', '12', '15', '21'];
+                                                            const waitingCount = Math.floor(Math.random() * 400 + 100); // 임시 데이터
+                                                            const waitingTime = value;
+                                                            const maxWaitingTime = 500; // 대기시간 최대값
+
+                                                            return (
+                                                                <div key={idx} className="flex-1 flex flex-col items-center">
+                                                                    <div className="w-full flex items-end justify-center gap-0.5" style={{ height: '160px' }}>
+                                                                        {/* 대기인원 수 막대 (파란색) */}
+                                                                        <div
+                                                                            className="w-[45%] bg-blue-500 rounded-t hover:opacity-80 transition-opacity cursor-pointer"
+                                                                            style={{ height: `${(waitingCount / 500) * 100}%` }}
+                                                                        ></div>
+                                                                        {/* 대기시간 막대 (민트색) */}
+                                                                        <div
+                                                                            className="w-[45%] bg-emerald-400 rounded-t hover:opacity-80 transition-opacity cursor-pointer"
+                                                                            style={{ height: `${(waitingTime / maxWaitingTime) * 100}%` }}
+                                                                        ></div>
+                                                                    </div>
+                                                                    {/* X축 라벨 */}
+                                                                    <span className="text-[10px] text-gray-500 mt-1">{timeLabels[idx]}</span>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+
+                                                    {/* Y축 우측 라벨 (대기시간) */}
+                                                    <div className="flex flex-col text-[10px] text-gray-500 pl-1">
+                                                        <span className="text-[9px] mb-1 text-right whitespace-nowrap">대기시간</span>
+                                                        <div className="flex-1 flex flex-col justify-between">
+                                                            <span className="text-right">500</span>
+                                                            <span className="text-right">400</span>
+                                                            <span className="text-right">300</span>
+                                                            <span className="text-right">200</span>
+                                                            <span className="text-right">100</span>
+                                                            <span className="text-right">0</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                 {/* 범례 */}
                                                 <div className="flex items-center justify-center gap-4 mt-2 text-xs text-gray-600">
