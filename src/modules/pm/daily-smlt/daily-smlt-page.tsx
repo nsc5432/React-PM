@@ -5,6 +5,10 @@ import { MapView } from "@/components/map/map-view"
 import { CounterStatusView } from "@/components/map/counter-status-view"
 import { DetailedGridView } from "@/components/chkn/detailed-grid-view"
 import { ChartView } from "@/components/chkn/chart-view"
+import { DashboardHeader as SlfChknDashboardHeader } from "@/components/slfchkn/dashboard-header"
+import { MapView as SlfChknMapView } from "@/components/slfchkn/map-view"
+import { TableView as SlfChknTableView } from "@/components/slfchkn/table-view"
+import { ChartView as SlfChknChartView } from "@/components/slfchkn/chart-view"
 import SmltSmryRslt from "./smlt-smry-rslt"
 
 type ViewMode = "map" | "table" | "chart"
@@ -12,6 +16,7 @@ type ViewMode = "map" | "table" | "chart"
 export default function AirportDashboard() {
     const [activeTab, setActiveTab] = useState("summary")
     const [viewMode, setViewMode] = useState<ViewMode>("map")
+    const [slfChknViewMode, setSlfChknViewMode] = useState<ViewMode>("map")
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -31,8 +36,11 @@ export default function AirportDashboard() {
                     </div>
                 )}
                 {activeTab === "self-checkin" && (
-                    <div className="p-6">
-                        <div className="text-center text-muted-foreground py-20">Self Check-in View - Coming Soon</div>
+                    <div className="space-y-0">
+                        <SlfChknDashboardHeader viewMode={slfChknViewMode} onViewModeChange={setSlfChknViewMode} />
+                        {slfChknViewMode === "map" && <SlfChknMapView />}
+                        {slfChknViewMode === "table" && <SlfChknTableView />}
+                        {slfChknViewMode === "chart" && <SlfChknChartView />}
                     </div>
                 )}
                 {activeTab === "departure" && (
