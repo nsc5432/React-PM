@@ -7,8 +7,11 @@ import { DetailedGridView } from "@/components/chkn/detailed-grid-view"
 import { ChartView } from "@/components/chkn/chart-view"
 import SmltSmryRslt from "./smlt-smry-rslt"
 
+type ViewMode = "map" | "table" | "chart"
+
 export default function AirportDashboard() {
     const [activeTab, setActiveTab] = useState("summary")
+    const [viewMode, setViewMode] = useState<ViewMode>("map")
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -21,10 +24,10 @@ export default function AirportDashboard() {
                 {activeTab === "map" && <MapView />}
                 {activeTab === "counter" && (
                     <div className="space-y-0">
-                        <DashboardHeader />
-                        <CounterStatusView />
-                        <DetailedGridView />
-                        <ChartView />
+                        <DashboardHeader viewMode={viewMode} onViewModeChange={setViewMode} />
+                        {viewMode === "map" && <CounterStatusView />}
+                        {viewMode === "table" && <DetailedGridView />}
+                        {viewMode === "chart" && <ChartView />}
                     </div>
                 )}
                 {activeTab === "self-checkin" && (
