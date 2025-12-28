@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { getSelfCheckInDataByTime, getCheckInCounterDataByTime } from "@/lib/mock-data"
+import { getCheckInCounterDataByTime } from "@/lib/mock-data"
 import { TimelinePlayer } from "@/components/timeline-player"
 import { useState } from "react"
 
@@ -16,20 +16,18 @@ export function MapView() {
     // 시간 상태 관리 (10:00부터 시작)
     const [currentTime, setCurrentTime] = useState(600)
 
-    // 현재 시간에 해당하는 셀프체크인 혼잡도 데이터 가져오기
-    const selfCheckInData = getSelfCheckInDataByTime(currentTime)
-
     // 현재 시간에 해당하는 체크인카운터(A~N 아일랜드) 혼잡도 데이터 가져오기
     const checkInCounterData = getCheckInCounterDataByTime(currentTime)
 
-    // 시간별 데이터를 KioskData 형식으로 변환
-    const kiosks: KioskData[] = selfCheckInData.map((data) => ({
-        number: data.number,
-        status: data.status,
-        type: "kiosk",
-        waitPeople: data.waitPeople,
-        waitTime: data.waitTime,
-    }))
+    // 출국장 키오스크(1~6)는 고정된 상태 (시간에 따라 변하지 않음)
+    const kiosks: KioskData[] = [
+        { number: 1, status: "normal", type: "kiosk", waitPeople: 5, waitTime: 5 },
+        { number: 2, status: "normal", type: "kiosk", waitPeople: 3, waitTime: 3 },
+        { number: 3, status: "normal", type: "kiosk", waitPeople: 7, waitTime: 7 },
+        { number: 4, status: "normal", type: "kiosk", waitPeople: 4, waitTime: 4 },
+        { number: 5, status: "normal", type: "kiosk", waitPeople: 6, waitTime: 6 },
+        { number: 6, status: "normal", type: "kiosk", waitPeople: 5, waitTime: 5 },
+    ]
 
     // Mock data for backdrops (셀프백드롭 X) - 정적 데이터
     const backdrops: KioskData[] = [
