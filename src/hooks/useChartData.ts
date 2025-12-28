@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { chartService } from '@/api/services/chart.service'
 import { chartData as mockChartData } from '@/lib/mock-data'
 import type { ChartDataPoint, ApiError } from '@/types/api.types'
@@ -11,7 +11,7 @@ export const useChartData = () => {
 
   const enableMock = import.meta.env.VITE_ENABLE_MOCK === 'true'
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true)
     setError(null)
 
@@ -32,11 +32,11 @@ export const useChartData = () => {
       setData(mockChartData)
       setLoading(false)
     }
-  }
+  }, [enableMock])
 
   useEffect(() => {
     fetchData()
-  }, [enableMock])
+  }, [fetchData])
 
   return { data, loading, error, refetch: fetchData }
 }

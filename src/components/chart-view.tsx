@@ -2,72 +2,72 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ComposedChart, Line, Bar, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
 import { useChartData } from "@/hooks/useChartData"
 
+// 예쁜 컬러 팔레트 정의
+const colors = {
+    primary: "#6366f1", // Indigo
+    secondary: "#ec4899", // Pink
+    tertiary: "#14b8a6", // Teal
+    quaternary: "#f59e0b", // Amber
+    gradient1: "#8b5cf6", // Purple
+    gradient2: "#06b6d4", // Cyan
+}
+
+// 그라데이션 정의를 위한 컴포넌트
+const GradientDefs = () => (
+    <defs>
+        <linearGradient id="colorBar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={colors.primary} stopOpacity={0.9} />
+            <stop offset="100%" stopColor={colors.gradient1} stopOpacity={0.7} />
+        </linearGradient>
+        <linearGradient id="colorArea1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={colors.secondary} stopOpacity={0.3} />
+            <stop offset="100%" stopColor={colors.secondary} stopOpacity={0.05} />
+        </linearGradient>
+        <linearGradient id="colorArea2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={colors.tertiary} stopOpacity={0.3} />
+            <stop offset="100%" stopColor={colors.tertiary} stopOpacity={0.05} />
+        </linearGradient>
+    </defs>
+)
+
+// 커스텀 툴팁
+const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
+                <p className="font-bold text-gray-800 mb-2">{label}</p>
+                {payload.map((entry: any, index: number) => (
+                    <p key={index} className="text-sm" style={{ color: entry.color }}>
+                        <span className="font-medium">{entry.name}:</span> {entry.value}명
+                    </p>
+                ))}
+            </div>
+        )
+    }
+    return null
+}
+
+// 커스텀 점 (Dot) 컴포넌트
+const CustomDot = (props: any) => {
+    const { cx, cy, fill } = props
+    return (
+        <circle
+            cx={cx}
+            cy={cy}
+            r={5}
+            fill={fill}
+            stroke="#fff"
+            strokeWidth={2}
+            className="drop-shadow-md"
+        />
+    )
+}
+
 export function ChartView() {
     const { data: chartData, loading } = useChartData()
 
     if (loading) {
         return <div className="p-6">Loading...</div>
-    }
-
-    // 예쁜 컬러 팔레트 정의
-    const colors = {
-        primary: "#6366f1", // Indigo
-        secondary: "#ec4899", // Pink
-        tertiary: "#14b8a6", // Teal
-        quaternary: "#f59e0b", // Amber
-        gradient1: "#8b5cf6", // Purple
-        gradient2: "#06b6d4", // Cyan
-    }
-
-    // 그라데이션 정의를 위한 컴포넌트
-    const GradientDefs = () => (
-        <defs>
-            <linearGradient id="colorBar" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={colors.primary} stopOpacity={0.9} />
-                <stop offset="100%" stopColor={colors.gradient1} stopOpacity={0.7} />
-            </linearGradient>
-            <linearGradient id="colorArea1" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={colors.secondary} stopOpacity={0.3} />
-                <stop offset="100%" stopColor={colors.secondary} stopOpacity={0.05} />
-            </linearGradient>
-            <linearGradient id="colorArea2" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={colors.tertiary} stopOpacity={0.3} />
-                <stop offset="100%" stopColor={colors.tertiary} stopOpacity={0.05} />
-            </linearGradient>
-        </defs>
-    )
-
-    // 커스텀 툴팁
-    const CustomTooltip = ({ active, payload, label }: any) => {
-        if (active && payload && payload.length) {
-            return (
-                <div className="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
-                    <p className="font-bold text-gray-800 mb-2">{label}</p>
-                    {payload.map((entry: any, index: number) => (
-                        <p key={index} className="text-sm" style={{ color: entry.color }}>
-                            <span className="font-medium">{entry.name}:</span> {entry.value}명
-                        </p>
-                    ))}
-                </div>
-            )
-        }
-        return null
-    }
-
-    // 커스텀 점 (Dot) 컴포넌트
-    const CustomDot = (props: any) => {
-        const { cx, cy, fill } = props
-        return (
-            <circle
-                cx={cx}
-                cy={cy}
-                r={5}
-                fill={fill}
-                stroke="#fff"
-                strokeWidth={2}
-                className="drop-shadow-md"
-            />
-        )
     }
 
     return (

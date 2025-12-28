@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { timeslotService } from '@/api/services/timeslot.service'
 import { timeSlotData as mockTimeSlotData } from '@/lib/mock-data'
 import type { TimeSlotData, ApiError } from '@/types/api.types'
@@ -11,7 +11,7 @@ export const useTimeSlotData = () => {
 
   const enableMock = import.meta.env.VITE_ENABLE_MOCK === 'true'
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true)
     setError(null)
 
@@ -32,11 +32,11 @@ export const useTimeSlotData = () => {
       setData(mockTimeSlotData)
       setLoading(false)
     }
-  }
+  }, [enableMock])
 
   useEffect(() => {
     fetchData()
-  }, [enableMock])
+  }, [fetchData])
 
   return { data, loading, error, refetch: fetchData }
 }

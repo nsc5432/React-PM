@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { counterService } from '@/api/services/counter.service'
 import { counterStatusData } from '@/lib/mock-data'
 import type { CounterStatus, ApiError } from '@/types/api.types'
@@ -11,7 +11,7 @@ export const useCounterStatus = () => {
 
   const enableMock = import.meta.env.VITE_ENABLE_MOCK === 'true'
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true)
     setError(null)
 
@@ -35,11 +35,11 @@ export const useCounterStatus = () => {
       setData(counterStatusData)
       setLoading(false)
     }
-  }
+  }, [enableMock])
 
   useEffect(() => {
     fetchData()
-  }, [enableMock])
+  }, [fetchData])
 
   return { data, loading, error, refetch: fetchData }
 }

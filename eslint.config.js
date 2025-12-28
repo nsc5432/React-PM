@@ -1,32 +1,49 @@
-export default {
-    root: true,
-    env: {
-        browser: true,
-        es2021: true,
-        node: true,
-    },
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        ecmaFeatures: {
-            jsx: true,
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+import react from 'eslint-plugin-react';
+import prettier from 'eslint-config-prettier';
+
+export default tseslint.config(
+    { ignores: ['dist', 'node_modules'] },
+    {
+        extends: [js.configs.recommended, ...tseslint.configs.recommended],
+        files: ['**/*.{ts,tsx}'],
+        languageOptions: {
+            ecmaVersion: 2020,
+            globals: {
+                ...globals.browser,
+                ...globals.node,
+            },
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true,
+                },
+            },
+        },
+        plugins: {
+            'react-hooks': reactHooks,
+            'react-refresh': reactRefresh,
+            react,
+        },
+        rules: {
+            ...reactHooks.configs.recommended.rules,
+            'react-refresh/only-export-components': [
+                'warn',
+                { allowConstantExport: true },
+            ],
+            'react/react-in-jsx-scope': 'off',
+            '@typescript-eslint/no-explicit-any': 'warn',
+            'react-hooks/exhaustive-deps': 'warn',
+            'react-hooks/set-state-in-effect': 'off',
+        },
+        settings: {
+            react: {
+                version: 'detect',
+            },
         },
     },
-    plugins: ['react', '@typescript-eslint', 'prettier'],
-    extends: [
-        'eslint:recommended',
-        'plugin:react/recommended',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:prettier/recommended',
-    ],
-    rules: {
-        'prettier/prettier': ['error', { singleQuote: true, semi: true }],
-        'react/react-in-jsx-scope': 'off', // Next.js 등에서는 필요 없음
-    },
-    settings: {
-        react: {
-            version: 'detect',
-        },
-    },
-};
+    prettier
+);

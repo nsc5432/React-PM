@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { facilityService } from '@/api/services/facility.service'
 import { facilityStatusData } from '@/lib/mock-data'
 import type { FacilityStatus, ApiError } from '@/types/api.types'
@@ -11,7 +11,7 @@ export const useFacilityStatus = () => {
 
   const enableMock = import.meta.env.VITE_ENABLE_MOCK === 'true'
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true)
     setError(null)
 
@@ -32,11 +32,11 @@ export const useFacilityStatus = () => {
       setData(facilityStatusData)
       setLoading(false)
     }
-  }
+  }, [enableMock])
 
   useEffect(() => {
     fetchData()
-  }, [enableMock])
+  }, [fetchData])
 
   return { data, loading, error, refetch: fetchData }
 }
