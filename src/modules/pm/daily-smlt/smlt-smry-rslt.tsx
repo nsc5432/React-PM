@@ -19,6 +19,15 @@ const SmltSmryRslt = () => {
     // 선택된 탭 상태 (0: 터미널 여객수, 1: 체크인카운터, 2: 출국장, 3: 보안검색대)
     const [selectedTab, setSelectedTab] = useState(0);
 
+    // 각 카드의 현재 인덱스를 추적하는 상태
+    const [t1CheckinIndex, setT1CheckinIndex] = useState(0);
+    const [t1DepartureIndex, setT1DepartureIndex] = useState(0);
+    const [t2CheckinIndex, setT2CheckinIndex] = useState(0);
+    const [t2DepartureIndex, setT2DepartureIndex] = useState(0);
+
+    // 슬라이드 방향 추적
+    const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
+
     // Mini Charts Mock 데이터
     const miniChartsData: MiniChartData[] = [
         {
@@ -133,9 +142,112 @@ const SmltSmryRslt = () => {
         '보안검색대가 가장 혼잡할 때'
     ];
 
+    // 체크인카운터 옵션들 (여러 아일랜드)
+    const checkinOptions = [
+        {
+            name: "아일랜드",
+            code: "B2",
+            stats: "전체 14 | 운영 12 | 대기열 640",
+            status: "추천",
+            circles: [
+                { value: "00", label: "Pcs/Min" },
+                { value: "11:00", label: "여유" }
+            ],
+            blocks: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"],
+            blockColors: ["red", "red", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "orange", "orange"]
+        },
+        {
+            name: "아일랜드",
+            code: "A3",
+            stats: "전체 10 | 운영 8 | 대기열 320",
+            status: "보통",
+            circles: [
+                { value: "15", label: "Pcs/Min" },
+                { value: "11:30", label: "보통" }
+            ],
+            blocks: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
+            blockColors: ["green", "green", "green", "orange", "orange", "orange", "red", "red", "green", "green"]
+        },
+        {
+            name: "아일랜드",
+            code: "C1",
+            stats: "전체 12 | 운영 10 | 대기열 480",
+            status: "혼잡",
+            circles: [
+                { value: "25", label: "Pcs/Min" },
+                { value: "12:00", label: "혼잡" }
+            ],
+            blocks: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
+            blockColors: ["red", "red", "red", "orange", "orange", "green", "green", "green", "orange", "red", "red", "red"]
+        }
+    ];
+
+    // 출국장 옵션들
+    const departureOptions = [
+        {
+            name: "출국장 번호",
+            code: "3번",
+            stats: "예상인원 640",
+            status: "추천",
+            circles: [
+                { value: "00", label: "Pcs/Min" },
+                { value: "11:00", label: "혼잡" }
+            ],
+            blocks: ["1", "2", "3", "4", "5"],
+            blockColors: ["darkgreen", "green", "green", "red", "red"]
+        },
+        {
+            name: "출국장 번호",
+            code: "1번",
+            stats: "예상인원 420",
+            status: "보통",
+            circles: [
+                { value: "12", label: "Pcs/Min" },
+                { value: "11:15", label: "보통" }
+            ],
+            blocks: ["1", "2", "3", "4", "5"],
+            blockColors: ["green", "green", "orange", "orange", "red"]
+        },
+        {
+            name: "출국장 번호",
+            code: "2번",
+            stats: "예상인원 580",
+            status: "여유",
+            circles: [
+                { value: "08", label: "Pcs/Min" },
+                { value: "10:45", label: "여유" }
+            ],
+            blocks: ["1", "2", "3", "4", "5"],
+            blockColors: ["darkgreen", "darkgreen", "green", "green", "green"]
+        }
+    ];
+
     return (
-        <div className="min-w-[1432px] max-w-[1800px] mx-auto p-2 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
-            {/* Header */}
+        <>
+            <style>{`
+                @keyframes slideInRight {
+                    from {
+                        opacity: 0;
+                        transform: translateX(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+                @keyframes slideInLeft {
+                    from {
+                        opacity: 0;
+                        transform: translateX(-30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+            `}</style>
+            <div className="min-w-[1432px] max-w-[1800px] mx-auto p-2 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+                {/* Header */}
             <header className="bg-white p-5 rounded-2xl mb-6 shadow-lg border border-gray-200">
                 <div className="flex justify-between items-center whitespace-nowrap gap-4">
                     {/* 1. 운항계획 버튼 */}
@@ -377,37 +489,7 @@ const SmltSmryRslt = () => {
                                 passengerCount: 12423,
                                 flightDiff: "+2 편",
                                 passengerDiff: "+268 명",
-                                chartData: [30, 40, 50, 80, 70, 60, 55, 40, 30, 20],
-                                detailRows: [
-                                    {
-                                        title: "체크인카운터",
-                                        congestion: "혼잡 4개 or 원활",
-                                        name: "아일랜드",
-                                        code: "B2",
-                                        stats: "전체 14 | 운영 12 | 대기열 640",
-                                        status: "추천",
-                                        circles: [
-                                            { value: "00", label: "Pcs/Min" },
-                                            { value: "11:00", label: "여유" }
-                                        ],
-                                        blocks: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"],
-                                        blockColors: ["red", "red", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "orange", "orange"]
-                                    },
-                                    {
-                                        title: "출국장",
-                                        congestion: "혼잡 4개 or 원활",
-                                        name: "출국장 번호",
-                                        code: "3번",
-                                        stats: "예상인원 640",
-                                        status: "추천",
-                                        circles: [
-                                            { value: "00", label: "Pcs/Min" },
-                                            { value: "11:00", label: "혼잡" }
-                                        ],
-                                        blocks: ["1", "2", "3", "4", "5"],
-                                        blockColors: ["darkgreen", "green", "green", "red", "red"]
-                                    }
-                                ]
+                                chartData: [30, 40, 50, 80, 70, 60, 55, 40, 30, 20]
                             }
                         ].slice(0, 1).map((terminal, tIdx) => (
                             <article key={terminal.id} className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
@@ -487,38 +569,55 @@ const SmltSmryRslt = () => {
                                         </div>
                                     </div>
 
-                                    {/* Detail Rows */}
+                                    {/* Detail Rows - T1 */}
                                     <div className="grid grid-cols-2 gap-4">
-                                        {terminal.detailRows.map((row, idx) => (
-                                            <div key={idx} className="relative">
-                                                {/* 왼쪽 화살표 */}
-                                                <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all">
-                                                    <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
-                                                    </svg>
-                                                </button>
-                                                {/* 오른쪽 화살표 */}
-                                                <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all">
-                                                    <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                                                    </svg>
-                                                </button>
+                                        {/* T1 체크인카운터 카드 */}
+                                        <div className="relative">
+                                            <button
+                                                onClick={() => {
+                                                    setSlideDirection('left');
+                                                    setT1CheckinIndex((prev) => (prev - 1 + checkinOptions.length) % checkinOptions.length);
+                                                }}
+                                                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
+                                            >
+                                                <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    setSlideDirection('right');
+                                                    setT1CheckinIndex((prev) => (prev + 1) % checkinOptions.length);
+                                                }}
+                                                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
+                                            >
+                                                <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </button>
 
-                                                <div className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                                                    <div className={`flex justify-between px-4 py-3 font-bold text-sm border-b-2 ${row.title === "출국장" ? "bg-green-50 border-green-200" : "bg-blue-50 border-blue-200"}`}>
-                                                        <span className={row.title === "출국장" ? "text-green-600" : "text-blue-600"}>{row.title}</span>
-                                                        <span className="text-red-600 bg-red-50 px-2 py-1 rounded-lg text-xs">{row.congestion}</span>
+                                            <div className="overflow-hidden">
+                                                <div
+                                                    key={`t1-checkin-${t1CheckinIndex}`}
+                                                    className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
+                                                    style={{
+                                                        animation: slideDirection === 'right' ? 'slideInRight 0.3s ease-out' : 'slideInLeft 0.3s ease-out'
+                                                    }}
+                                                >
+                                                    <div className="flex justify-between px-4 py-3 font-bold text-sm border-b-2 bg-blue-50 border-blue-200">
+                                                        <span className="text-blue-600">체크인카운터</span>
+                                                        <span className="text-red-600 bg-red-50 px-2 py-1 rounded-lg text-xs">혼잡 4개 or 원활</span>
                                                     </div>
                                                     <div className="p-5 text-center bg-white">
-                                                        <div className="text-gray-600 font-semibold text-sm mb-1">{row.name}</div>
-                                                        <div className="text-3xl font-bold text-red-600 mb-2">{row.code}</div>
-                                                        <div className="text-xs text-gray-600 mb-3">{row.stats}</div>
+                                                        <div className="text-gray-600 font-semibold text-sm mb-1">{checkinOptions[t1CheckinIndex].name}</div>
+                                                        <div className="text-3xl font-bold text-red-600 mb-2">{checkinOptions[t1CheckinIndex].code}</div>
+                                                        <div className="text-xs text-gray-600 mb-3">{checkinOptions[t1CheckinIndex].stats}</div>
                                                         <span className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
-                                                            {row.status}
+                                                            {checkinOptions[t1CheckinIndex].status}
                                                         </span>
 
                                                         <div className="flex justify-around mt-4 mb-4">
-                                                            {row.circles.map((c, cIdx) => (
+                                                            {checkinOptions[t1CheckinIndex].circles.map((c, cIdx) => (
                                                                 <div key={cIdx} className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-gradient-to-br from-gray-50 to-white shadow-sm">
                                                                     <span className="font-bold text-gray-700">{c.value}</span>
                                                                     <span className="text-gray-500 text-[10px]">{c.label}</span>
@@ -527,14 +626,15 @@ const SmltSmryRslt = () => {
                                                         </div>
 
                                                         <div className="flex justify-center gap-1 flex-wrap">
-                                                            {row.blocks.map((b, bIdx) => (
+                                                            {checkinOptions[t1CheckinIndex].blocks.map((b, bIdx) => (
                                                                 <div
                                                                     key={bIdx}
-                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${row.blockColors[bIdx] === "darkgreen" ? "bg-green-800" :
-                                                                        row.blockColors[bIdx] === "green" ? "bg-green-600" :
-                                                                            row.blockColors[bIdx] === "red" ? "bg-red-600" :
-                                                                                "bg-orange-600"
-                                                                        }`}
+                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
+                                                                        checkinOptions[t1CheckinIndex].blockColors[bIdx] === "darkgreen" ? "bg-green-800" :
+                                                                        checkinOptions[t1CheckinIndex].blockColors[bIdx] === "green" ? "bg-green-600" :
+                                                                        checkinOptions[t1CheckinIndex].blockColors[bIdx] === "red" ? "bg-red-600" :
+                                                                        "bg-orange-600"
+                                                                    }`}
                                                                 >
                                                                     {b}
                                                                 </div>
@@ -543,7 +643,81 @@ const SmltSmryRslt = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        ))}
+                                        </div>
+
+                                        {/* T1 출국장 카드 */}
+                                        <div className="relative">
+                                            <button
+                                                onClick={() => {
+                                                    setSlideDirection('left');
+                                                    setT1DepartureIndex((prev) => (prev - 1 + departureOptions.length) % departureOptions.length);
+                                                }}
+                                                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
+                                            >
+                                                <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    setSlideDirection('right');
+                                                    setT1DepartureIndex((prev) => (prev + 1) % departureOptions.length);
+                                                }}
+                                                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
+                                            >
+                                                <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </button>
+
+                                            <div className="overflow-hidden">
+                                                <div
+                                                    key={`t1-departure-${t1DepartureIndex}`}
+                                                    className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
+                                                    style={{
+                                                        animation: slideDirection === 'right' ? 'slideInRight 0.3s ease-out' : 'slideInLeft 0.3s ease-out'
+                                                    }}
+                                                >
+                                                    <div className="flex justify-between px-4 py-3 font-bold text-sm border-b-2 bg-green-50 border-green-200">
+                                                        <span className="text-green-600">출국장</span>
+                                                        <span className="text-red-600 bg-red-50 px-2 py-1 rounded-lg text-xs">혼잡 4개 or 원활</span>
+                                                    </div>
+                                                    <div className="p-5 text-center bg-white">
+                                                        <div className="text-gray-600 font-semibold text-sm mb-1">{departureOptions[t1DepartureIndex].name}</div>
+                                                        <div className="text-3xl font-bold text-red-600 mb-2">{departureOptions[t1DepartureIndex].code}</div>
+                                                        <div className="text-xs text-gray-600 mb-3">{departureOptions[t1DepartureIndex].stats}</div>
+                                                        <span className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
+                                                            {departureOptions[t1DepartureIndex].status}
+                                                        </span>
+
+                                                        <div className="flex justify-around mt-4 mb-4">
+                                                            {departureOptions[t1DepartureIndex].circles.map((c, cIdx) => (
+                                                                <div key={cIdx} className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-gradient-to-br from-gray-50 to-white shadow-sm">
+                                                                    <span className="font-bold text-gray-700">{c.value}</span>
+                                                                    <span className="text-gray-500 text-[10px]">{c.label}</span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+
+                                                        <div className="flex justify-center gap-1 flex-wrap">
+                                                            {departureOptions[t1DepartureIndex].blocks.map((b, bIdx) => (
+                                                                <div
+                                                                    key={bIdx}
+                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
+                                                                        departureOptions[t1DepartureIndex].blockColors[bIdx] === "darkgreen" ? "bg-green-800" :
+                                                                        departureOptions[t1DepartureIndex].blockColors[bIdx] === "green" ? "bg-green-600" :
+                                                                        departureOptions[t1DepartureIndex].blockColors[bIdx] === "red" ? "bg-red-600" :
+                                                                        "bg-orange-600"
+                                                                    }`}
+                                                                >
+                                                                    {b}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -667,37 +841,7 @@ const SmltSmryRslt = () => {
                                 passengerCount: 12423,
                                 flightDiff: "-4 편",
                                 passengerDiff: "-268 명",
-                                chartData: [20, 35, 45, 90, 85, 60, 50, 35, 25, 20],
-                                detailRows: [
-                                    {
-                                        title: "체크인카운터",
-                                        congestion: "혼잡 4개 or 원활",
-                                        name: "아일랜드",
-                                        code: "B1",
-                                        stats: "전체 14 | 운영 12 | 대기열 640",
-                                        status: "추천",
-                                        circles: [
-                                            { value: "00", label: "Pcs/Min" },
-                                            { value: "11:00", label: "여유" }
-                                        ],
-                                        blocks: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"],
-                                        blockColors: ["red", "red", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green", "orange", "orange"]
-                                    },
-                                    {
-                                        title: "출국장",
-                                        congestion: "혼잡 4개 or 원활",
-                                        name: "출국장 번호",
-                                        code: "1번",
-                                        stats: "예상인원 640",
-                                        status: "추천",
-                                        circles: [
-                                            { value: "00", label: "Pcs/Min" },
-                                            { value: "11:00", label: "여유" }
-                                        ],
-                                        blocks: ["1", "2"],
-                                        blockColors: ["darkgreen", "green"]
-                                    }
-                                ]
+                                chartData: [20, 35, 45, 90, 85, 60, 50, 35, 25, 20]
                             }
                         ].map((terminal) => (
                             <article key={terminal.id} className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
@@ -776,38 +920,55 @@ const SmltSmryRslt = () => {
                                         </div>
                                     </div>
 
-                                    {/* Detail Rows */}
+                                    {/* Detail Rows - T2 */}
                                     <div className="grid grid-cols-2 gap-4">
-                                        {terminal.detailRows.map((row, idx) => (
-                                            <div key={idx} className="relative">
-                                                {/* 왼쪽 화살표 */}
-                                                <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all">
-                                                    <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
-                                                    </svg>
-                                                </button>
-                                                {/* 오른쪽 화살표 */}
-                                                <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all">
-                                                    <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                                                    </svg>
-                                                </button>
+                                        {/* T2 체크인카운터 카드 */}
+                                        <div className="relative">
+                                            <button
+                                                onClick={() => {
+                                                    setSlideDirection('left');
+                                                    setT2CheckinIndex((prev) => (prev - 1 + checkinOptions.length) % checkinOptions.length);
+                                                }}
+                                                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
+                                            >
+                                                <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    setSlideDirection('right');
+                                                    setT2CheckinIndex((prev) => (prev + 1) % checkinOptions.length);
+                                                }}
+                                                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
+                                            >
+                                                <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </button>
 
-                                                <div className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                                                    <div className={`flex justify-between px-4 py-3 font-bold text-sm border-b-2 ${row.title === "출국장" ? "bg-green-50 border-green-200" : "bg-blue-50 border-blue-200"}`}>
-                                                        <span className={row.title === "출국장" ? "text-green-600" : "text-blue-600"}>{row.title}</span>
-                                                        <span className="text-red-600 bg-red-50 px-2 py-1 rounded-lg text-xs">{row.congestion}</span>
+                                            <div className="overflow-hidden">
+                                                <div
+                                                    key={`t2-checkin-${t2CheckinIndex}`}
+                                                    className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
+                                                    style={{
+                                                        animation: slideDirection === 'right' ? 'slideInRight 0.3s ease-out' : 'slideInLeft 0.3s ease-out'
+                                                    }}
+                                                >
+                                                    <div className="flex justify-between px-4 py-3 font-bold text-sm border-b-2 bg-blue-50 border-blue-200">
+                                                        <span className="text-blue-600">체크인카운터</span>
+                                                        <span className="text-red-600 bg-red-50 px-2 py-1 rounded-lg text-xs">혼잡 4개 or 원활</span>
                                                     </div>
                                                     <div className="p-5 text-center bg-white">
-                                                        <div className="text-gray-600 font-semibold text-sm mb-1">{row.name}</div>
-                                                        <div className="text-3xl font-bold text-red-600 mb-2">{row.code}</div>
-                                                        <div className="text-xs text-gray-600 mb-3">{row.stats}</div>
+                                                        <div className="text-gray-600 font-semibold text-sm mb-1">{checkinOptions[t2CheckinIndex].name}</div>
+                                                        <div className="text-3xl font-bold text-red-600 mb-2">{checkinOptions[t2CheckinIndex].code}</div>
+                                                        <div className="text-xs text-gray-600 mb-3">{checkinOptions[t2CheckinIndex].stats}</div>
                                                         <span className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
-                                                            {row.status}
+                                                            {checkinOptions[t2CheckinIndex].status}
                                                         </span>
 
                                                         <div className="flex justify-around mt-4 mb-4">
-                                                            {row.circles.map((c, cIdx) => (
+                                                            {checkinOptions[t2CheckinIndex].circles.map((c, cIdx) => (
                                                                 <div key={cIdx} className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-gradient-to-br from-gray-50 to-white shadow-sm">
                                                                     <span className="font-bold text-gray-700">{c.value}</span>
                                                                     <span className="text-gray-500 text-[10px]">{c.label}</span>
@@ -816,14 +977,15 @@ const SmltSmryRslt = () => {
                                                         </div>
 
                                                         <div className="flex justify-center gap-1 flex-wrap">
-                                                            {row.blocks.map((b, bIdx) => (
+                                                            {checkinOptions[t2CheckinIndex].blocks.map((b, bIdx) => (
                                                                 <div
                                                                     key={bIdx}
-                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${row.blockColors[bIdx] === "darkgreen" ? "bg-green-800" :
-                                                                        row.blockColors[bIdx] === "green" ? "bg-green-600" :
-                                                                            row.blockColors[bIdx] === "red" ? "bg-red-600" :
-                                                                                "bg-orange-600"
-                                                                        }`}
+                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
+                                                                        checkinOptions[t2CheckinIndex].blockColors[bIdx] === "darkgreen" ? "bg-green-800" :
+                                                                        checkinOptions[t2CheckinIndex].blockColors[bIdx] === "green" ? "bg-green-600" :
+                                                                        checkinOptions[t2CheckinIndex].blockColors[bIdx] === "red" ? "bg-red-600" :
+                                                                        "bg-orange-600"
+                                                                    }`}
                                                                 >
                                                                     {b}
                                                                 </div>
@@ -832,7 +994,81 @@ const SmltSmryRslt = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        ))}
+                                        </div>
+
+                                        {/* T2 출국장 카드 */}
+                                        <div className="relative">
+                                            <button
+                                                onClick={() => {
+                                                    setSlideDirection('left');
+                                                    setT2DepartureIndex((prev) => (prev - 1 + departureOptions.length) % departureOptions.length);
+                                                }}
+                                                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
+                                            >
+                                                <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    setSlideDirection('right');
+                                                    setT2DepartureIndex((prev) => (prev + 1) % departureOptions.length);
+                                                }}
+                                                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
+                                            >
+                                                <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </button>
+
+                                            <div className="overflow-hidden">
+                                                <div
+                                                    key={`t2-departure-${t2DepartureIndex}`}
+                                                    className="border-2 border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
+                                                    style={{
+                                                        animation: slideDirection === 'right' ? 'slideInRight 0.3s ease-out' : 'slideInLeft 0.3s ease-out'
+                                                    }}
+                                                >
+                                                    <div className="flex justify-between px-4 py-3 font-bold text-sm border-b-2 bg-green-50 border-green-200">
+                                                        <span className="text-green-600">출국장</span>
+                                                        <span className="text-red-600 bg-red-50 px-2 py-1 rounded-lg text-xs">혼잡 4개 or 원활</span>
+                                                    </div>
+                                                    <div className="p-5 text-center bg-white">
+                                                        <div className="text-gray-600 font-semibold text-sm mb-1">{departureOptions[t2DepartureIndex].name}</div>
+                                                        <div className="text-3xl font-bold text-red-600 mb-2">{departureOptions[t2DepartureIndex].code}</div>
+                                                        <div className="text-xs text-gray-600 mb-3">{departureOptions[t2DepartureIndex].stats}</div>
+                                                        <span className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
+                                                            {departureOptions[t2DepartureIndex].status}
+                                                        </span>
+
+                                                        <div className="flex justify-around mt-4 mb-4">
+                                                            {departureOptions[t2DepartureIndex].circles.map((c, cIdx) => (
+                                                                <div key={cIdx} className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-gradient-to-br from-gray-50 to-white shadow-sm">
+                                                                    <span className="font-bold text-gray-700">{c.value}</span>
+                                                                    <span className="text-gray-500 text-[10px]">{c.label}</span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+
+                                                        <div className="flex justify-center gap-1 flex-wrap">
+                                                            {departureOptions[t2DepartureIndex].blocks.map((b, bIdx) => (
+                                                                <div
+                                                                    key={bIdx}
+                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
+                                                                        departureOptions[t2DepartureIndex].blockColors[bIdx] === "darkgreen" ? "bg-green-800" :
+                                                                        departureOptions[t2DepartureIndex].blockColors[bIdx] === "green" ? "bg-green-600" :
+                                                                        departureOptions[t2DepartureIndex].blockColors[bIdx] === "red" ? "bg-red-600" :
+                                                                        "bg-orange-600"
+                                                                    }`}
+                                                                >
+                                                                    {b}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -843,6 +1079,7 @@ const SmltSmryRslt = () => {
 
             </main>
         </div>
+        </>
     );
 };
 
