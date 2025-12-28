@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { getSelfCheckInDataByTime } from "@/lib/mock-data"
+import { getSelfCheckInDataByTime, getCheckInCounterDataByTime } from "@/lib/mock-data"
 import { TimelinePlayer } from "@/components/timeline-player"
 import { useState } from "react"
 
@@ -18,6 +18,9 @@ export function MapView() {
 
     // 현재 시간에 해당하는 셀프체크인 혼잡도 데이터 가져오기
     const selfCheckInData = getSelfCheckInDataByTime(currentTime)
+
+    // 현재 시간에 해당하는 체크인카운터(A~N 아일랜드) 혼잡도 데이터 가져오기
+    const checkInCounterData = getCheckInCounterDataByTime(currentTime)
 
     // 시간별 데이터를 KioskData 형식으로 변환
     const kiosks: KioskData[] = selfCheckInData.map((data) => ({
@@ -50,6 +53,24 @@ export function MapView() {
                 return "bg-green-100 border border-green-300"
         }
     }
+
+    // 하단 버튼(A~N) 색상 결정 함수
+    const getIslandButtonColor = (status: string) => {
+        switch (status) {
+            case "busy":
+                return "bg-red-500 hover:bg-red-600 text-white"
+            case "warning":
+                return "bg-orange-400 hover:bg-orange-500 text-white"
+            default:
+                return "bg-cyan-400 hover:bg-cyan-500 text-white"
+        }
+    }
+
+    // 아일랜드별 혼잡도 데이터를 맵으로 변환
+    const islandStatusMap = checkInCounterData.reduce((acc, island) => {
+        acc[island.island] = island.status
+        return acc
+    }, {} as Record<string, string>)
 
     return (
         <div className="flex flex-col h-full">
@@ -116,13 +137,15 @@ export function MapView() {
 
                         {/* Bottom Row Letters (N, M, L, K, E, F, G, H, I, J, K, C, B, A) - Clickable */}
                         <div className="absolute bottom-4 left-8 right-8 grid grid-cols-14 gap-1">
-                            {["N", "M", "L", "K", "E", "F", "G", "H", "I", "J", "K", "C", "B", "A"].map((label) => (
-                                <Popover key={label}>
-                                    <PopoverTrigger asChild>
-                                        <button className="h-10 flex items-center justify-center bg-cyan-400 hover:bg-cyan-500 text-white font-bold rounded transition-colors cursor-pointer">
-                                            {label}
-                                        </button>
-                                    </PopoverTrigger>
+                            {["N", "M", "L", "K", "E", "F", "G", "H", "I", "J", "K", "C", "B", "A"].map((label) => {
+                                const islandStatus = islandStatusMap[label] || "normal"
+                                return (
+                                    <Popover key={label}>
+                                        <PopoverTrigger asChild>
+                                            <button className={`h-10 flex items-center justify-center font-bold rounded transition-colors cursor-pointer ${getIslandButtonColor(islandStatus)}`}>
+                                                {label}
+                                            </button>
+                                        </PopoverTrigger>
                                     <PopoverContent className="w-80">
                                         <div className="space-y-3">
                                             <h3 className="font-bold text-center border-b pb-2">셀프체크인/백드롭 {label}</h3>
@@ -159,7 +182,8 @@ export function MapView() {
                                         </div>
                                     </PopoverContent>
                                 </Popover>
-                            ))}
+                                )
+                            })}
                         </div>
                     </div>
                 </Card>

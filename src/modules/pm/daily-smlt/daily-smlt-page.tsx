@@ -28,7 +28,7 @@ export default function AirportDashboard() {
                 )}
                 {activeTab === "map" && <MapView />}
                 {activeTab === "counter" && (
-                    <div className="space-y-0">
+                    <div className="flex flex-col h-full">
                         <DashboardHeader viewMode={viewMode} onViewModeChange={setViewMode} />
                         {viewMode === "map" && <CounterStatusView />}
                         {viewMode === "table" && <DetailedGridView />}
@@ -36,7 +36,7 @@ export default function AirportDashboard() {
                     </div>
                 )}
                 {activeTab === "self-checkin" && (
-                    <div className="space-y-0">
+                    <div className="flex flex-col h-full">
                         <SlfChknDashboardHeader viewMode={slfChknViewMode} onViewModeChange={setSlfChknViewMode} />
                         {slfChknViewMode === "map" && <SlfChknMapView />}
                         {slfChknViewMode === "table" && <SlfChknTableView />}
