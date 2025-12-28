@@ -1151,3 +1151,190 @@ export const getCheckInCounterDataByTime = (timeInMinutes: number): FacilityStat
     const clampedTime = Math.max(240, Math.min(1440, roundedTime))
     return timeBasedCheckInCounterData[clampedTime] || timeBasedCheckInCounterData[600]
 }
+
+// 셀프체크인 키오스크 상태 인터페이스
+export interface SelfCheckInKioskStatus {
+    number: number
+    status: "normal" | "warning" | "busy"
+    waitPeople: number
+    waitTime: number
+}
+
+// 시간대별 셀프체크인 키오스크 혼잡도 데이터
+export const timeBasedSelfCheckInData: Record<number, SelfCheckInKioskStatus[]> = {
+    240: [ // 04:00 - 새벽 (한산함)
+        { number: 1, status: "normal", waitPeople: 2, waitTime: 2 },
+        { number: 2, status: "normal", waitPeople: 1, waitTime: 1 },
+        { number: 3, status: "normal", waitPeople: 2, waitTime: 2 },
+        { number: 4, status: "normal", waitPeople: 1, waitTime: 1 },
+        { number: 5, status: "normal", waitPeople: 2, waitTime: 2 },
+        { number: 6, status: "normal", waitPeople: 1, waitTime: 1 },
+    ],
+    300: [ // 05:00
+        { number: 1, status: "normal", waitPeople: 3, waitTime: 3 },
+        { number: 2, status: "normal", waitPeople: 2, waitTime: 2 },
+        { number: 3, status: "normal", waitPeople: 3, waitTime: 3 },
+        { number: 4, status: "normal", waitPeople: 2, waitTime: 2 },
+        { number: 5, status: "normal", waitPeople: 4, waitTime: 3 },
+        { number: 6, status: "normal", waitPeople: 3, waitTime: 3 },
+    ],
+    360: [ // 06:00 - 아침 (혼잡도 증가)
+        { number: 1, status: "normal", waitPeople: 5, waitTime: 4 },
+        { number: 2, status: "normal", waitPeople: 4, waitTime: 3 },
+        { number: 3, status: "normal", waitPeople: 6, waitTime: 5 },
+        { number: 4, status: "warning", waitPeople: 8, waitTime: 7 },
+        { number: 5, status: "normal", waitPeople: 5, waitTime: 4 },
+        { number: 6, status: "normal", waitPeople: 6, waitTime: 5 },
+    ],
+    420: [ // 07:00
+        { number: 1, status: "warning", waitPeople: 10, waitTime: 8 },
+        { number: 2, status: "normal", waitPeople: 8, waitTime: 6 },
+        { number: 3, status: "warning", waitPeople: 12, waitTime: 9 },
+        { number: 4, status: "warning", waitPeople: 11, waitTime: 9 },
+        { number: 5, status: "warning", waitPeople: 10, waitTime: 8 },
+        { number: 6, status: "normal", waitPeople: 9, waitTime: 7 },
+    ],
+    480: [ // 08:00 - 출근 시간 (매우 혼잡)
+        { number: 1, status: "busy", waitPeople: 18, waitTime: 15 },
+        { number: 2, status: "busy", waitPeople: 16, waitTime: 13 },
+        { number: 3, status: "busy", waitPeople: 20, waitTime: 16 },
+        { number: 4, status: "busy", waitPeople: 19, waitTime: 15 },
+        { number: 5, status: "busy", waitPeople: 17, waitTime: 14 },
+        { number: 6, status: "busy", waitPeople: 18, waitTime: 15 },
+    ],
+    540: [ // 09:00
+        { number: 1, status: "busy", waitPeople: 15, waitTime: 12 },
+        { number: 2, status: "warning", waitPeople: 13, waitTime: 10 },
+        { number: 3, status: "busy", waitPeople: 16, waitTime: 13 },
+        { number: 4, status: "busy", waitPeople: 14, waitTime: 11 },
+        { number: 5, status: "warning", waitPeople: 13, waitTime: 10 },
+        { number: 6, status: "busy", waitPeople: 15, waitTime: 12 },
+    ],
+    600: [ // 10:00 - 오전 피크
+        { number: 1, status: "busy", waitPeople: 20, waitTime: 16 },
+        { number: 2, status: "busy", waitPeople: 18, waitTime: 14 },
+        { number: 3, status: "busy", waitPeople: 22, waitTime: 17 },
+        { number: 4, status: "busy", waitPeople: 21, waitTime: 16 },
+        { number: 5, status: "busy", waitPeople: 19, waitTime: 15 },
+        { number: 6, status: "busy", waitPeople: 20, waitTime: 16 },
+    ],
+    660: [ // 11:00
+        { number: 1, status: "warning", waitPeople: 12, waitTime: 9 },
+        { number: 2, status: "warning", waitPeople: 10, waitTime: 8 },
+        { number: 3, status: "warning", waitPeople: 13, waitTime: 10 },
+        { number: 4, status: "busy", waitPeople: 15, waitTime: 12 },
+        { number: 5, status: "warning", waitPeople: 11, waitTime: 9 },
+        { number: 6, status: "warning", waitPeople: 12, waitTime: 9 },
+    ],
+    720: [ // 12:00 - 점심 시간
+        { number: 1, status: "normal", waitPeople: 8, waitTime: 6 },
+        { number: 2, status: "normal", waitPeople: 7, waitTime: 5 },
+        { number: 3, status: "warning", waitPeople: 10, waitTime: 8 },
+        { number: 4, status: "normal", waitPeople: 9, waitTime: 7 },
+        { number: 5, status: "normal", waitPeople: 8, waitTime: 6 },
+        { number: 6, status: "normal", waitPeople: 7, waitTime: 5 },
+    ],
+    780: [ // 13:00
+        { number: 1, status: "warning", waitPeople: 11, waitTime: 9 },
+        { number: 2, status: "normal", waitPeople: 9, waitTime: 7 },
+        { number: 3, status: "warning", waitPeople: 12, waitTime: 10 },
+        { number: 4, status: "warning", waitPeople: 11, waitTime: 9 },
+        { number: 5, status: "normal", waitPeople: 10, waitTime: 8 },
+        { number: 6, status: "warning", waitPeople: 11, waitTime: 9 },
+    ],
+    840: [ // 14:00 - 오후 피크
+        { number: 1, status: "busy", waitPeople: 17, waitTime: 14 },
+        { number: 2, status: "busy", waitPeople: 15, waitTime: 12 },
+        { number: 3, status: "busy", waitPeople: 19, waitTime: 15 },
+        { number: 4, status: "busy", waitPeople: 18, waitTime: 14 },
+        { number: 5, status: "busy", waitPeople: 16, waitTime: 13 },
+        { number: 6, status: "busy", waitPeople: 17, waitTime: 14 },
+    ],
+    900: [ // 15:00
+        { number: 1, status: "busy", waitPeople: 14, waitTime: 11 },
+        { number: 2, status: "warning", waitPeople: 12, waitTime: 9 },
+        { number: 3, status: "busy", waitPeople: 15, waitTime: 12 },
+        { number: 4, status: "busy", waitPeople: 14, waitTime: 11 },
+        { number: 5, status: "warning", waitPeople: 13, waitTime: 10 },
+        { number: 6, status: "busy", waitPeople: 14, waitTime: 11 },
+    ],
+    960: [ // 16:00
+        { number: 1, status: "busy", waitPeople: 16, waitTime: 13 },
+        { number: 2, status: "warning", waitPeople: 14, waitTime: 11 },
+        { number: 3, status: "busy", waitPeople: 17, waitTime: 14 },
+        { number: 4, status: "busy", waitPeople: 16, waitTime: 13 },
+        { number: 5, status: "busy", waitPeople: 15, waitTime: 12 },
+        { number: 6, status: "busy", waitPeople: 16, waitTime: 13 },
+    ],
+    1020: [ // 17:00 - 저녁 시간 (매우 혼잡)
+        { number: 1, status: "busy", waitPeople: 21, waitTime: 17 },
+        { number: 2, status: "busy", waitPeople: 19, waitTime: 15 },
+        { number: 3, status: "busy", waitPeople: 23, waitTime: 18 },
+        { number: 4, status: "busy", waitPeople: 22, waitTime: 17 },
+        { number: 5, status: "busy", waitPeople: 20, waitTime: 16 },
+        { number: 6, status: "busy", waitPeople: 21, waitTime: 17 },
+    ],
+    1080: [ // 18:00 - 저녁 피크
+        { number: 1, status: "busy", waitPeople: 24, waitTime: 19 },
+        { number: 2, status: "busy", waitPeople: 22, waitTime: 17 },
+        { number: 3, status: "busy", waitPeople: 25, waitTime: 20 },
+        { number: 4, status: "busy", waitPeople: 24, waitTime: 19 },
+        { number: 5, status: "busy", waitPeople: 23, waitTime: 18 },
+        { number: 6, status: "busy", waitPeople: 24, waitTime: 19 },
+    ],
+    1140: [ // 19:00
+        { number: 1, status: "busy", waitPeople: 18, waitTime: 14 },
+        { number: 2, status: "warning", waitPeople: 16, waitTime: 12 },
+        { number: 3, status: "busy", waitPeople: 19, waitTime: 15 },
+        { number: 4, status: "busy", waitPeople: 18, waitTime: 14 },
+        { number: 5, status: "busy", waitPeople: 17, waitTime: 13 },
+        { number: 6, status: "busy", waitPeople: 18, waitTime: 14 },
+    ],
+    1200: [ // 20:00
+        { number: 1, status: "warning", waitPeople: 12, waitTime: 9 },
+        { number: 2, status: "normal", waitPeople: 10, waitTime: 8 },
+        { number: 3, status: "warning", waitPeople: 13, waitTime: 10 },
+        { number: 4, status: "warning", waitPeople: 12, waitTime: 9 },
+        { number: 5, status: "warning", waitPeople: 11, waitTime: 9 },
+        { number: 6, status: "warning", waitPeople: 12, waitTime: 9 },
+    ],
+    1260: [ // 21:00
+        { number: 1, status: "normal", waitPeople: 8, waitTime: 6 },
+        { number: 2, status: "normal", waitPeople: 7, waitTime: 5 },
+        { number: 3, status: "normal", waitPeople: 9, waitTime: 7 },
+        { number: 4, status: "normal", waitPeople: 8, waitTime: 6 },
+        { number: 5, status: "normal", waitPeople: 7, waitTime: 5 },
+        { number: 6, status: "normal", waitPeople: 8, waitTime: 6 },
+    ],
+    1320: [ // 22:00
+        { number: 1, status: "normal", waitPeople: 5, waitTime: 4 },
+        { number: 2, status: "normal", waitPeople: 4, waitTime: 3 },
+        { number: 3, status: "normal", waitPeople: 6, waitTime: 5 },
+        { number: 4, status: "normal", waitPeople: 5, waitTime: 4 },
+        { number: 5, status: "normal", waitPeople: 4, waitTime: 3 },
+        { number: 6, status: "normal", waitPeople: 5, waitTime: 4 },
+    ],
+    1380: [ // 23:00
+        { number: 1, status: "normal", waitPeople: 3, waitTime: 2 },
+        { number: 2, status: "normal", waitPeople: 2, waitTime: 2 },
+        { number: 3, status: "normal", waitPeople: 4, waitTime: 3 },
+        { number: 4, status: "normal", waitPeople: 3, waitTime: 2 },
+        { number: 5, status: "normal", waitPeople: 2, waitTime: 2 },
+        { number: 6, status: "normal", waitPeople: 3, waitTime: 2 },
+    ],
+    1440: [ // 24:00 - 자정
+        { number: 1, status: "normal", waitPeople: 2, waitTime: 1 },
+        { number: 2, status: "normal", waitPeople: 1, waitTime: 1 },
+        { number: 3, status: "normal", waitPeople: 2, waitTime: 1 },
+        { number: 4, status: "normal", waitPeople: 1, waitTime: 1 },
+        { number: 5, status: "normal", waitPeople: 2, waitTime: 1 },
+        { number: 6, status: "normal", waitPeople: 1, waitTime: 1 },
+    ],
+}
+
+// 시간에 따른 셀프체크인 데이터 조회 헬퍼 함수
+export const getSelfCheckInDataByTime = (timeInMinutes: number): SelfCheckInKioskStatus[] => {
+    const roundedTime = Math.round(timeInMinutes / 30) * 30
+    const clampedTime = Math.max(240, Math.min(1440, roundedTime))
+    return timeBasedSelfCheckInData[clampedTime] || timeBasedSelfCheckInData[600]
+}
