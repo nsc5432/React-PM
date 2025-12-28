@@ -1,7 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "pretendard/dist/web/static/pretendard.css";
 
 :root {
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, "Apple SD Gothic Neo",
+        "Noto Sans KR", "Malgun Gothic",
+        Arial, sans-serif;
     /* Updated theme for airport dashboard - Navy blue primary with professional alert colors */
     --background: oklch(0.98 0.002 247);
     --foreground: oklch(0.25 0.02 247);
