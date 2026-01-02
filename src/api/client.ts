@@ -31,7 +31,7 @@ apiClient.interceptors.request.use(
 
 // 응답 인터셉터
 apiClient.interceptors.response.use(
-  (response: AxiosResponse<ApiResponse<any>>) => {
+  (response: AxiosResponse<ApiResponse<unknown>>) => {
     // 응답 로깅 (개발 환경)
     if (import.meta.env.DEV) {
       console.log(`[API Response] ${response.config.method?.toUpperCase()} ${response.config.url}`, response.data)
