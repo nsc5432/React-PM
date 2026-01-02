@@ -5,16 +5,23 @@
       "Bash(wc:*)",
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm test:*)",
+      "Bash(pnpm install:*)",
+      "Bash(yarn install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx --package=typescript tsc:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(npm run lint:*)",
-      "Bash(npx tsc:*)",
-      "Bash(npx --package=typescript tsc:*)",
       "Bash(git config:*)",
-      "Bash(rm:*)",
+      "Bash(git restore:*)",
       "Bash(git rm:*)",
-      "Bash(git restore:*)"
+      "Bash(rm:*)",
+      "Bash(node --version)",
+      "Bash(npm:*)"
     ]
   }
 }
