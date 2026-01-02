@@ -24,7 +24,7 @@ npm run preview
 
 This is an airport management dashboard application built with React, TypeScript, and Vite. The codebase follows a **module-based architecture** where features are organized under `src/modules/`:
 
-- **`src/modules/pm/daily-smlt/`**: Primary module containing the daily simulation dashboard
+- **`src/modules/pm/pages/daily-smlt/`**: Primary module containing the daily simulation dashboard
   - `daily-smlt-page.tsx`: Main page component with tab-based navigation
   - `smlt-smry-rslt.tsx`: Simulation summary results view
   - Routes to `/` and `/pm` via [App.tsx](src/App.tsx)
@@ -58,6 +58,7 @@ Component → Custom Hook → Service → API Client → Backend
 ```
 
 All custom data hooks follow this pattern:
+
 - Initialize with mock data for immediate UI rendering
 - Attempt API call (unless `VITE_ENABLE_MOCK=true`)
 - Silently fall back to mock data on API errors
