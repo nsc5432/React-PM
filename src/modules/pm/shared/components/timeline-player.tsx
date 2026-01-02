@@ -60,7 +60,7 @@ export function TimelinePlayer({ time, onTimeChange }: TimelinePlayerProps) {
                     <span className="text-sm font-medium w-16">24:00</span>
                 </div>
 
-                <div className="bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium min-w-[80px] text-center">
+                <div className="bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium min-w-20 text-center">
                     {formatTime(time)}
                 </div>
             </div>

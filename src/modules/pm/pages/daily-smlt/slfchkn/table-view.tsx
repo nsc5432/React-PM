@@ -30,7 +30,7 @@ export function TableView() {
         <div className="p-6">
             <Card className="p-0 overflow-hidden">
                 <ScrollArea className="w-full">
-                    <div className="min-w-[1600px]">
+                    <div className="min-w-400">
                         {/* Header */}
                         <div className="grid grid-cols-[100px_repeat(10,1fr)] border-b bg-gray-100">
                             <div className="p-4 font-bold border-r flex items-center justify-center">번호</div>
@@ -58,7 +58,7 @@ export function TableView() {
                                     const isKiosk = zone.type === "셀프체크인 키오스크"
                                     return (
                                         <div key={time} className="border-r last:border-r-0">
-                                            <div className="grid grid-cols-2 h-full min-h-[100px]">
+                                            <div className="grid grid-cols-2 h-full min-h-25">
                                                 <div
                                                     className={`p-2 border-r text-xs ${
                                                         isKiosk && timeIdx % 2 === 0 ? highlightClass : ""

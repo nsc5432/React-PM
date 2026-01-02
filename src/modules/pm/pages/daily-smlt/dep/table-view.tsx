@@ -38,7 +38,7 @@ export function TableView() {
         <div className="p-6">
             <Card className="p-0 overflow-hidden">
                 <ScrollArea className="w-full">
-                    <div className="min-w-[1600px]">
+                    <div className="min-w-400">
                         {/* Header */}
                         <div className="grid grid-cols-[100px_repeat(7,1fr)] border-b bg-gray-100">
                             <div className="p-4 font-bold border-r flex items-center justify-center">번호</div>

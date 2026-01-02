@@ -251,7 +251,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                     }
                 }
             `}</style>
-            <div className="min-w-[1432px] max-w-[1800px] mx-auto p-2 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+            <div className="min-w-358 max-w-450 mx-auto p-2 bg-linear-to-br from-gray-50 to-gray-100 min-h-screen">
                 {/* Header */}
                 <header className="bg-white p-5 rounded-2xl mb-6 shadow-lg border border-gray-200">
                     <div className="flex justify-between items-center whitespace-nowrap gap-4">

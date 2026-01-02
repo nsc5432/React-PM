@@ -221,7 +221,7 @@ export function MapView() {
           </div>
 
           {/* Map Layout Grid */}
-          <div className="relative bg-gray-50 p-8 rounded-lg border-2 border-gray-200 min-h-[600px]">
+          <div className="relative bg-gray-50 p-8 rounded-lg border-2 border-gray-200 min-h-150">
             {/* Top Row Labels (E1-E4, M1-M4, W1-W4) */}
             <div className="absolute top-4 left-0 right-0 grid grid-cols-12 gap-2 px-8">
               {['E1', 'E2', 'E3', 'E4', 'M1', 'M2', 'M3', 'M4', 'W1', 'W2', 'W3', 'W4'].map(
@@ -243,7 +243,7 @@ export function MapView() {
             </div>
 
             {/* Grid Cells */}
-            <div className="mt-12 ml-8 grid grid-cols-12 gap-2 h-[450px]">
+            <div className="mt-12 ml-8 grid grid-cols-12 gap-2 h-112.5">
               {Array.from({ length: 156 }, (_, i) => (
                 <div key={i} className="border border-gray-200 bg-white"></div>
               ))}

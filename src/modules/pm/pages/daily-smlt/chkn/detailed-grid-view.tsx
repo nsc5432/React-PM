@@ -16,7 +16,7 @@ export function DetailedGridView() {
         <div className="p-6">
             <Card className="p-0 overflow-hidden">
                 <ScrollArea className="w-full">
-                    <div className="min-w-[1400px]">
+                    <div className="min-w-350">
                         {/* Header */}
                         <div className="grid grid-cols-[100px_repeat(7,1fr)] border-b bg-muted/30">
                             <div className="p-3 font-medium border-r flex items-center justify-center">번호</div>

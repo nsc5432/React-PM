@@ -82,7 +82,7 @@ export function ChartView() {
                     <div className="flex items-center gap-2">
                         <span className="text-sm font-medium">현재일자</span>
                         <Select defaultValue="2024-10-18">
-                            <SelectTrigger className="w-[140px]">
+                            <SelectTrigger className="w-35">
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -96,7 +96,7 @@ export function ChartView() {
                     <div className="flex items-center gap-2">
                         <span className="text-sm font-medium">비교일자 1</span>
                         <Select defaultValue="2023-10-18">
-                            <SelectTrigger className="w-[140px]">
+                            <SelectTrigger className="w-35">
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -110,7 +110,7 @@ export function ChartView() {
                     <div className="flex items-center gap-2">
                         <span className="text-sm font-medium">비교일자2</span>
                         <Select defaultValue="2023-10-18">
-                            <SelectTrigger className="w-[140px]">
+                            <SelectTrigger className="w-35">
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -124,7 +124,7 @@ export function ChartView() {
                     <div className="flex items-center gap-2">
                         <span className="text-sm font-medium">터미널선택</span>
                         <Select defaultValue="t1">
-                            <SelectTrigger className="w-[120px]">
+                            <SelectTrigger className="w-30">
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -135,7 +135,7 @@ export function ChartView() {
                     </div>
 
                     <Select defaultValue="n19">
-                        <SelectTrigger className="w-[100px]">
+                        <SelectTrigger className="w-25">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>

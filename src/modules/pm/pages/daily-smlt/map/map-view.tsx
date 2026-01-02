@@ -191,7 +191,7 @@ export function MapView() {
                       </button>
                     </PopoverTrigger>
                     {counter && (
-                      <PopoverContent className="w-[600px] max-h-[700px] overflow-y-auto">
+                      <PopoverContent className="w-150 max-h-175 overflow-y-auto">
                         <div className="space-y-4">
                           {/* 헤더 */}
                           <div className="flex items-center justify-between border-b pb-3">

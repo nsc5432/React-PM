@@ -17,7 +17,7 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
     const [date, setDate] = useState<Date | undefined>(new Date(2024, 9, 18))
 
     return (
-        <div className="bg-gradient-to-br from-indigo-600 via-indigo-500 to-blue-500 shadow-lg mt-2">
+        <div className="bg-linear-to-br from-indigo-600 via-indigo-500 to-blue-500 shadow-lg mt-2">
             <div className="px-8 py-6">
                 <div className="flex items-start justify-between gap-6">
                     {/* Title Section */}
@@ -38,7 +38,7 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
                                 <PopoverTrigger asChild>
                                     <Button
                                         variant="outline"
-                                        className="w-[150px] justify-start text-left font-medium bg-white text-gray-700 hover:bg-white/95 border-0 shadow-sm"
+                                        className="w-37.5 justify-start text-left font-medium bg-white text-gray-700 hover:bg-white/95 border-0 shadow-sm"
                                     >
                                         <Calendar className="mr-2 h-4 w-4 text-indigo-600" />
                                         {date ? format(date, "yyyy-MM-dd") : "날짜 선택"}
@@ -53,7 +53,7 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
                         <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2.5 rounded-lg border border-white/20">
                             <span className="text-sm font-medium text-white/90">터미널</span>
                             <Select defaultValue="t1">
-                                <SelectTrigger className="w-[130px] bg-white text-gray-700 border-0 font-medium shadow-sm hover:bg-white/95">
+                                <SelectTrigger className="w-32.5 bg-white text-gray-700 border-0 font-medium shadow-sm hover:bg-white/95">
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -66,7 +66,7 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
                         <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2.5 rounded-lg border border-white/20">
                             <span className="text-sm font-medium text-white/90">구역</span>
                             <Select defaultValue="n19">
-                                <SelectTrigger className="w-[100px] bg-white text-gray-700 border-0 font-medium shadow-sm hover:bg-white/95">
+                                <SelectTrigger className="w-25 bg-white text-gray-700 border-0 font-medium shadow-sm hover:bg-white/95">
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -89,7 +89,7 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
 
                 {/* View Mode Toggle Buttons */}
                 {onViewModeChange && (
-                    <div className="bg-gradient-to-r from-gray-50 to-gray-100 -mx-8 -mb-6 mt-5 px-8 py-4 rounded-b-lg">
+                    <div className="bg-linear-to-r from-gray-50 to-gray-100 -mx-8 -mb-6 mt-5 px-8 py-4 rounded-b-lg">
                         <div className="flex justify-end gap-3">
                             <Button
                                 size="sm"
