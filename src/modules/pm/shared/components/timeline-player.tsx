@@ -1,41 +1,45 @@
-import { Play, Pause, SkipBack, SkipForward } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Slider } from "@/components/ui/slider"
-import { useState, useEffect } from "react"
+import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
+import { useState, useEffect } from 'react';
 
 interface TimelinePlayerProps {
-    time: number
-    onTimeChange: (time: number) => void
+    time: number;
+    onTimeChange: (time: number) => void;
 }
 
 export function TimelinePlayer({ time, onTimeChange }: TimelinePlayerProps) {
-    const [isPlaying, setIsPlaying] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false);
 
     const formatTime = (minutes: number) => {
-        const hours = Math.floor(minutes / 60)
-        const mins = minutes % 60
-        return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`
-    }
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+    };
 
     // 자동 재생 기능
     useEffect(() => {
         if (isPlaying) {
             const interval = setInterval(() => {
-                onTimeChange(Math.min(1440, time + 30))
+                onTimeChange(Math.min(1440, time + 30));
                 // 24:00에 도달하면 자동 정지
                 if (time >= 1440) {
-                    setIsPlaying(false)
+                    setIsPlaying(false);
                 }
-            }, 1000) // 1초마다 30분씩 증가
+            }, 1000); // 1초마다 30분씩 증가
 
-            return () => clearInterval(interval)
+            return () => clearInterval(interval);
         }
-    }, [isPlaying, time, onTimeChange])
+    }, [isPlaying, time, onTimeChange]);
 
     return (
         <div className="bg-card border-t px-6 py-4">
             <div className="flex items-center gap-4">
-                <Button variant="ghost" size="icon" onClick={() => onTimeChange(Math.max(240, time - 30))}>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => onTimeChange(Math.max(240, time - 30))}
+                >
                     <SkipBack className="h-4 w-4" />
                 </Button>
 
@@ -43,7 +47,11 @@ export function TimelinePlayer({ time, onTimeChange }: TimelinePlayerProps) {
                     {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                 </Button>
 
-                <Button variant="ghost" size="icon" onClick={() => onTimeChange(Math.min(1440, time + 30))}>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => onTimeChange(Math.min(1440, time + 30))}
+                >
                     <SkipForward className="h-4 w-4" />
                 </Button>
 
@@ -65,5 +73,5 @@ export function TimelinePlayer({ time, onTimeChange }: TimelinePlayerProps) {
                 </div>
             </div>
         </div>
-    )
+    );
 }

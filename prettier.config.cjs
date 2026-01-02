@@ -1,5 +1,6 @@
 module.exports = {
     printWidth: 100,        // 한 줄 최대 길이
+    tabWidth: 4,             // 들여쓰기 공백 수
     useTabs: false,          // 스페이스 사용
     semi: true,              // 세미콜론
     singleQuote: true,       // 작은따옴표

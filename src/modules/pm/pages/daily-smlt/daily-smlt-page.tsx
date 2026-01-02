@@ -19,50 +19,53 @@ type ViewMode = 'map' | 'table' | 'chart';
 export type SimulationType = 'daily' | 'user';
 
 interface AirportDashboardProps {
-  simulationType?: SimulationType;
+    simulationType?: SimulationType;
 }
 
 export default function AirportDashboard({ simulationType = 'daily' }: AirportDashboardProps) {
-  const [activeTab, setActiveTab] = useState('summary');
-  const [viewMode, setViewMode] = useState<ViewMode>('map');
-  const [slfChknViewMode, setSlfChknViewMode] = useState<ViewMode>('map');
-  const [depViewMode, setDepViewMode] = useState<ViewMode>('map');
+    const [activeTab, setActiveTab] = useState('summary');
+    const [viewMode, setViewMode] = useState<ViewMode>('map');
+    const [slfChknViewMode, setSlfChknViewMode] = useState<ViewMode>('map');
+    const [depViewMode, setDepViewMode] = useState<ViewMode>('map');
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      <DashboardTabs value={activeTab} onValueChange={setActiveTab} />
+    return (
+        <div className="min-h-screen flex flex-col">
+            <DashboardTabs value={activeTab} onValueChange={setActiveTab} />
 
-      <main className="flex-1 overflow-auto">
-        {activeTab === 'summary' && <SmltSmryRslt simulationType={simulationType} />}
-        {activeTab === 'map' && <MapView />}
-        {activeTab === 'counter' && (
-          <div className="flex flex-col h-full">
-            <DashboardHeader viewMode={viewMode} onViewModeChange={setViewMode} />
-            {viewMode === 'map' && <CounterStatusView />}
-            {viewMode === 'table' && <DetailedGridView />}
-            {viewMode === 'chart' && <ChartView />}
-          </div>
-        )}
-        {activeTab === 'self-checkin' && (
-          <div className="flex flex-col h-full">
-            <SlfChknDashboardHeader
-              viewMode={slfChknViewMode}
-              onViewModeChange={setSlfChknViewMode}
-            />
-            {slfChknViewMode === 'map' && <SlfChknMapView />}
-            {slfChknViewMode === 'table' && <SlfChknTableView />}
-            {slfChknViewMode === 'chart' && <SlfChknChartView />}
-          </div>
-        )}
-        {activeTab === 'departure' && (
-          <div className="flex flex-col h-full">
-            <DepDashboardHeader viewMode={depViewMode} onViewModeChange={setDepViewMode} />
-            {depViewMode === 'map' && <DepMapView />}
-            {depViewMode === 'table' && <DepTableView />}
-            {depViewMode === 'chart' && <DepChartView />}
-          </div>
-        )}
-      </main>
-    </div>
-  );
+            <main className="flex-1 overflow-auto">
+                {activeTab === 'summary' && <SmltSmryRslt simulationType={simulationType} />}
+                {activeTab === 'map' && <MapView />}
+                {activeTab === 'counter' && (
+                    <div className="flex flex-col h-full">
+                        <DashboardHeader viewMode={viewMode} onViewModeChange={setViewMode} />
+                        {viewMode === 'map' && <CounterStatusView />}
+                        {viewMode === 'table' && <DetailedGridView />}
+                        {viewMode === 'chart' && <ChartView />}
+                    </div>
+                )}
+                {activeTab === 'self-checkin' && (
+                    <div className="flex flex-col h-full">
+                        <SlfChknDashboardHeader
+                            viewMode={slfChknViewMode}
+                            onViewModeChange={setSlfChknViewMode}
+                        />
+                        {slfChknViewMode === 'map' && <SlfChknMapView />}
+                        {slfChknViewMode === 'table' && <SlfChknTableView />}
+                        {slfChknViewMode === 'chart' && <SlfChknChartView />}
+                    </div>
+                )}
+                {activeTab === 'departure' && (
+                    <div className="flex flex-col h-full">
+                        <DepDashboardHeader
+                            viewMode={depViewMode}
+                            onViewModeChange={setDepViewMode}
+                        />
+                        {depViewMode === 'map' && <DepMapView />}
+                        {depViewMode === 'table' && <DepTableView />}
+                        {depViewMode === 'chart' && <DepChartView />}
+                    </div>
+                )}
+            </main>
+        </div>
+    );
 }

@@ -1,8 +1,8 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface DashboardTabsProps {
-    value: string
-    onValueChange: (value: string) => void
+    value: string;
+    onValueChange: (value: string) => void;
 }
 
 export function DashboardTabs({ value, onValueChange }: DashboardTabsProps) {
@@ -26,5 +26,5 @@ export function DashboardTabs({ value, onValueChange }: DashboardTabsProps) {
                 </TabsTrigger>
             </TabsList>
         </Tabs>
-    )
+    );
 }

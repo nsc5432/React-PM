@@ -1,20 +1,26 @@
-import { Calendar, Search, MapPin, Table2, BarChart3 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Calendar as CalendarComponent } from "@/components/ui/calendar"
-import { format } from "date-fns"
-import { useState } from "react"
+import { Calendar, Search, MapPin, Table2, BarChart3 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
+import { format } from 'date-fns';
+import { useState } from 'react';
 
-type ViewMode = "map" | "table" | "chart"
+type ViewMode = 'map' | 'table' | 'chart';
 
 interface DashboardHeaderProps {
-    viewMode?: ViewMode
-    onViewModeChange?: (mode: ViewMode) => void
+    viewMode?: ViewMode;
+    onViewModeChange?: (mode: ViewMode) => void;
 }
 
-export function DashboardHeader({ viewMode = "map", onViewModeChange }: DashboardHeaderProps) {
-    const [date, setDate] = useState<Date | undefined>(new Date(2024, 9, 18))
+export function DashboardHeader({ viewMode = 'map', onViewModeChange }: DashboardHeaderProps) {
+    const [date, setDate] = useState<Date | undefined>(new Date(2024, 9, 18));
 
     return (
         <div className="bg-linear-to-br from-green-600 via-green-500 to-emerald-400 shadow-lg mt-2">
@@ -41,11 +47,16 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
                                         className="w-37.5 justify-start text-left font-medium bg-white text-gray-700 hover:bg-white/95 border-0 shadow-sm"
                                     >
                                         <Calendar className="mr-2 h-4 w-4 text-indigo-600" />
-                                        {date ? format(date, "yyyy-MM-dd") : "날짜 선택"}
+                                        {date ? format(date, 'yyyy-MM-dd') : '날짜 선택'}
                                     </Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-auto p-0">
-                                    <CalendarComponent mode="single" selected={date} onSelect={setDate} initialFocus />
+                                    <CalendarComponent
+                                        mode="single"
+                                        selected={date}
+                                        onSelect={setDate}
+                                        initialFocus
+                                    />
                                 </PopoverContent>
                             </Popover>
                         </div>
@@ -93,12 +104,12 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
                         <div className="flex justify-end gap-3">
                             <Button
                                 size="sm"
-                                variant={viewMode === "map" ? "default" : "outline"}
-                                onClick={() => onViewModeChange("map")}
+                                variant={viewMode === 'map' ? 'default' : 'outline'}
+                                onClick={() => onViewModeChange('map')}
                                 className={
-                                    viewMode === "map"
-                                        ? "bg-indigo-600 text-white hover:bg-indigo-700 font-semibold shadow-md px-5 border-0"
-                                        : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-medium px-5 shadow-sm"
+                                    viewMode === 'map'
+                                        ? 'bg-indigo-600 text-white hover:bg-indigo-700 font-semibold shadow-md px-5 border-0'
+                                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-medium px-5 shadow-sm'
                                 }
                             >
                                 <MapPin className="h-4 w-4 mr-1.5" />
@@ -106,12 +117,12 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
                             </Button>
                             <Button
                                 size="sm"
-                                variant={viewMode === "table" ? "default" : "outline"}
-                                onClick={() => onViewModeChange("table")}
+                                variant={viewMode === 'table' ? 'default' : 'outline'}
+                                onClick={() => onViewModeChange('table')}
                                 className={
-                                    viewMode === "table"
-                                        ? "bg-indigo-600 text-white hover:bg-indigo-700 font-semibold shadow-md px-5 border-0"
-                                        : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-medium px-5 shadow-sm"
+                                    viewMode === 'table'
+                                        ? 'bg-indigo-600 text-white hover:bg-indigo-700 font-semibold shadow-md px-5 border-0'
+                                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-medium px-5 shadow-sm'
                                 }
                             >
                                 <Table2 className="h-4 w-4 mr-1.5" />
@@ -119,12 +130,12 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
                             </Button>
                             <Button
                                 size="sm"
-                                variant={viewMode === "chart" ? "default" : "outline"}
-                                onClick={() => onViewModeChange("chart")}
+                                variant={viewMode === 'chart' ? 'default' : 'outline'}
+                                onClick={() => onViewModeChange('chart')}
                                 className={
-                                    viewMode === "chart"
-                                        ? "bg-indigo-600 text-white hover:bg-indigo-700 font-semibold shadow-md px-5 border-0"
-                                        : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-medium px-5 shadow-sm"
+                                    viewMode === 'chart'
+                                        ? 'bg-indigo-600 text-white hover:bg-indigo-700 font-semibold shadow-md px-5 border-0'
+                                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-medium px-5 shadow-sm'
                                 }
                             >
                                 <BarChart3 className="h-4 w-4 mr-1.5" />
@@ -135,5 +146,5 @@ export function DashboardHeader({ viewMode = "map", onViewModeChange }: Dashboar
                 )}
             </div>
         </div>
-    )
+    );
 }

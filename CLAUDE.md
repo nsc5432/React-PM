@@ -25,29 +25,29 @@ npm run preview
 This is an airport management dashboard application built with React, TypeScript, and Vite. The codebase follows a **module-based architecture** where features are organized under `src/modules/`:
 
 - **`src/modules/pm/pages/daily-smlt/`**: Primary module containing the daily simulation dashboard
-  - `daily-smlt-page.tsx`: Main page component with tab-based navigation
-  - `smlt-smry-rslt.tsx`: Simulation summary results view
-  - Routes to `/` and `/pm` via [App.tsx](src/App.tsx)
+    - `daily-smlt-page.tsx`: Main page component with tab-based navigation
+    - `smlt-smry-rslt.tsx`: Simulation summary results view
+    - Routes to `/` and `/pm` via [App.tsx](src/App.tsx)
 
 ### API Layer Architecture
 
 The API layer uses a **centralized Axios instance with interceptors**:
 
 1. **Client** ([src/api/client.ts](src/api/client.ts)):
-   - Configured Axios instance with `/api` base URL
-   - Proxied to `http://localhost:8080` in dev mode (see [vite.config.ts](vite.config.ts))
-   - Request/response interceptors for logging and error handling
-   - Automatic error normalization with Korean messages
+    - Configured Axios instance with `/api` base URL
+    - Proxied to `http://localhost:8080` in dev mode (see [vite.config.ts](vite.config.ts))
+    - Request/response interceptors for logging and error handling
+    - Automatic error normalization with Korean messages
 
 2. **Services** ([src/api/services/](src/api/services/)):
-   - Type-safe service layer (e.g., `counterService.getAll()`)
-   - Returns unwrapped data from `ApiResponse<T>` wrapper
+    - Type-safe service layer (e.g., `counterService.getAll()`)
+    - Returns unwrapped data from `ApiResponse<T>` wrapper
 
 3. **Hooks** ([src/hooks/](src/hooks/)):
-   - React Query-style hooks with loading/error states
-   - **Automatic fallback to mock data** when API fails
-   - Mock data enabled via `VITE_ENABLE_MOCK` env var
-   - Example: `useCounterStatus()` provides counter data with graceful degradation
+    - React Query-style hooks with loading/error states
+    - **Automatic fallback to mock data** when API fails
+    - Mock data enabled via `VITE_ENABLE_MOCK` env var
+    - Example: `useCounterStatus()` provides counter data with graceful degradation
 
 ### Data Flow Pattern
 
@@ -67,29 +67,29 @@ All custom data hooks follow this pattern:
 ### Component Organization
 
 - **`src/components/`**: Shared business components
-  - Dashboard components: `dashboard-header.tsx`, `map-view.tsx`, `chart-view.tsx`, etc.
-  - These are domain-specific, not generic UI components
+    - Dashboard components: `dashboard-header.tsx`, `map-view.tsx`, `chart-view.tsx`, etc.
+    - These are domain-specific, not generic UI components
 
 - **`src/components/ui/`**: Radix UI + shadcn/ui components
-  - Pre-built accessible components (accordion, alert, button, card, etc.)
-  - Styled with Tailwind CSS using `class-variance-authority`
+    - Pre-built accessible components (accordion, alert, button, card, etc.)
+    - Styled with Tailwind CSS using `class-variance-authority`
 
 ### Key Technical Patterns
 
 1. **Path Aliases**: `@/*` maps to `src/*` (configured in [tsconfig.app.json](tsconfig.app.json) and [vite.config.ts](vite.config.ts))
 
 2. **Styling**:
-   - Tailwind CSS v4 with PostCSS
-   - `cn()` utility from [src/lib/utils.ts](src/lib/utils.ts) for conditional classes
+    - Tailwind CSS v4 with PostCSS
+    - `cn()` utility from [src/lib/utils.ts](src/lib/utils.ts) for conditional classes
 
 3. **Type Safety**:
-   - All API types defined in [src/types/api.types.ts](src/types/api.types.ts)
-   - Strict TypeScript configuration with `noUnusedLocals` and `noUnusedParameters`
+    - All API types defined in [src/types/api.types.ts](src/types/api.types.ts)
+    - Strict TypeScript configuration with `noUnusedLocals` and `noUnusedParameters`
 
 4. **Environment Variables**:
-   - `VITE_API_BASE_URL`: Backend URL (default: `http://localhost:8080`)
-   - `VITE_API_TIMEOUT`: Request timeout in ms (default: `10000`)
-   - `VITE_ENABLE_MOCK`: Use mock data instead of API calls (default: `false`)
+    - `VITE_API_BASE_URL`: Backend URL (default: `http://localhost:8080`)
+    - `VITE_API_TIMEOUT`: Request timeout in ms (default: `10000`)
+    - `VITE_ENABLE_MOCK`: Use mock data instead of API calls (default: `false`)
 
 ## Development Notes
 
