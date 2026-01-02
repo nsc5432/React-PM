@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DashboardHeader } from '@/modules/pm/pages/daily-smlt/chkn/dashboard-header';
-import { DashboardTabs } from '@/modules/pm/dashboard-tabs';
+import { DashboardTabs } from '@/modules/pm/shared/components/dashboard-tabs';
 import { MapView } from '@/modules/pm/pages/daily-smlt/map/map-view';
 import { CounterStatusView } from '@/modules/pm/pages/daily-smlt/map/counter-status-view';
 import { DetailedGridView } from '@/modules/pm/pages/daily-smlt/chkn/detailed-grid-view';
