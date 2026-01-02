@@ -16,8 +16,13 @@ import { ChartView as DepChartView } from '@/modules/pm/pages/daily-smlt/dep/cha
 import SmltSmryRslt from './smlt-smry-rslt';
 
 type ViewMode = 'map' | 'table' | 'chart';
+export type SimulationType = 'daily' | 'user';
 
-export default function AirportDashboard() {
+interface AirportDashboardProps {
+  simulationType?: SimulationType;
+}
+
+export default function AirportDashboard({ simulationType = 'daily' }: AirportDashboardProps) {
   const [activeTab, setActiveTab] = useState('summary');
   const [viewMode, setViewMode] = useState<ViewMode>('map');
   const [slfChknViewMode, setSlfChknViewMode] = useState<ViewMode>('map');
@@ -28,7 +33,7 @@ export default function AirportDashboard() {
       <DashboardTabs value={activeTab} onValueChange={setActiveTab} />
 
       <main className="flex-1 overflow-auto">
-        {activeTab === 'summary' && <SmltSmryRslt />}
+        {activeTab === 'summary' && <SmltSmryRslt simulationType={simulationType} />}
         {activeTab === 'map' && <MapView />}
         {activeTab === 'counter' && (
           <div className="flex flex-col h-full">

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { SimulationType } from './daily-smlt-page';
 
 // 차트 데이터 타입 정의
 interface ChartDataPoint {
@@ -15,7 +16,11 @@ interface MiniChartData {
     data: ChartDataPoint[];
 }
 
-const SmltSmryRslt = () => {
+interface SmltSmryRsltProps {
+    simulationType?: SimulationType;
+}
+
+const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
     // 선택된 탭 상태 (0: 터미널 여객수, 1: 체크인카운터, 2: 출국장, 3: 보안검색대)
     const [selectedTab, setSelectedTab] = useState(0);
 
@@ -250,12 +255,24 @@ const SmltSmryRslt = () => {
                 {/* Header */}
                 <header className="bg-white p-5 rounded-2xl mb-6 shadow-lg border border-gray-200">
                     <div className="flex justify-between items-center whitespace-nowrap gap-4">
-                        {/* 1. 운항계획 버튼 */}
-                        <div className={`${currentTheme.headerBg} text-white px-8 rounded-xl text-base font-bold shadow-md flex items-center gap-2 h-16 w-[151px] flex-0`}>
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
-                            </svg>
-                            운항계획
+                        {/* 1. 운항계획 버튼 with Simulation Type Badge */}
+                        <div className="flex flex-col gap-1 flex-0">
+                            <div className={`${currentTheme.headerBg} text-white px-8 rounded-xl text-base font-bold shadow-md flex items-center gap-2 h-16 w-[151px]`}>
+                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
+                                </svg>
+                                운항계획
+                            </div>
+                            {simulationType === 'user' && (
+                                <div className="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded text-center shadow-sm">
+                                    사용자 시뮬레이션
+                                </div>
+                            )}
+                            {simulationType === 'daily' && (
+                                <div className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded text-center shadow-sm">
+                                    기준 시뮬레이션
+                                </div>
+                            )}
                         </div>
 
                         {/* 2. 통계 박스: 총 운항편 + 총여객수 */}

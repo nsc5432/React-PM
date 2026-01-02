@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FlightPassengerEdit } from './flight-passenger-edit';
 import { CheckInCounterEdit } from './check-in-counter-edit';
 import { SelfCheckInBagDropEdit } from './self-checkin-bagdrop-edit';
@@ -6,6 +7,7 @@ import { DepartureGateEdit } from './departure-gate-edit';
 import { SecurityCheckpointEdit } from './security-checkpoint-edit';
 
 export default function UserSmltPage() {
+  const navigate = useNavigate();
   const [expandedSections, setExpandedSections] = useState({
     flightPassenger: false,
     checkInCounter: false,
@@ -80,7 +82,10 @@ export default function UserSmltPage() {
 
         {/* Submit Button */}
         <div className="flex justify-center pt-4">
-          <button className="bg-black text-white px-12 py-3 text-lg font-medium hover:bg-gray-800">
+          <button
+            onClick={() => navigate('/pm/user-smlt/result')}
+            className="bg-black text-white px-12 py-3 text-lg font-medium hover:bg-gray-800"
+          >
             시뮬레이션 수행
           </button>
         </div>
