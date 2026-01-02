@@ -29,7 +29,6 @@ const menuItems: MenuItem[] = [
         label: '시뮬레이션 모니터링',
         path: '/pm/monitoring',
         icon: <MonitorPlay className="h-5 w-5" />,
-        disabled: true,
     },
 ];
 

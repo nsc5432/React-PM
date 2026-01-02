@@ -83,7 +83,7 @@ export default function UserSmltPage() {
                 {/* Submit Button */}
                 <div className="flex justify-center pt-4">
                     <button
-                        onClick={() => navigate('/pm/user-smlt/result')}
+                        onClick={() => navigate('/pm/monitoring')}
                         className="bg-black text-white px-12 py-3 text-lg font-medium hover:bg-gray-800"
                     >
                         시뮬레이션 수행
