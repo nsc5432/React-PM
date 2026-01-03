@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import ReactECharts from 'echarts-for-react';
+import type { EChartsOption } from 'echarts';
 
 interface FlightPassengerEditProps {
     expanded: boolean;
@@ -8,6 +10,91 @@ interface FlightPassengerEditProps {
 
 export function FlightPassengerEdit({ expanded, onToggle, disabled = false }: FlightPassengerEditProps) {
     const [editMode, setEditMode] = useState<'ratio' | 'hourly'>('ratio');
+
+    // 운항편 수 데이터 (시간대별)
+    const flightData = [40, 60, 80, 100, 120, 130, 100, 120, 100, 100, 60, 40];
+    const timeLabels = ['4:00', '6:00', '8:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '0:00', '2:00'];
+
+    // 여객 수 데이터 (시간대별)
+    const passengerData = [40, 60, 80, 100, 120, 200, 200, 200, 100, 100, 60, 40];
+
+    // 운항편 수 차트 옵션
+    const flightChartOption: EChartsOption = {
+        grid: {
+            left: 40,
+            right: 20,
+            top: 20,
+            bottom: 30,
+        },
+        xAxis: {
+            type: 'category',
+            data: timeLabels,
+            axisLabel: {
+                fontSize: 11,
+                color: '#6B7280',
+            },
+        },
+        yAxis: {
+            type: 'value',
+            show: false,
+        },
+        tooltip: {
+            trigger: 'axis',
+            formatter: (params: any) => {
+                const data = params[0];
+                return `${data.name}<br/>운항편: ${data.value}편`;
+            },
+        },
+        series: [
+            {
+                data: flightData,
+                type: 'bar',
+                itemStyle: {
+                    color: '#3B82F6',
+                },
+                barWidth: '60%',
+            },
+        ],
+    };
+
+    // 여객 수 차트 옵션
+    const passengerChartOption: EChartsOption = {
+        grid: {
+            left: 40,
+            right: 20,
+            top: 20,
+            bottom: 30,
+        },
+        xAxis: {
+            type: 'category',
+            data: timeLabels,
+            axisLabel: {
+                fontSize: 11,
+                color: '#6B7280',
+            },
+        },
+        yAxis: {
+            type: 'value',
+            show: false,
+        },
+        tooltip: {
+            trigger: 'axis',
+            formatter: (params: any) => {
+                const data = params[0];
+                return `${data.name}<br/>여객: ${data.value.toLocaleString()}명`;
+            },
+        },
+        series: [
+            {
+                data: passengerData,
+                type: 'bar',
+                itemStyle: {
+                    color: '#3B82F6',
+                },
+                barWidth: '60%',
+            },
+        ],
+    };
 
     return (
         <div className="border rounded-lg bg-white">
@@ -28,31 +115,7 @@ export function FlightPassengerEdit({ expanded, onToggle, disabled = false }: Fl
                         {/* Flight Count Chart */}
                         <div className="border rounded-lg p-4">
                             <h3 className="text-center font-medium mb-4">운항편 수</h3>
-                            <div className="h-40 bg-gray-50 flex items-end justify-around px-4 pb-4">
-                                {[40, 60, 80, 100, 120, 200, 200, 200, 100, 100, 60, 40].map(
-                                    (height, idx) => (
-                                        <div
-                                            key={idx}
-                                            className="w-8 bg-blue-500"
-                                            style={{ height: `${height}px` }}
-                                        />
-                                    ),
-                                )}
-                            </div>
-                            <div className="flex justify-around text-xs text-gray-500 mt-2">
-                                <span>4:00</span>
-                                <span>6:00</span>
-                                <span>8:00</span>
-                                <span>10:00</span>
-                                <span>12:00</span>
-                                <span>14:00</span>
-                                <span>16:00</span>
-                                <span>18:00</span>
-                                <span>20:00</span>
-                                <span>22:00</span>
-                                <span>0:00</span>
-                                <span>2:00</span>
-                            </div>
+                            <ReactECharts option={flightChartOption} style={{ height: '200px' }} />
                             <div className="mt-4 text-center">
                                 <span className="text-sm">
                                     *운항{' '}
@@ -70,31 +133,7 @@ export function FlightPassengerEdit({ expanded, onToggle, disabled = false }: Fl
                         {/* Passenger Count Chart */}
                         <div className="border rounded-lg p-4">
                             <h3 className="text-center font-medium mb-4">여객 수</h3>
-                            <div className="h-40 bg-gray-50 flex items-end justify-around px-4 pb-4">
-                                {[40, 60, 80, 100, 120, 200, 200, 200, 100, 100, 60, 40].map(
-                                    (height, idx) => (
-                                        <div
-                                            key={idx}
-                                            className="w-8 bg-blue-500"
-                                            style={{ height: `${height}px` }}
-                                        />
-                                    ),
-                                )}
-                            </div>
-                            <div className="flex justify-around text-xs text-gray-500 mt-2">
-                                <span>4:00</span>
-                                <span>6:00</span>
-                                <span>8:00</span>
-                                <span>10:00</span>
-                                <span>12:00</span>
-                                <span>14:00</span>
-                                <span>16:00</span>
-                                <span>18:00</span>
-                                <span>20:00</span>
-                                <span>22:00</span>
-                                <span>0:00</span>
-                                <span>2:00</span>
-                            </div>
+                            <ReactECharts option={passengerChartOption} style={{ height: '200px' }} />
                             <div className="mt-4 text-center">
                                 <span className="text-sm">
                                     *여객{' '}
