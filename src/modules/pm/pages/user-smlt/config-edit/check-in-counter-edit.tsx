@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { TimeRangePicker } from '@/components/ui/time-range-picker';
 import type { TimeRange } from '@/components/ui/time-range-picker';
+import { TimelinePlayer } from '@/modules/pm/shared/components/timeline-player';
 
 interface CheckInCounterEditProps {
     expanded: boolean;
@@ -8,9 +9,14 @@ interface CheckInCounterEditProps {
     disabled?: boolean;
 }
 
+// 카운터별 항공사 할당 정의 (이미지 기준)
+const COUNTER_AIRLINES = [
+    'OZ', 'OZ', 'OZ', 'OZ', 'OZ', 'OZ', 'OZ', 'OZ', 'OZ',
+    'OZ', 'OZ', 'OZ', 'KE', 'KE', 'KE', 'KE', 'KE', 'KE'
+];
+
 export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: CheckInCounterEditProps) {
     const counters = Array.from({ length: 18 }, (_, i) => i + 1);
-    const airlines = ['OZ', 'KE'];
 
     // 기본값: 08:00 ~ 20:00
     const defaultStart = new Date();
@@ -22,6 +28,43 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
         start: defaultStart,
         end: defaultEnd,
     });
+
+    // 타임라인 시간 상태 (분 단위, 04:00 = 240분)
+    const [currentTime, setCurrentTime] = useState(240);
+
+    // 상단 항공사 선택 상태 (18개 카운터)
+    const [topSelectedCounters, setTopSelectedCounters] = useState<Set<number>>(new Set());
+
+    // 하단 항공사 선택 상태 (18개 카운터)
+    const [bottomSelectedCounters, setBottomSelectedCounters] = useState<Set<number>>(new Set([6]));
+
+    const handleTopCounterClick = (counterNum: number) => {
+        if (disabled) return;
+
+        setTopSelectedCounters(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(counterNum)) {
+                newSet.delete(counterNum);
+            } else {
+                newSet.add(counterNum);
+            }
+            return newSet;
+        });
+    };
+
+    const handleBottomCounterClick = (counterNum: number) => {
+        if (disabled) return;
+
+        setBottomSelectedCounters(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(counterNum)) {
+                newSet.delete(counterNum);
+            } else {
+                newSet.add(counterNum);
+            }
+            return newSet;
+        });
+    };
 
     return (
         <div className="border rounded-lg bg-white">
@@ -46,10 +89,6 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
 
                     {/* Filter */}
                     <div className="flex items-center gap-4 mb-6">
-                        <label className={`flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}>
-                            <input type="checkbox" disabled={disabled} />
-                            미운영
-                        </label>
                         <TimeRangePicker
                             value={timeRange}
                             onChange={setTimeRange}
@@ -70,71 +109,71 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
                     <div className="border rounded-lg p-6 bg-gray-50 mb-6">
                         <h3 className="text-center font-medium mb-4">체크인카운터 N</h3>
                         <div className="mb-4">
-                            <div className="grid grid-cols-18 gap-1 mb-2">
-                                <div className="col-span-1 text-center text-sm font-medium">
+                            {/* 상단 항공사 선택 행 - 클릭 가능 */}
+                            <div className="grid grid-cols-19 gap-1 mb-2">
+                                <div className="col-span-1 text-center text-xs font-medium">
                                     항공사
                                 </div>
-                                {airlines.map((airline, idx) => (
-                                    <div
-                                        key={idx}
-                                        className="col-span-1 text-center text-sm font-medium"
-                                    >
-                                        {airline}
-                                    </div>
-                                ))}
-                                {Array.from({ length: 6 }, (_, i) => (
-                                    <div
-                                        key={i}
-                                        className="col-span-1 text-center text-sm font-medium"
-                                    >
-                                        {airlines[i % 2]}
-                                    </div>
-                                ))}
-                                {airlines.map((airline, idx) => (
-                                    <div
-                                        key={idx + 10}
-                                        className="col-span-1 text-center text-sm font-medium"
-                                    >
-                                        {airline === 'OZ' ? 'KE' : airline}
-                                    </div>
-                                ))}
+                                {counters.map((num) => {
+                                    const isSelected = topSelectedCounters.has(num);
+                                    const airline = COUNTER_AIRLINES[num - 1];
+
+                                    return (
+                                        <button
+                                            key={num}
+                                            onClick={() => handleTopCounterClick(num)}
+                                            disabled={disabled}
+                                            className={`col-span-1 h-8 text-xs font-medium transition-colors ${isSelected
+                                                    ? 'bg-green-400 hover:bg-green-500'
+                                                    : 'bg-gray-300 hover:bg-gray-400'
+                                                } ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
+                                        >
+                                            {airline}
+                                        </button>
+                                    );
+                                })}
                             </div>
 
-                            <div className="grid grid-cols-18 gap-1 mb-2">
-                                <div className="col-span-1 text-center text-sm font-medium">
+                            {/* 번호 행 */}
+                            <div className="grid grid-cols-19 gap-1 mb-2">
+                                <div className="col-span-1 text-center text-xs font-medium">
                                     번호
                                 </div>
                                 {counters.map((num) => (
-                                    <div key={num} className="col-span-1 text-center text-sm">
+                                    <div key={num} className="col-span-1 text-center text-xs">
                                         {num}
                                     </div>
                                 ))}
                             </div>
 
-                            <div className="grid grid-cols-18 gap-1 mb-2">
-                                <div className="col-span-1 text-center text-sm font-medium">
+                            {/* 하단 항공사 선택 행 - 클릭 가능 */}
+                            <div className="grid grid-cols-19 gap-1 mb-2">
+                                <div className="col-span-1 text-center text-xs font-medium">
                                     항공사
                                 </div>
-                                {counters.map((num) => (
-                                    <div
-                                        key={num}
-                                        className={`col-span-1 h-8 ${
-                                            num === 6
-                                                ? 'bg-green-400'
-                                                : num >= 12 && num <= 18
-                                                  ? 'bg-gray-300'
-                                                  : 'bg-gray-300'
-                                        }`}
-                                    />
-                                ))}
+                                {counters.map((num) => {
+                                    const isSelected = bottomSelectedCounters.has(num);
+                                    const airline = COUNTER_AIRLINES[num - 1];
+
+                                    return (
+                                        <button
+                                            key={num}
+                                            onClick={() => handleBottomCounterClick(num)}
+                                            disabled={disabled}
+                                            className={`col-span-1 h-8 text-xs font-medium transition-colors ${isSelected
+                                                    ? 'bg-green-400 hover:bg-green-500'
+                                                    : 'bg-gray-300 hover:bg-gray-400'
+                                                } ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
+                                        >
+                                            {airline}
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
 
-                        <div className="flex justify-center gap-4 text-xs mb-6">
-                            <span>04:00</span>
-                            <span>12:00</span>
-                            <span>24:00</span>
-                        </div>
+                        {/* TimelinePlayer */}
+                        <TimelinePlayer time={currentTime} onTimeChange={setCurrentTime} />
                     </div>
 
                     {/* Gate Selection */}
@@ -144,11 +183,10 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
                                 <button
                                     key={gate}
                                     disabled={disabled}
-                                    className={`w-10 h-10 rounded ${
-                                        gate === 'N'
-                                            ? 'bg-red-500 text-white'
-                                            : 'bg-blue-400 text-white hover:bg-blue-500'
-                                    } disabled:opacity-50 disabled:cursor-not-allowed`}
+                                    className={`w-10 h-10 rounded ${gate === 'N'
+                                        ? 'bg-red-500 text-white'
+                                        : 'bg-blue-400 text-white hover:bg-blue-500'
+                                        } disabled:opacity-50 disabled:cursor-not-allowed`}
                                 >
                                     {gate}
                                 </button>
