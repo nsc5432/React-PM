@@ -1,9 +1,10 @@
 interface DepartureGateEditProps {
     expanded: boolean;
     onToggle: () => void;
+    disabled?: boolean;
 }
 
-export function DepartureGateEdit({ expanded, onToggle }: DepartureGateEditProps) {
+export function DepartureGateEdit({ expanded, onToggle, disabled = false }: DepartureGateEditProps) {
     return (
         <div className="border rounded-lg bg-white">
             <button
@@ -31,7 +32,7 @@ export function DepartureGateEdit({ expanded, onToggle }: DepartureGateEditProps
                         <div>
                             <div className="flex items-center justify-between mb-2">
                                 <h3 className="font-medium">출국장 1</h3>
-                                <select className="border rounded px-3 py-1 text-sm">
+                                <select className="border rounded px-3 py-1 text-sm" disabled={disabled}>
                                     <option>사용</option>
                                     <option>미사용</option>
                                 </select>
@@ -60,7 +61,7 @@ export function DepartureGateEdit({ expanded, onToggle }: DepartureGateEditProps
                         <div>
                             <div className="flex items-center justify-between mb-2">
                                 <h3 className="font-medium">출국장 2</h3>
-                                <select className="border rounded px-3 py-1 text-sm">
+                                <select className="border rounded px-3 py-1 text-sm" disabled={disabled}>
                                     <option>미사용</option>
                                     <option>사용</option>
                                 </select>
@@ -94,7 +95,7 @@ export function DepartureGateEdit({ expanded, onToggle }: DepartureGateEditProps
                         <div>
                             <div className="flex items-center justify-between mb-2">
                                 <h3 className="font-medium">출국장 6</h3>
-                                <select className="border rounded px-3 py-1 text-sm">
+                                <select className="border rounded px-3 py-1 text-sm" disabled={disabled}>
                                     <option>사용</option>
                                     <option>미사용</option>
                                 </select>
@@ -121,7 +122,7 @@ export function DepartureGateEdit({ expanded, onToggle }: DepartureGateEditProps
                     </div>
 
                     <div className="flex justify-center">
-                        <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700">
+                        <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled={disabled}>
                             현재상태 저장
                         </button>
                     </div>

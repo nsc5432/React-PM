@@ -3,9 +3,10 @@ import { useState } from 'react';
 interface FlightPassengerEditProps {
     expanded: boolean;
     onToggle: () => void;
+    disabled?: boolean;
 }
 
-export function FlightPassengerEdit({ expanded, onToggle }: FlightPassengerEditProps) {
+export function FlightPassengerEdit({ expanded, onToggle, disabled = false }: FlightPassengerEditProps) {
     const [editMode, setEditMode] = useState<'ratio' | 'hourly'>('ratio');
 
     return (
@@ -113,34 +114,37 @@ export function FlightPassengerEdit({ expanded, onToggle }: FlightPassengerEditP
                     <div className="space-y-4">
                         {/* Radio buttons for edit mode */}
                         <div className="flex items-center gap-6">
-                            <label className="flex items-center gap-2 cursor-pointer">
+                            <label className={`flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}>
                                 <input
                                     type="radio"
                                     name="editMode"
                                     checked={editMode === 'ratio'}
                                     onChange={() => setEditMode('ratio')}
+                                    disabled={disabled}
                                     className="w-5 h-5"
                                 />
                                 <span className="font-medium">운항편 전체 비율로 수정</span>
                             </label>
                             <div className="flex items-center gap-2">
-                                <button className="border rounded px-2 py-1">‹</button>
+                                <button className="border rounded px-2 py-1" disabled={disabled}>‹</button>
                                 <input
                                     type="text"
                                     value="10%"
                                     className="border rounded px-3 py-1 w-20 text-center"
+                                    disabled={disabled}
                                     readOnly
                                 />
-                                <button className="border rounded px-2 py-1">›</button>
+                                <button className="border rounded px-2 py-1" disabled={disabled}>›</button>
                             </div>
                         </div>
 
-                        <label className="flex items-center gap-2 cursor-pointer">
+                        <label className={`flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}>
                             <input
                                 type="radio"
                                 name="editMode"
                                 checked={editMode === 'hourly'}
                                 onChange={() => setEditMode('hourly')}
+                                disabled={disabled}
                                 className="w-5 h-5"
                             />
                             <span className="font-medium">시간대별 운항편 수정</span>
@@ -172,16 +176,17 @@ export function FlightPassengerEdit({ expanded, onToggle }: FlightPassengerEditP
                                                     </td>
                                                     <td className="border px-4 py-2">
                                                         <div className="flex items-center justify-center gap-2">
-                                                            <button className="border rounded px-2">
+                                                            <button className="border rounded px-2" disabled={disabled}>
                                                                 ‹
                                                             </button>
                                                             <input
                                                                 type="text"
                                                                 value={row.value}
                                                                 className="border rounded px-2 py-1 w-16 text-center"
+                                                                disabled={disabled}
                                                                 readOnly
                                                             />
-                                                            <button className="border rounded px-2">
+                                                            <button className="border rounded px-2" disabled={disabled}>
                                                                 ›
                                                             </button>
                                                         </div>
@@ -243,7 +248,10 @@ export function FlightPassengerEdit({ expanded, onToggle }: FlightPassengerEditP
                         )}
 
                         <div className="flex justify-center pt-4">
-                            <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700">
+                            <button
+                                className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                                disabled={disabled}
+                            >
                                 현재상태 저장
                             </button>
                         </div>

@@ -291,7 +291,7 @@ export default function MonitoringPage() {
                                                 variant="outline"
                                                 size="sm"
                                                 disabled={item.status !== 'completed'}
-                                                onClick={() => navigate('/pm/user-smlt/result')}
+                                                onClick={() => navigate(`/pm/user-smlt/${item.id}`)}
                                                 className="gap-1"
                                             >
                                                 <Eye className="w-4 h-4" />

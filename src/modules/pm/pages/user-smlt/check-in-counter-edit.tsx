@@ -1,9 +1,10 @@
 interface CheckInCounterEditProps {
     expanded: boolean;
     onToggle: () => void;
+    disabled?: boolean;
 }
 
-export function CheckInCounterEdit({ expanded, onToggle }: CheckInCounterEditProps) {
+export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: CheckInCounterEditProps) {
     const counters = Array.from({ length: 18 }, (_, i) => i + 1);
     const airlines = ['OZ', 'KE'];
 
@@ -30,20 +31,22 @@ export function CheckInCounterEdit({ expanded, onToggle }: CheckInCounterEditPro
 
                     {/* Filter */}
                     <div className="flex items-center gap-4 mb-6">
-                        <label className="flex items-center gap-2">
-                            <input type="checkbox" />
+                        <label className={`flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}>
+                            <input type="checkbox" disabled={disabled} />
                             미운영
                         </label>
                         <input
                             type="number"
                             defaultValue="08"
                             className="border rounded px-3 py-1 w-16"
+                            disabled={disabled}
                         />
                         <span>시</span>
                         <input
                             type="number"
                             defaultValue="00"
                             className="border rounded px-3 py-1 w-16"
+                            disabled={disabled}
                         />
                         <span>분</span>
                         <span className="mx-2">~</span>
@@ -51,19 +54,21 @@ export function CheckInCounterEdit({ expanded, onToggle }: CheckInCounterEditPro
                             type="number"
                             defaultValue="20"
                             className="border rounded px-3 py-1 w-16"
+                            disabled={disabled}
                         />
                         <span>시</span>
                         <input
                             type="number"
                             defaultValue="00"
                             className="border rounded px-3 py-1 w-16"
+                            disabled={disabled}
                         />
                         <span>분</span>
-                        <select className="border rounded px-3 py-1 ml-4">
+                        <select className="border rounded px-3 py-1 ml-4" disabled={disabled}>
                             <option>OZ</option>
                             <option>KE</option>
                         </select>
-                        <button className="bg-indigo-600 text-white px-6 py-1 rounded hover:bg-indigo-700">
+                        <button className="bg-indigo-600 text-white px-6 py-1 rounded hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled={disabled}>
                             설정
                         </button>
                     </div>
@@ -145,11 +150,12 @@ export function CheckInCounterEdit({ expanded, onToggle }: CheckInCounterEditPro
                             (gate) => (
                                 <button
                                     key={gate}
+                                    disabled={disabled}
                                     className={`w-10 h-10 rounded ${
                                         gate === 'N'
                                             ? 'bg-red-500 text-white'
                                             : 'bg-blue-400 text-white hover:bg-blue-500'
-                                    }`}
+                                    } disabled:opacity-50 disabled:cursor-not-allowed`}
                                 >
                                     {gate}
                                 </button>
@@ -158,7 +164,7 @@ export function CheckInCounterEdit({ expanded, onToggle }: CheckInCounterEditPro
                     </div>
 
                     <div className="flex justify-center">
-                        <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700">
+                        <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled={disabled}>
                             현재상태 저장
                         </button>
                     </div>

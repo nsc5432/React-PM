@@ -1,9 +1,10 @@
 interface SelfCheckInBagDropEditProps {
     expanded: boolean;
     onToggle: () => void;
+    disabled?: boolean;
 }
 
-export function SelfCheckInBagDropEdit({ expanded, onToggle }: SelfCheckInBagDropEditProps) {
+export function SelfCheckInBagDropEdit({ expanded, onToggle, disabled = false }: SelfCheckInBagDropEditProps) {
     const gates = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'];
 
     return (
@@ -33,8 +34,8 @@ export function SelfCheckInBagDropEdit({ expanded, onToggle }: SelfCheckInBagDro
                         <div className="mb-6">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="font-medium">셀프체크인 키오스크</h3>
-                                <label className="flex items-center gap-2">
-                                    <input type="checkbox" />
+                                <label className={`flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}>
+                                    <input type="checkbox" disabled={disabled} />
                                     미운영
                                 </label>
                             </div>
@@ -62,8 +63,8 @@ export function SelfCheckInBagDropEdit({ expanded, onToggle }: SelfCheckInBagDro
                         <div className="mb-6">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="font-medium">셀프백드롭</h3>
-                                <label className="flex items-center gap-2">
-                                    <input type="checkbox" />
+                                <label className={`flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}>
+                                    <input type="checkbox" disabled={disabled} />
                                     미운영
                                 </label>
                             </div>
@@ -93,6 +94,7 @@ export function SelfCheckInBagDropEdit({ expanded, onToggle }: SelfCheckInBagDro
                         {gates.map((gate) => (
                             <button
                                 key={gate}
+                                disabled={disabled}
                                 className={`w-10 h-10 rounded ${
                                     gate === 'D' || gate === 'E'
                                         ? 'bg-blue-400 text-white'
@@ -101,7 +103,7 @@ export function SelfCheckInBagDropEdit({ expanded, onToggle }: SelfCheckInBagDro
                                           : gate === 'M'
                                             ? 'bg-blue-400 text-white'
                                             : 'bg-gray-300 text-gray-600'
-                                } hover:opacity-80`}
+                                } hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed`}
                             >
                                 {gate}
                             </button>
@@ -109,7 +111,7 @@ export function SelfCheckInBagDropEdit({ expanded, onToggle }: SelfCheckInBagDro
                     </div>
 
                     <div className="flex justify-center">
-                        <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700">
+                        <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled={disabled}>
                             현재상태 저장
                         </button>
                     </div>

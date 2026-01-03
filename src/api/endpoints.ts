@@ -12,4 +12,7 @@ export const API_ENDPOINTS = {
 
     // 타임슬롯 데이터
     TIMESLOT_DATA: '/timeslots',
+
+    // 사용자 정보
+    USER_INFO_BY_KEY: (key: string) => `/users/${key}`,
 } as const;

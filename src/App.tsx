@@ -15,7 +15,9 @@ function App() {
                         <Route path="/" element={<UserSmltPage />} />
                         <Route path="/pm/daily-smlt" element={<DailySmltPage />} />
                         <Route path="/pm/user-smlt" element={<UserSmltPage />} />
+                        <Route path="/pm/user-smlt/:key" element={<UserSmltPage />} />
                         <Route path="/pm/user-smlt/result" element={<UserSmltResultPage />} />
+                        <Route path="/pm/user-smlt/result/:key" element={<UserSmltResultPage />} />
                         <Route path="/pm/monitoring" element={<MonitoringPage />} />
                     </Routes>
                 </div>

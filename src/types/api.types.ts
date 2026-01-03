@@ -60,3 +60,9 @@ export interface ApiError {
     message: string;
     code?: string;
 }
+
+// 사용자 정보 타입
+export interface UserInfo {
+    name: string;        // 이름
+    department: string;  // 부서
+}

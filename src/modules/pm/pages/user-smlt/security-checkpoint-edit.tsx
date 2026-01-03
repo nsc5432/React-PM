@@ -1,9 +1,10 @@
 interface SecurityCheckpointEditProps {
     expanded: boolean;
     onToggle: () => void;
+    disabled?: boolean;
 }
 
-export function SecurityCheckpointEdit({ expanded, onToggle }: SecurityCheckpointEditProps) {
+export function SecurityCheckpointEdit({ expanded, onToggle, disabled = false }: SecurityCheckpointEditProps) {
     const tableData = [
         { selected: false, time: '00 시 00 분 ~ 00 시 00 분', count: '개' },
         { selected: false, time: '08 시 00 분 ~ 20 시 00 분', count: '4 개' },
@@ -51,6 +52,7 @@ export function SecurityCheckpointEdit({ expanded, onToggle }: SecurityCheckpoin
                                             <input
                                                 type="checkbox"
                                                 checked={row.selected}
+                                                disabled={disabled}
                                                 readOnly
                                             />
                                         </td>
@@ -64,6 +66,7 @@ export function SecurityCheckpointEdit({ expanded, onToggle }: SecurityCheckpoin
                                                                 type="text"
                                                                 value={part}
                                                                 className="border rounded px-2 py-1 w-12 text-center bg-blue-100"
+                                                                disabled={disabled}
                                                                 readOnly
                                                             />
                                                         );
@@ -87,10 +90,10 @@ export function SecurityCheckpointEdit({ expanded, onToggle }: SecurityCheckpoin
 
                     {/* Action Buttons */}
                     <div className="flex justify-center gap-4 mb-6">
-                        <button className="bg-blue-400 text-white px-6 py-2 rounded hover:bg-blue-500">
+                        <button className="bg-blue-400 text-white px-6 py-2 rounded hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled={disabled}>
                             추가
                         </button>
-                        <button className="bg-red-400 text-white px-6 py-2 rounded hover:bg-red-500">
+                        <button className="bg-red-400 text-white px-6 py-2 rounded hover:bg-red-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled={disabled}>
                             삭제
                         </button>
                     </div>
@@ -101,11 +104,12 @@ export function SecurityCheckpointEdit({ expanded, onToggle }: SecurityCheckpoin
                             (gate, idx) => (
                                 <button
                                     key={gate}
+                                    disabled={disabled}
                                     className={`px-6 py-2 rounded ${
                                         idx === 3
                                             ? 'bg-red-500 text-white'
                                             : 'bg-blue-400 text-white hover:bg-blue-500'
-                                    }`}
+                                    } disabled:opacity-50 disabled:cursor-not-allowed`}
                                 >
                                     {gate}
                                 </button>
@@ -114,7 +118,7 @@ export function SecurityCheckpointEdit({ expanded, onToggle }: SecurityCheckpoin
                     </div>
 
                     <div className="flex justify-center">
-                        <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700">
+                        <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled={disabled}>
                             현재상태 저장
                         </button>
                     </div>

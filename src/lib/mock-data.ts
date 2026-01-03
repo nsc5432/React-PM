@@ -1647,3 +1647,12 @@ export const getSelfCheckInDataByTime = (timeInMinutes: number): SelfCheckInKios
     const clampedTime = Math.max(240, Math.min(1440, roundedTime));
     return timeBasedSelfCheckInData[clampedTime] || timeBasedSelfCheckInData[600];
 };
+
+// 사용자 정보 Mock Data
+export const userInfoData: Record<string, { name: string; department: string }> = {
+    'user001': { name: '김철수', department: '운영관리팀' },
+    'user002': { name: '이영희', department: '공항운영팀' },
+    'user003': { name: '박민수', department: '여객서비스팀' },
+    'test-key': { name: '홍길동', department: '시스템관리팀' },
+    'default': { name: '관리자', department: '운영본부' },
+};
