@@ -1,3 +1,11 @@
+import { useState } from 'react';
+import { TimeRangeSelector } from '@/components/time-range-selector';
+
+interface TimeRange {
+    start: number;
+    end: number;
+}
+
 interface SelfCheckInBagDropEditProps {
     expanded: boolean;
     onToggle: () => void;
@@ -5,7 +13,18 @@ interface SelfCheckInBagDropEditProps {
 }
 
 export function SelfCheckInBagDropEdit({ expanded, onToggle, disabled = false }: SelfCheckInBagDropEditProps) {
-    const gates = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'];
+    const islands = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'];
+
+    // 아일랜드 선택 상태
+    const [selectedIsland, setSelectedIsland] = useState<string | null>(null);
+
+    // 셀프체크인 키오스크 운영 시간 (초기값: 06:00-18:00)
+    const [kioskRanges, setKioskRanges] = useState<TimeRange[]>([{ start: 6, end: 18 }]);
+    const [kioskNotOperating, setKioskNotOperating] = useState(false);
+
+    // 셀프백드롭 운영 시간 (초기값: 06:00-18:00)
+    const [bagDropRanges, setBagDropRanges] = useState<TimeRange[]>([{ start: 6, end: 18 }]);
+    const [bagDropNotOperating, setBagDropNotOperating] = useState(false);
 
     return (
         <div className="border rounded-lg bg-white">
@@ -25,6 +44,11 @@ export function SelfCheckInBagDropEdit({ expanded, onToggle, disabled = false }:
                     <div className="text-center mb-6">
                         <span className="font-medium text-lg">
                             전체 : 14 <span className="ml-8">운영 : 4</span>
+                            {selectedIsland && (
+                                <span className="ml-8 text-blue-600">
+                                    선택된 아일랜드 : {selectedIsland}
+                                </span>
+                            )}
                         </span>
                     </div>
 
@@ -35,23 +59,21 @@ export function SelfCheckInBagDropEdit({ expanded, onToggle, disabled = false }:
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="font-medium">셀프체크인 키오스크</h3>
                                 <label className={`flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}>
-                                    <input type="checkbox" disabled={disabled} />
+                                    <input
+                                        type="checkbox"
+                                        checked={kioskNotOperating}
+                                        onChange={(e) => setKioskNotOperating(e.target.checked)}
+                                        disabled={disabled}
+                                    />
                                     미운영
                                 </label>
                             </div>
-                            <div className="h-8 bg-white rounded relative mb-2">
-                                <div className="absolute inset-0 flex">
-                                    {Array.from({ length: 24 }, (_, i) => (
-                                        <div
-                                            key={i}
-                                            className={`flex-1 border-r ${
-                                                i >= 6 && i < 18 ? 'bg-green-500' : 'bg-gray-200'
-                                            }`}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="flex justify-between text-xs text-gray-500">
+                            <TimeRangeSelector
+                                ranges={kioskRanges}
+                                onChange={setKioskRanges}
+                                disabled={disabled || kioskNotOperating}
+                            />
+                            <div className="flex justify-between text-xs text-gray-500 mt-2">
                                 <span>04:00</span>
                                 <span>10:00</span>
                                 <span>20:00</span>
@@ -64,23 +86,21 @@ export function SelfCheckInBagDropEdit({ expanded, onToggle, disabled = false }:
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="font-medium">셀프백드롭</h3>
                                 <label className={`flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}>
-                                    <input type="checkbox" disabled={disabled} />
+                                    <input
+                                        type="checkbox"
+                                        checked={bagDropNotOperating}
+                                        onChange={(e) => setBagDropNotOperating(e.target.checked)}
+                                        disabled={disabled}
+                                    />
                                     미운영
                                 </label>
                             </div>
-                            <div className="h-8 bg-white rounded relative mb-2">
-                                <div className="absolute inset-0 flex">
-                                    {Array.from({ length: 24 }, (_, i) => (
-                                        <div
-                                            key={i}
-                                            className={`flex-1 border-r ${
-                                                i >= 6 && i < 18 ? 'bg-green-500' : 'bg-gray-200'
-                                            }`}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="flex justify-between text-xs text-gray-500">
+                            <TimeRangeSelector
+                                ranges={bagDropRanges}
+                                onChange={setBagDropRanges}
+                                disabled={disabled || bagDropNotOperating}
+                            />
+                            <div className="flex justify-between text-xs text-gray-500 mt-2">
                                 <span>04:00</span>
                                 <span>10:00</span>
                                 <span>20:00</span>
@@ -89,23 +109,20 @@ export function SelfCheckInBagDropEdit({ expanded, onToggle, disabled = false }:
                         </div>
                     </div>
 
-                    {/* Gate Selection */}
+                    {/* Island Selection */}
                     <div className="flex items-center justify-center gap-2 mb-6">
-                        {gates.map((gate) => (
+                        {islands.map((island) => (
                             <button
-                                key={gate}
+                                key={island}
                                 disabled={disabled}
-                                className={`w-10 h-10 rounded ${
-                                    gate === 'D' || gate === 'E'
-                                        ? 'bg-blue-400 text-white'
-                                        : gate === 'L'
-                                          ? 'bg-blue-400 text-white'
-                                          : gate === 'M'
-                                            ? 'bg-blue-400 text-white'
-                                            : 'bg-gray-300 text-gray-600'
+                                onClick={() => setSelectedIsland(selectedIsland === island ? null : island)}
+                                className={`w-10 h-10 rounded transition-all ${
+                                    selectedIsland === island
+                                        ? 'bg-blue-600 text-white ring-2 ring-blue-400 ring-offset-2'
+                                        : 'bg-gray-300 text-gray-600'
                                 } hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed`}
                             >
-                                {gate}
+                                {island}
                             </button>
                         ))}
                     </div>

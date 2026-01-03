@@ -17,6 +17,10 @@ const COUNTER_AIRLINES = [
 
 export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: CheckInCounterEditProps) {
     const counters = Array.from({ length: 18 }, (_, i) => i + 1);
+    const islands = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'];
+
+    // 아일랜드 선택 상태
+    const [selectedIsland, setSelectedIsland] = useState<string | null>(null);
 
     // 기본값: 08:00 ~ 20:00
     const defaultStart = new Date();
@@ -84,6 +88,11 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
                     <div className="text-center mb-6">
                         <span className="font-medium text-lg">
                             전체 : 14 <span className="ml-8">운영 : 8</span>
+                            {selectedIsland && (
+                                <span className="ml-8 text-blue-600">
+                                    선택된 아일랜드 : {selectedIsland}
+                                </span>
+                            )}
                         </span>
                     </div>
 
@@ -100,9 +109,6 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
                             <option>OZ</option>
                             <option>KE</option>
                         </select>
-                        <button className="bg-indigo-600 text-white px-6 py-1 rounded hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled={disabled}>
-                            설정
-                        </button>
                     </div>
 
                     {/* Counter Grid */}
@@ -124,8 +130,8 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
                                             onClick={() => handleTopCounterClick(num)}
                                             disabled={disabled}
                                             className={`col-span-1 h-8 text-xs font-medium transition-colors ${isSelected
-                                                    ? 'bg-green-400 hover:bg-green-500'
-                                                    : 'bg-gray-300 hover:bg-gray-400'
+                                                ? 'bg-green-400 hover:bg-green-500'
+                                                : 'bg-gray-300 hover:bg-gray-400'
                                                 } ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                                         >
                                             {airline}
@@ -161,8 +167,8 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
                                             onClick={() => handleBottomCounterClick(num)}
                                             disabled={disabled}
                                             className={`col-span-1 h-8 text-xs font-medium transition-colors ${isSelected
-                                                    ? 'bg-green-400 hover:bg-green-500'
-                                                    : 'bg-gray-300 hover:bg-gray-400'
+                                                ? 'bg-green-400 hover:bg-green-500'
+                                                : 'bg-gray-300 hover:bg-gray-400'
                                                 } ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                                         >
                                             {airline}
@@ -176,22 +182,21 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
                         <TimelinePlayer time={currentTime} onTimeChange={setCurrentTime} />
                     </div>
 
-                    {/* Gate Selection */}
+                    {/* Island Selection */}
                     <div className="flex items-center justify-center gap-2 mb-6">
-                        {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'].map(
-                            (gate) => (
-                                <button
-                                    key={gate}
-                                    disabled={disabled}
-                                    className={`w-10 h-10 rounded ${gate === 'N'
-                                        ? 'bg-red-500 text-white'
-                                        : 'bg-blue-400 text-white hover:bg-blue-500'
-                                        } disabled:opacity-50 disabled:cursor-not-allowed`}
-                                >
-                                    {gate}
-                                </button>
-                            ),
-                        )}
+                        {islands.map((island) => (
+                            <button
+                                key={island}
+                                disabled={disabled}
+                                onClick={() => setSelectedIsland(selectedIsland === island ? null : island)}
+                                className={`w-10 h-10 rounded transition-all ${selectedIsland === island
+                                        ? 'bg-blue-600 text-white ring-2 ring-blue-400 ring-offset-2'
+                                        : 'bg-gray-300 text-gray-600'
+                                    } hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed`}
+                            >
+                                {island}
+                            </button>
+                        ))}
                     </div>
 
                     <div className="flex justify-center">
