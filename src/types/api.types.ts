@@ -101,14 +101,16 @@ export interface CommercialFacilityPosition {
     name: string; // 시설명 (예: "면세점 A")
     facilityType: FacilityType; // 시설 타입
     terminal: Terminal; // 터미널
-    startCoord: GridCoordinate; // 시작 좌표 (예: "M2-05") - 원형 표시 시 메인 위치
+    latitude: number; // 위도 (실제 지리 좌표)
+    longitude: number; // 경도 (실제 지리 좌표)
+    startCoord: GridCoordinate; // 시작 좌표 (예: "M2-05") - 위도/경도에서 자동 계산됨
     endCoord: GridCoordinate; // 끝 좌표 (예: "M3-07") - 사각형 표시 시 사용
     color: string; // 렌더링 색상 (예: "#9333ea")
     area?: number; // 면적 (그리드 셀 개수)
     revenue?: number; // 매출
     description?: string; // 설명
     castSimulationCode?: string; // CAST시뮬레이션코드
-    adjacentFacilityCode?: string; // 어깨시설코드 (위치좌표)
+    adjacentFacilityCode?: string; // 여객시설코드 (위치좌표)
     displayMode?: 'circle' | 'rectangle'; // 표시 방식 (원형 또는 사각형, 기본값: circle)
 }
 

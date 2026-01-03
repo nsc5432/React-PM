@@ -31,7 +31,7 @@ interface SmltSmryRsltProps {
     simulationType?: SimulationType;
 }
 
-const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
+const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsltProps) => {
     // 선택된 탭 상태 (0: 터미널 여객수, 1: 체크인카운터, 2: 출국장, 3: 보안검색대)
     const [selectedTab, setSelectedTab] = useState(0);
 

@@ -16,6 +16,7 @@ import {
 import type { CommercialFacilityPosition, Terminal, FacilityType } from '@/types/api.types';
 import { FACILITY_TYPE_LABELS, FACILITY_TYPE_COLORS } from '@/types/api.types';
 import { useToast } from '@/hooks/use-toast';
+import { gridCoordToLatLng } from '@/lib/grid-utils';
 
 export default function FacilityConfigPage() {
     const { toast } = useToast();
@@ -39,28 +40,44 @@ export default function FacilityConfigPage() {
         }
     }, [terminal]);
 
-    // 시설 이동 핸들러
+    // 시설 이동 핸들러 (그리드 좌표를 위도/경도로 변환하여 저장)
     const handleFacilityMove = (
         facilityId: string,
         newStartCoord: string,
         newEndCoord: string
     ) => {
         setFacilities((prev) =>
-            prev.map((f) =>
-                f.id === facilityId ? { ...f, startCoord: newStartCoord, endCoord: newEndCoord } : f
-            )
+            prev.map((f) => {
+                if (f.id === facilityId) {
+                    // 새로운 그리드 좌표를 위도/경도로 변환
+                    const newLatLng = gridCoordToLatLng(newStartCoord);
+                    return {
+                        ...f,
+                        startCoord: newStartCoord,
+                        endCoord: newEndCoord,
+                        latitude: newLatLng?.latitude ?? f.latitude,
+                        longitude: newLatLng?.longitude ?? f.longitude,
+                    };
+                }
+                return f;
+            })
         );
     };
 
     // 시설 추가 핸들러
     const handleAddFacility = () => {
         const facilityType = selectedFacilityType === 'all' ? 'commercial' : selectedFacilityType;
+        const defaultCoord = 'M2-08';
+        const defaultLatLng = gridCoordToLatLng(defaultCoord);
+
         const newFacility: CommercialFacilityPosition = {
             id: `${facilityType.toUpperCase()}-${Date.now()}`,
             name: `새 ${FACILITY_TYPE_LABELS[facilityType]} ${facilities.length + 1}`,
             facilityType,
             terminal,
-            startCoord: 'M2-08',
+            latitude: defaultLatLng?.latitude ?? 37.4533,
+            longitude: defaultLatLng?.longitude ?? 126.4480,
+            startCoord: defaultCoord,
             endCoord: 'M3-09',
             color: FACILITY_TYPE_COLORS[facilityType],
         };
