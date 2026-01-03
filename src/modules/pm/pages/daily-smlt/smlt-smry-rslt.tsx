@@ -1,5 +1,16 @@
 import { useState } from 'react';
 import type { SimulationType } from './daily-smlt-page';
+import {
+    AirplaneIcon,
+    PeopleIcon,
+    CheckmarkIcon,
+    TableIcon,
+    ShieldIcon,
+    ArrowLeftIcon,
+    ArrowRightIcon,
+    SearchIcon,
+    PlusIcon,
+} from '@/components/icons';
 
 // 차트 데이터 타입 정의
 interface ChartDataPoint {
@@ -315,9 +326,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                             <div
                                 className={`${currentTheme.headerBg} text-white px-8 rounded-xl text-base font-bold shadow-md flex items-center gap-2 h-16 w-37.75`}
                             >
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
-                                </svg>
+                                <AirplaneIcon className="w-5 h-5" />
                                 운항계획
                             </div>
                             {simulationType === 'user' && (
@@ -337,13 +346,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                             {/* 총 운항편 */}
                             <div className="flex items-center gap-2.5 flex-1">
                                 <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center shrink-0">
-                                    <svg
-                                        className="w-4 h-4 text-white"
-                                        fill="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
-                                    </svg>
+                                    <AirplaneIcon className="w-4 h-4 text-white" />
                                 </div>
                                 <div className="flex justify-center items-baseline gap-2">
                                     <span className="text-[11px] text-gray-500 font-medium leading-tight relative -top-0.5">
@@ -362,13 +365,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                             {/* 총여객수 */}
                             <div className="flex items-center gap-2.5 flex-1">
                                 <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
-                                    <svg
-                                        className="w-4 h-4 text-white"
-                                        fill="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-                                    </svg>
+                                    <PeopleIcon className="w-4 h-4 text-white" />
                                 </div>
                                 <div className="flex justify-center items-baseline gap-2">
                                     <span className="text-[11px] text-gray-500 font-medium leading-tight relative -top-0.5">
@@ -418,19 +415,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                             <button
                                 className={`bg-linear-to-r ${currentTheme.gradient} text-white px-4 lg:px-6 py-1.5 rounded-md font-bold text-xs shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-1.5 shrink-0`}
                             >
-                                <svg
-                                    className="w-3.5 h-3.5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                    />
-                                </svg>
+                                <SearchIcon className="w-3.5 h-3.5" />
                                 SEARCH
                             </button>
                         </div>
@@ -461,26 +446,10 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                     : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-lg'
                             }`}
                         >
-                            {index === 0 && (
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                                </svg>
-                            )}
-                            {index === 1 && (
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" />
-                                </svg>
-                            )}
-                            {index === 2 && (
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
-                                </svg>
-                            )}
-                            {index === 3 && (
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-                                </svg>
-                            )}
+                            {index === 0 && <CheckmarkIcon className="w-5 h-5" />}
+                            {index === 1 && <TableIcon className="w-5 h-5" />}
+                            {index === 2 && <AirplaneIcon className="w-5 h-5" />}
+                            {index === 3 && <ShieldIcon className="w-5 h-5" />}
                             {tab}
                         </button>
                     ))}
@@ -673,29 +642,11 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                         className={`${currentTheme.simulationHeaderBg[tIdx]} flex justify-between items-center px-6 py-4 font-bold shadow-md`}
                                     >
                                         <div className="flex items-center gap-2 text-white">
-                                            <svg
-                                                className="w-5 h-5"
-                                                fill="currentColor"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
-                                            </svg>
+                                            <AirplaneIcon className="w-5 h-5" />
                                             <span className="text-lg">시뮬레이션 요약</span>
                                         </div>
                                         <button className="w-8 h-8 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all flex items-center justify-center">
-                                            <svg
-                                                className="w-5 h-5"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M12 4v16m8-8H4"
-                                                />
-                                            </svg>
+                                            <PlusIcon className="w-5 h-5" />
                                         </button>
                                     </div>
                                     <div className="p-6">
@@ -705,13 +656,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                 <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center border-2 border-blue-200 shadow-sm">
                                                     <div className="flex items-center justify-center gap-2 mb-3">
                                                         <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
-                                                            <svg
-                                                                className="w-4 h-4 text-white"
-                                                                fill="currentColor"
-                                                                viewBox="0 0 24 24"
-                                                            >
-                                                                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
-                                                            </svg>
+                                                            <AirplaneIcon className="w-4 h-4 text-white" />
                                                         </div>
                                                         <div className="text-xs text-gray-600 font-medium">
                                                             운항편수
@@ -733,13 +678,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                 <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
                                                     <div className="flex items-center justify-center gap-2 mb-3">
                                                         <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                                                            <svg
-                                                                className="w-4 h-4 text-white"
-                                                                fill="currentColor"
-                                                                viewBox="0 0 24 24"
-                                                            >
-                                                                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-                                                            </svg>
+                                                            <PeopleIcon className="w-4 h-4 text-white" />
                                                         </div>
                                                         <div className="text-xs text-gray-600 font-medium">
                                                             여객수
@@ -895,19 +834,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                     }}
                                                     className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                                 >
-                                                    <svg
-                                                        className="w-3 h-3 text-blue-500"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            strokeWidth={3}
-                                                            d="M15 19l-7-7 7-7"
-                                                        />
-                                                    </svg>
+                                                    <ArrowLeftIcon className="w-3 h-3 text-blue-500" />
                                                 </button>
                                                 <button
                                                     onClick={() => {
@@ -919,19 +846,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                     }}
                                                     className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                                 >
-                                                    <svg
-                                                        className="w-3 h-3 text-blue-500"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            strokeWidth={3}
-                                                            d="M9 5l7 7-7 7"
-                                                        />
-                                                    </svg>
+                                                    <ArrowRightIcon className="w-3 h-3 text-blue-500" />
                                                 </button>
 
                                                 <div className="overflow-hidden">
@@ -1048,19 +963,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                     }}
                                                     className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                                 >
-                                                    <svg
-                                                        className="w-3 h-3 text-blue-500"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            strokeWidth={3}
-                                                            d="M15 19l-7-7 7-7"
-                                                        />
-                                                    </svg>
+                                                    <ArrowLeftIcon className="w-3 h-3 text-blue-500" />
                                                 </button>
                                                 <button
                                                     onClick={() => {
@@ -1073,19 +976,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                     }}
                                                     className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                                 >
-                                                    <svg
-                                                        className="w-3 h-3 text-blue-500"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            strokeWidth={3}
-                                                            d="M9 5l7 7-7 7"
-                                                        />
-                                                    </svg>
+                                                    <ArrowRightIcon className="w-3 h-3 text-blue-500" />
                                                 </button>
 
                                                 <div className="overflow-hidden">
@@ -1379,29 +1270,11 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                     className={`${currentTheme.simulationHeaderBg[1]} flex justify-between items-center px-6 py-4 font-bold shadow-md`}
                                 >
                                     <div className="flex items-center gap-2 text-white">
-                                        <svg
-                                            className="w-5 h-5"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
-                                        </svg>
+                                        <AirplaneIcon className="w-5 h-5" />
                                         <span className="text-lg">시뮬레이션 요약</span>
                                     </div>
                                     <button className="w-8 h-8 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all flex items-center justify-center">
-                                        <svg
-                                            className="w-5 h-5"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M12 4v16m8-8H4"
-                                            />
-                                        </svg>
+                                        <PlusIcon className="w-5 h-5" />
                                     </button>
                                 </div>
                                 <div className="p-6">
@@ -1411,13 +1284,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                             <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center border-2 border-blue-200 shadow-sm">
                                                 <div className="flex items-center justify-center gap-2 mb-3">
                                                     <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
-                                                        <svg
-                                                            className="w-4 h-4 text-white"
-                                                            fill="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
-                                                        </svg>
+                                                        <AirplaneIcon className="w-4 h-4 text-white" />
                                                     </div>
                                                     <div className="text-xs text-gray-600 font-medium">
                                                         운항편수
@@ -1439,13 +1306,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                             <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
                                                 <div className="flex items-center justify-center gap-2 mb-3">
                                                     <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                                                        <svg
-                                                            className="w-4 h-4 text-white"
-                                                            fill="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-                                                        </svg>
+                                                        <PeopleIcon className="w-4 h-4 text-white" />
                                                     </div>
                                                     <div className="text-xs text-gray-600 font-medium">
                                                         여객수
@@ -1601,19 +1462,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                 }}
                                                 className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                             >
-                                                <svg
-                                                    className="w-3 h-3 text-blue-500"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth={3}
-                                                        d="M15 19l-7-7 7-7"
-                                                    />
-                                                </svg>
+                                                <ArrowLeftIcon className="w-3 h-3 text-blue-500" />
                                             </button>
                                             <button
                                                 onClick={() => {
@@ -1625,19 +1474,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                 }}
                                                 className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                             >
-                                                <svg
-                                                    className="w-3 h-3 text-blue-500"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth={3}
-                                                        d="M9 5l7 7-7 7"
-                                                    />
-                                                </svg>
+                                                <ArrowRightIcon className="w-3 h-3 text-blue-500" />
                                             </button>
 
                                             <div className="overflow-hidden">
@@ -1740,19 +1577,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                 }}
                                                 className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                             >
-                                                <svg
-                                                    className="w-3 h-3 text-blue-500"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth={3}
-                                                        d="M15 19l-7-7 7-7"
-                                                    />
-                                                </svg>
+                                                <ArrowLeftIcon className="w-3 h-3 text-blue-500" />
                                             </button>
                                             <button
                                                 onClick={() => {
@@ -1764,19 +1589,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                 }}
                                                 className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                             >
-                                                <svg
-                                                    className="w-3 h-3 text-blue-500"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth={3}
-                                                        d="M9 5l7 7-7 7"
-                                                    />
-                                                </svg>
+                                                <ArrowRightIcon className="w-3 h-3 text-blue-500" />
                                             </button>
 
                                             <div className="overflow-hidden">

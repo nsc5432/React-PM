@@ -1,0 +1,9 @@
+export { default as AirplaneIcon } from '@/assets/svg/airplane-icon.svg?react';
+export { default as PeopleIcon } from '@/assets/svg/people-icon.svg?react';
+export { default as CheckmarkIcon } from '@/assets/svg/checkmark-icon.svg?react';
+export { default as TableIcon } from '@/assets/svg/table-icon.svg?react';
+export { default as ShieldIcon } from '@/assets/svg/shield-icon.svg?react';
+export { default as ArrowLeftIcon } from '@/assets/svg/arrow-left-icon.svg?react';
+export { default as ArrowRightIcon } from '@/assets/svg/arrow-right-icon.svg?react';
+export { default as SearchIcon } from '@/assets/svg/search-icon.svg?react';
+export { default as PlusIcon } from '@/assets/svg/plus-icon.svg?react';
