@@ -12,6 +12,7 @@ import { SelfCheckInBagDropEdit } from './config-edit/self-checkin-bagdrop-edit'
 import { DepartureGateEdit } from './config-edit/departure-gate-edit';
 import { SecurityCheckpointEdit } from './config-edit/security-checkpoint-edit';
 import { AuthorInfo } from '@/components/author-info';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 
 export default function UserSmltConfigPage() {
     const navigate = useNavigate();
@@ -144,14 +145,20 @@ export default function UserSmltConfigPage() {
                             <div className="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
                         </button>
                     ) : (
-                        <button
-                            onClick={() => navigate('/pm/monitoring')}
-                            className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-16 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:from-indigo-700 hover:to-indigo-800 active:scale-[0.98] transition-all duration-200"
-                        >
-                            <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                            시뮬레이션 수행
-                            <div className="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
-                        </button>
+                        <ConfirmDialog
+                            trigger={
+                                <button className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-16 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:from-indigo-700 hover:to-indigo-800 active:scale-[0.98] transition-all duration-200">
+                                    <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                                    시뮬레이션 수행
+                                    <div className="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
+                                </button>
+                            }
+                            title="시뮬레이션 수행"
+                            description="시뮬레이션을 수행하시겠습니까?"
+                            confirmText="수행"
+                            cancelText="취소"
+                            onConfirm={() => navigate('/pm/monitoring')}
+                        />
                     )}
                 </div>
             </div>

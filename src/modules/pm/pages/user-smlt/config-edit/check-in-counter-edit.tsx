@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { TimeRangePicker } from '@/components/ui/time-range-picker';
 import type { TimeRange } from '@/components/ui/time-range-picker';
 import { TimelinePlayer } from '@/modules/pm/shared/components/timeline-player';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 
 interface CheckInCounterEditProps {
     expanded: boolean;
@@ -200,9 +201,21 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
                     </div>
 
                     <div className="flex justify-center">
-                        <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled={disabled}>
-                            현재상태 저장
-                        </button>
+                        <ConfirmDialog
+                            trigger={
+                                <button className="bg-indigo-600 text-white px-8 py-2 rounded hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled={disabled}>
+                                    현재상태 저장
+                                </button>
+                            }
+                            title="저장 확인"
+                            description="현재 상태를 저장하시겠습니까?"
+                            confirmText="저장"
+                            cancelText="취소"
+                            onConfirm={() => {
+                                // TODO: 실제 저장 로직 구현
+                                console.log('저장됨');
+                            }}
+                        />
                     </div>
                 </div>
             )}
