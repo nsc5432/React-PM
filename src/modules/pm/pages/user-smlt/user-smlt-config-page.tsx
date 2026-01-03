@@ -6,11 +6,11 @@ import { Calendar as CalendarIcon, Building2, Download, Play, BarChart3 } from '
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
-import { FlightPassengerEdit } from './edit/flight-passenger-edit';
-import { CheckInCounterEdit } from './edit/check-in-counter-edit';
-import { SelfCheckInBagDropEdit } from './edit/self-checkin-bagdrop-edit';
-import { DepartureGateEdit } from './edit/departure-gate-edit';
-import { SecurityCheckpointEdit } from './edit/security-checkpoint-edit';
+import { FlightPassengerEdit } from './config-edit/flight-passenger-edit';
+import { CheckInCounterEdit } from './config-edit/check-in-counter-edit';
+import { SelfCheckInBagDropEdit } from './config-edit/self-checkin-bagdrop-edit';
+import { DepartureGateEdit } from './config-edit/departure-gate-edit';
+import { SecurityCheckpointEdit } from './config-edit/security-checkpoint-edit';
 import { AuthorInfo } from '@/components/author-info';
 
 export default function UserSmltConfigPage() {
