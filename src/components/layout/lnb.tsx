@@ -15,13 +15,13 @@ const menuItems: MenuItem[] = [
     {
         id: 'daily',
         label: '기준시뮬레이션',
-        path: '/pm/daily-smlt',
+        path: '/pm/daily-smlt/result',
         icon: <BarChart3 className="h-5 w-5" />,
     },
     {
         id: 'user',
         label: '사용자시뮬레이션',
-        path: '/pm/user-smlt',
+        path: '/pm/user-smlt/config',
         icon: <User className="h-5 w-5" />,
     },
     {

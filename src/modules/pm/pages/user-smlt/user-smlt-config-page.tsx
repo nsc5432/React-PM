@@ -6,14 +6,14 @@ import { Calendar as CalendarIcon, Building2, Download, Play, BarChart3 } from '
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
-import { FlightPassengerEdit } from './flight-passenger-edit';
-import { CheckInCounterEdit } from './check-in-counter-edit';
-import { SelfCheckInBagDropEdit } from './self-checkin-bagdrop-edit';
-import { DepartureGateEdit } from './departure-gate-edit';
-import { SecurityCheckpointEdit } from './security-checkpoint-edit';
+import { FlightPassengerEdit } from './edit/flight-passenger-edit';
+import { CheckInCounterEdit } from './edit/check-in-counter-edit';
+import { SelfCheckInBagDropEdit } from './edit/self-checkin-bagdrop-edit';
+import { DepartureGateEdit } from './edit/departure-gate-edit';
+import { SecurityCheckpointEdit } from './edit/security-checkpoint-edit';
 import { AuthorInfo } from '@/components/author-info';
 
-export default function UserSmltPage() {
+export default function UserSmltConfigPage() {
     const navigate = useNavigate();
     const { key } = useParams<{ key: string }>();
     const isReadOnly = Boolean(key); // key가 있으면 읽기 전용 모드

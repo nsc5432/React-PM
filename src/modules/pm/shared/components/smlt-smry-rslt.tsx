@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { SimulationType } from './daily-smlt-page';
+import type { SimulationType } from './airport-dashboard';
 import {
     AirplaneIcon,
     PeopleIcon,

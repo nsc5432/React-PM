@@ -205,10 +205,10 @@ export default function MonitoringPage() {
                                     <div key={step.id} className="flex flex-col items-center">
                                         <div
                                             className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold text-sm mb-2 transition-all ${status === 'completed'
-                                                    ? 'bg-green-500 text-white shadow-lg'
-                                                    : status === 'current'
-                                                        ? 'bg-blue-500 text-white shadow-lg ring-4 ring-blue-200 animate-pulse'
-                                                        : 'bg-slate-200 text-slate-500'
+                                                ? 'bg-green-500 text-white shadow-lg'
+                                                : status === 'current'
+                                                    ? 'bg-blue-500 text-white shadow-lg ring-4 ring-blue-200 animate-pulse'
+                                                    : 'bg-slate-200 text-slate-500'
                                                 }`}
                                         >
                                             {status === 'completed' ? (
@@ -219,10 +219,10 @@ export default function MonitoringPage() {
                                         </div>
                                         <div
                                             className={`text-xs text-center font-medium ${status === 'current'
-                                                    ? 'text-blue-600'
-                                                    : status === 'completed'
-                                                        ? 'text-green-600'
-                                                        : 'text-slate-500'
+                                                ? 'text-blue-600'
+                                                : status === 'completed'
+                                                    ? 'text-green-600'
+                                                    : 'text-slate-500'
                                                 }`}
                                         >
                                             {step.label}
@@ -291,7 +291,7 @@ export default function MonitoringPage() {
                                                 variant="outline"
                                                 size="sm"
                                                 disabled={item.status !== 'completed'}
-                                                onClick={() => navigate(`/pm/user-smlt/${item.id}`)}
+                                                onClick={() => navigate(`/pm/user-smlt/config/${item.id}`)}
                                                 className="gap-1"
                                             >
                                                 <Eye className="w-4 h-4" />
