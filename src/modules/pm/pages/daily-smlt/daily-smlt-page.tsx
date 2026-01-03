@@ -14,7 +14,6 @@ import { MapView as DepMapView } from '@/modules/pm/pages/daily-smlt/dep/map-vie
 import { TableView as DepTableView } from '@/modules/pm/pages/daily-smlt/dep/table-view';
 import { ChartView as DepChartView } from '@/modules/pm/pages/daily-smlt/dep/chart-view';
 import SmltSmryRslt from './smlt-smry-rslt';
-import { AuthorInfo } from '@/components/author-info';
 
 type ViewMode = 'map' | 'table' | 'chart';
 export type SimulationType = 'daily' | 'user';
@@ -24,10 +23,9 @@ interface AirportDashboardProps {
     simulationKey?: string;
 }
 
-export default function AirportDashboard({ simulationType = 'daily', simulationKey }: AirportDashboardProps) {
+export default function AirportDashboard({ simulationType = 'daily' }: AirportDashboardProps) {
     // simulationKey는 특정 시뮬레이션 결과를 조회할 때 사용됩니다
     // 추후 API 연동 시 이 값을 사용하여 해당 시뮬레이션의 결과를 불러올 수 있습니다
-    console.log('Simulation Key:', simulationKey);
     const [activeTab, setActiveTab] = useState('summary');
     const [viewMode, setViewMode] = useState<ViewMode>('map');
     const [slfChknViewMode, setSlfChknViewMode] = useState<ViewMode>('map');
@@ -35,15 +33,9 @@ export default function AirportDashboard({ simulationType = 'daily', simulationK
 
     return (
         <div className="min-h-screen flex flex-col">
-            <DashboardTabs value={activeTab} onValueChange={setActiveTab} />
-
-            {/* Author Info - 사용자 시뮬레이션 모드일 때만 표시 */}
-            {simulationType === 'user' && simulationKey && (
-                <div className="px-6 pt-4">
-                    <AuthorInfo userKey={simulationKey} />
-                </div>
-            )}
-
+            <div className="flex items-center justify-between px-6 pt-4 pb-2">
+                <DashboardTabs value={activeTab} onValueChange={setActiveTab} />
+            </div>
             <main className="flex-1 overflow-auto">
                 {activeTab === 'summary' && <SmltSmryRslt simulationType={simulationType} />}
                 {activeTab === 'map' && <MapView />}

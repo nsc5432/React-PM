@@ -36,9 +36,11 @@ export default function UserSmltPage() {
     return (
         <div className="min-h-screen bg-gray-50 p-6">
             <div className="max-w-7xl mx-auto space-y-4">
-                {/* Author Info - 읽기 전용 모드일 때만 표시 */}
-                {isReadOnly && <AuthorInfo userKey={key || null} />}
-
+                {isReadOnly && (
+                    <div className="ml-auto mb-4">
+                        <AuthorInfo userKey={key || null} />
+                    </div>
+                )}
                 {/* Header */}
                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                     <div className="flex items-center justify-between">
@@ -95,7 +97,6 @@ export default function UserSmltPage() {
                         </button>
                     </div>
                 </div>
-
                 {/* Flight Passenger Edit Section */}
                 <FlightPassengerEdit
                     expanded={expandedSections.flightPassenger}

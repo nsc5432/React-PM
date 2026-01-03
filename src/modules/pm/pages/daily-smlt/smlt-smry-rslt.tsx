@@ -329,16 +329,6 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                 <AirplaneIcon className="w-5 h-5" />
                                 운항계획
                             </div>
-                            {simulationType === 'user' && (
-                                <div className="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded text-center shadow-sm">
-                                    사용자 시뮬레이션
-                                </div>
-                            )}
-                            {simulationType === 'daily' && (
-                                <div className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded text-center shadow-sm">
-                                    기준 시뮬레이션
-                                </div>
-                            )}
                         </div>
 
                         {/* 2. 통계 박스: 총 운항편 + 총여객수 */}
