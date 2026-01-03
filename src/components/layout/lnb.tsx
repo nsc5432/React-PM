@@ -86,7 +86,7 @@ export function Lnb() {
             style={{ width: isCollapsed ? '64px' : `${width}px` }}
         >
             {/* Header */}
-            <div className="flex items-center justify-between h-14 px-4 border-b">
+            <div className="flex items-center justify-between h-12 px-4 border-b">
                 {!isCollapsed && (
                     <h2 className="text-sm font-semibold text-foreground truncate">PM 예측관리</h2>
                 )}
