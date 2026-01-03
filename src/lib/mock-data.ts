@@ -1656,3 +1656,242 @@ export const userInfoData: Record<string, { name: string; department: string }> 
     'test-key': { name: '홍길동', department: '시스템관리팀' },
     'default': { name: '관리자', department: '운영본부' },
 };
+
+// 상업시설 위치 Mock Data
+import type { CommercialFacilityPosition, Terminal } from '@/types/api.types';
+
+export const mockCommercialFacilities: CommercialFacilityPosition[] = [
+    // T1 터미널 상업시설
+    {
+        id: 'COMM-001',
+        name: '면세점 A',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        startCoord: 'M2-05',
+        endCoord: 'M3-05',
+        color: '#9333ea',
+        area: 2,
+        revenue: 15000000,
+        description: '화장품 전문 면세점',
+    },
+    {
+        id: 'COMM-002',
+        name: '편의점 GS25',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        startCoord: 'E2-12',
+        endCoord: 'E2-13',
+        color: '#9333ea',
+        area: 2,
+        revenue: 3500000,
+        description: '24시간 편의점',
+    },
+    {
+        id: 'COMM-003',
+        name: '스타벅스',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        startCoord: 'E4-12',
+        endCoord: 'E4-13',
+        color: '#9333ea',
+        area: 2,
+        revenue: 5200000,
+        description: '커피 전문점',
+    },
+    {
+        id: 'COMM-004',
+        name: '한식당 비빔밥',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        startCoord: 'M4-12',
+        endCoord: 'M4-13',
+        color: '#9333ea',
+        area: 2,
+        revenue: 6800000,
+        description: '한식 레스토랑',
+    },
+    {
+        id: 'COMM-005',
+        name: '패션잡화 ABC',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        startCoord: 'W2-12',
+        endCoord: 'W2-13',
+        color: '#9333ea',
+        area: 2,
+        revenue: 4200000,
+        description: '의류 및 잡화',
+    },
+    {
+        id: 'COMM-006',
+        name: '북카페',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        startCoord: 'W4-14',
+        endCoord: 'W4-15',
+        color: '#9333ea',
+        area: 2,
+        revenue: 2800000,
+        description: '서적 및 카페',
+    },
+    {
+        id: 'COMM-007',
+        name: '면세점 B',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        startCoord: 'E1-14',
+        endCoord: 'E2-15',
+        color: '#9333ea',
+        area: 4,
+        revenue: 18500000,
+        description: '종합 면세점',
+    },
+    {
+        id: 'COMM-008',
+        name: '푸드코트',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        startCoord: 'M1-16',
+        endCoord: 'M2-16',
+        color: '#9333ea',
+        area: 2,
+        revenue: 9200000,
+        description: '다양한 음식점',
+    },
+    {
+        id: 'COMM-009',
+        name: '약국',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        startCoord: 'E3-17',
+        endCoord: 'E4-17',
+        color: '#9333ea',
+        area: 2,
+        revenue: 1500000,
+        description: '의약품 및 건강용품',
+    },
+    {
+        id: 'COMM-010',
+        name: '상업시설 E',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        startCoord: 'M3-17',
+        endCoord: 'M3-17',
+        color: '#9333ea',
+        area: 1,
+        revenue: 800000,
+        description: '기타 상업시설',
+    },
+    // T2 터미널 상업시설
+    {
+        id: 'COMM-101',
+        name: '면세점 T2-A',
+        facilityType: 'commercial',
+        terminal: 'T2',
+        startCoord: 'M1-04',
+        endCoord: 'M2-05',
+        color: '#9333ea',
+        area: 4,
+        revenue: 22000000,
+        description: '명품 전문 면세점',
+    },
+    {
+        id: 'COMM-102',
+        name: '베이커리',
+        facilityType: 'commercial',
+        terminal: 'T2',
+        startCoord: 'E1-14',
+        endCoord: 'E1-14',
+        color: '#9333ea',
+        area: 1,
+        revenue: 3200000,
+        description: '베이커리 카페',
+    },
+    {
+        id: 'COMM-103',
+        name: '편의점 CU',
+        facilityType: 'commercial',
+        terminal: 'T2',
+        startCoord: 'E3-16',
+        endCoord: 'E3-17',
+        color: '#9333ea',
+        area: 2,
+        revenue: 3800000,
+        description: '편의점',
+    },
+    {
+        id: 'COMM-104',
+        name: '레스토랑 델리셔스',
+        facilityType: 'commercial',
+        terminal: 'T2',
+        startCoord: 'M4-14',
+        endCoord: 'M4-15',
+        color: '#9333ea',
+        area: 2,
+        revenue: 7500000,
+        description: '양식 레스토랑',
+    },
+    {
+        id: 'COMM-105',
+        name: '기념품점',
+        facilityType: 'commercial',
+        terminal: 'T2',
+        startCoord: 'W1-16',
+        endCoord: 'W2-17',
+        color: '#9333ea',
+        area: 4,
+        revenue: 5600000,
+        description: '한국 기념품',
+    },
+    {
+        id: 'COMM-106',
+        name: '카페 투썸플레이스',
+        facilityType: 'commercial',
+        terminal: 'T2',
+        startCoord: 'W4-16',
+        endCoord: 'W4-16',
+        color: '#9333ea',
+        area: 1,
+        revenue: 4100000,
+        description: '커피 전문점',
+    },
+];
+
+/**
+ * 터미널별 상업시설 조회
+ * @param terminal - 터미널 (T1 또는 T2), 미지정시 전체
+ * @returns 상업시설 배열
+ */
+export const getCommercialFacilities = (terminal?: Terminal): CommercialFacilityPosition[] => {
+    if (terminal) {
+        return mockCommercialFacilities.filter((f) => f.terminal === terminal);
+    }
+    return mockCommercialFacilities;
+};
+
+/**
+ * 상업시설 저장 (localStorage)
+ * @param facilities - 저장할 상업시설 배열
+ */
+export const saveCommercialFacilities = (facilities: CommercialFacilityPosition[]): void => {
+    try {
+        localStorage.setItem('commercialFacilities', JSON.stringify(facilities));
+        console.log('상업시설 저장 완료:', facilities.length, '개');
+    } catch (error) {
+        console.error('상업시설 저장 실패:', error);
+    }
+};
+
+/**
+ * localStorage에서 상업시설 불러오기
+ * @returns 저장된 상업시설 배열 또는 null
+ */
+export const loadCommercialFacilitiesFromStorage = (): CommercialFacilityPosition[] | null => {
+    try {
+        const stored = localStorage.getItem('commercialFacilities');
+        return stored ? JSON.parse(stored) : null;
+    } catch (error) {
+        console.error('상업시설 불러오기 실패:', error);
+        return null;
+    }
+};

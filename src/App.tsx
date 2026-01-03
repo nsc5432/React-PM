@@ -4,6 +4,7 @@ import UserSmltConfigPage from './modules/pm/pages/user-smlt/user-smlt-config-pa
 import UserSmltResultPage from './modules/pm/pages/user-smlt/user-smlt-result-page';
 import MonitoringPage from './modules/pm/pages/monitoring/monitoring-page';
 import { Lnb } from './components/layout/lnb';
+import FacilityConfigPage from './modules/pm/pages/facility-config/facility-config-page';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                         <Route path="/pm/user-smlt/result" element={<UserSmltResultPage />} />
                         <Route path="/pm/user-smlt/result/:key" element={<UserSmltResultPage />} />
                         <Route path="/pm/monitoring" element={<MonitoringPage />} />
+                        <Route path="/pm/facility-config" element={<FacilityConfigPage />} />
                     </Routes>
                 </div>
             </div>
