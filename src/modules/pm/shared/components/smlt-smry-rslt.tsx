@@ -483,19 +483,6 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                         <h3 className="text-sm font-bold text-gray-700">
                                             {chartData.title}
                                         </h3>
-                                        <div className="text-center border-2 border-gray-200 px-4 py-2 rounded-xl bg-linear-to-br from-gray-50 to-white shadow-sm">
-                                            <div className="text-gray-500 text-[10px] font-medium">
-                                                모델설명
-                                            </div>
-                                            <div className="text-[10px] text-gray-400">
-                                                (R² Square)
-                                            </div>
-                                            <h3
-                                                className={`text-2xl font-bold ${currentTheme.accentText}`}
-                                            >
-                                                {chartData.r2Score}%
-                                            </h3>
-                                        </div>
                                     </div>
                                     <div className="flex items-center justify-end mb-3 gap-4 text-xs">
                                         <div className="flex items-center gap-2">
@@ -1111,19 +1098,6 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                         <h3 className="text-sm font-bold text-gray-700">
                                             {chartData.title}
                                         </h3>
-                                        <div className="text-center border-2 border-gray-200 px-4 py-2 rounded-xl bg-linear-to-br from-gray-50 to-white shadow-sm">
-                                            <div className="text-gray-500 text-[10px] font-medium">
-                                                모델설명력
-                                            </div>
-                                            <div className="text-[10px] text-gray-400">
-                                                (R² Square)
-                                            </div>
-                                            <h3
-                                                className={`text-2xl font-bold ${currentTheme.accentText}`}
-                                            >
-                                                {chartData.r2Score}%
-                                            </h3>
-                                        </div>
                                     </div>
                                     <div className="flex items-center justify-end mb-3 gap-4 text-xs">
                                         <div className="flex items-center gap-2">
@@ -1483,7 +1457,7 @@ const SmltSmryRslt = ({ simulationType = 'daily' }: SmltSmryRsltProps) => {
                                                             혼잡 4개 or 원활
                                                         </span>
                                                     </div>
-                                                    <div className="p-5 text-center bg-white">
+                                                    <div className="px-1 py-5 text-center bg-white">
                                                         <div className="text-gray-600 font-semibold text-sm mb-1">
                                                             {checkinOptions[t2CheckinIndex].name}
                                                         </div>
