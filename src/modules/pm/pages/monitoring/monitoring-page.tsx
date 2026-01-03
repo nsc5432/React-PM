@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { CheckCircle2, Clock, PlayCircle, Loader2 } from 'lucide-react';
+import { CheckCircle2, Clock, PlayCircle, Loader2, Eye } from 'lucide-react';
 
 interface SimulationHistory {
     id: string;
@@ -40,7 +42,8 @@ const steps: StepInfo[] = [
 ];
 
 export default function MonitoringPage() {
-    const [currentStep, setCurrentStep] = useState<SimulationStep>('counter-simulation');
+    const navigate = useNavigate();
+    const [currentStep] = useState<SimulationStep>('counter-simulation');
     const [progress, setProgress] = useState(52);
     const [baseDate] = useState('2024-10-18');
 
@@ -201,13 +204,12 @@ export default function MonitoringPage() {
                                 return (
                                     <div key={step.id} className="flex flex-col items-center">
                                         <div
-                                            className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold text-sm mb-2 transition-all ${
-                                                status === 'completed'
+                                            className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold text-sm mb-2 transition-all ${status === 'completed'
                                                     ? 'bg-green-500 text-white shadow-lg'
                                                     : status === 'current'
-                                                      ? 'bg-blue-500 text-white shadow-lg ring-4 ring-blue-200 animate-pulse'
-                                                      : 'bg-slate-200 text-slate-500'
-                                            }`}
+                                                        ? 'bg-blue-500 text-white shadow-lg ring-4 ring-blue-200 animate-pulse'
+                                                        : 'bg-slate-200 text-slate-500'
+                                                }`}
                                         >
                                             {status === 'completed' ? (
                                                 <CheckCircle2 className="w-6 h-6" />
@@ -216,13 +218,12 @@ export default function MonitoringPage() {
                                             )}
                                         </div>
                                         <div
-                                            className={`text-xs text-center font-medium ${
-                                                status === 'current'
+                                            className={`text-xs text-center font-medium ${status === 'current'
                                                     ? 'text-blue-600'
                                                     : status === 'completed'
-                                                      ? 'text-green-600'
-                                                      : 'text-slate-500'
-                                            }`}
+                                                        ? 'text-green-600'
+                                                        : 'text-slate-500'
+                                                }`}
                                         >
                                             {step.label}
                                         </div>
@@ -257,6 +258,7 @@ export default function MonitoringPage() {
                                     <TableHead className="font-semibold">종료 시간</TableHead>
                                     <TableHead className="font-semibold">소요 시간</TableHead>
                                     <TableHead className="font-semibold text-center">상태</TableHead>
+                                    <TableHead className="font-semibold text-center">결과보기</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -283,6 +285,18 @@ export default function MonitoringPage() {
                                         </TableCell>
                                         <TableCell className="text-center">
                                             {getStatusBadge(item.status)}
+                                        </TableCell>
+                                        <TableCell className="text-center">
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                disabled={item.status !== 'completed'}
+                                                onClick={() => navigate('/pm/user-smlt/result')}
+                                                className="gap-1"
+                                            >
+                                                <Eye className="w-4 h-4" />
+                                                보기
+                                            </Button>
                                         </TableCell>
                                     </TableRow>
                                 ))}
