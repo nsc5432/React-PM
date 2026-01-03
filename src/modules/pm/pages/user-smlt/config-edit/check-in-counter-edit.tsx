@@ -1,3 +1,7 @@
+import { useState } from 'react';
+import { TimeRangePicker } from '@/components/ui/time-range-picker';
+import type { TimeRange } from '@/components/ui/time-range-picker';
+
 interface CheckInCounterEditProps {
     expanded: boolean;
     onToggle: () => void;
@@ -7,6 +11,17 @@ interface CheckInCounterEditProps {
 export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: CheckInCounterEditProps) {
     const counters = Array.from({ length: 18 }, (_, i) => i + 1);
     const airlines = ['OZ', 'KE'];
+
+    // 기본값: 08:00 ~ 20:00
+    const defaultStart = new Date();
+    defaultStart.setHours(8, 0, 0, 0);
+    const defaultEnd = new Date();
+    defaultEnd.setHours(20, 0, 0, 0);
+
+    const [timeRange, setTimeRange] = useState<TimeRange>({
+        start: defaultStart,
+        end: defaultEnd,
+    });
 
     return (
         <div className="border rounded-lg bg-white">
@@ -35,35 +50,13 @@ export function CheckInCounterEdit({ expanded, onToggle, disabled = false }: Che
                             <input type="checkbox" disabled={disabled} />
                             미운영
                         </label>
-                        <input
-                            type="number"
-                            defaultValue="08"
-                            className="border rounded px-3 py-1 w-16"
+                        <TimeRangePicker
+                            value={timeRange}
+                            onChange={setTimeRange}
                             disabled={disabled}
+                            startPlaceholder="시작 시간"
+                            endPlaceholder="종료 시간"
                         />
-                        <span>시</span>
-                        <input
-                            type="number"
-                            defaultValue="00"
-                            className="border rounded px-3 py-1 w-16"
-                            disabled={disabled}
-                        />
-                        <span>분</span>
-                        <span className="mx-2">~</span>
-                        <input
-                            type="number"
-                            defaultValue="20"
-                            className="border rounded px-3 py-1 w-16"
-                            disabled={disabled}
-                        />
-                        <span>시</span>
-                        <input
-                            type="number"
-                            defaultValue="00"
-                            className="border rounded px-3 py-1 w-16"
-                            disabled={disabled}
-                        />
-                        <span>분</span>
                         <select className="border rounded px-3 py-1 ml-4" disabled={disabled}>
                             <option>OZ</option>
                             <option>KE</option>
