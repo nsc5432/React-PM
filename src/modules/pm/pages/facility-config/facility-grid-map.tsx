@@ -1,4 +1,4 @@
-import { useRef, useState, Fragment } from 'react';
+import { useRef, useState, Fragment, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import {
     GRID_COLUMNS,
@@ -8,7 +8,7 @@ import {
     FACILITY_TYPE_LABELS,
     type FacilityType,
 } from '@/types/api.types';
-import { createCoordinate } from '@/lib/grid-utils';
+import { createCoordinate, latLngToPixelPosition } from '@/lib/grid-utils';
 
 interface Props {
     facilities: CommercialFacilityPosition[];
@@ -38,14 +38,14 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
     };
 
     // 드롭
-    const handleDrop = (e: React.DragEvent) => {
+    const handleDrop = (e: React.DragEvent, coord: string) => {
         e.preventDefault();
 
         const facilityId = e.dataTransfer.getData('facilityId');
-        if (!facilityId || !dragOverCoord) return;
+        if (!facilityId || !coord) return;
 
-        // 새 위치로 이동
-        onFacilityMove(facilityId, dragOverCoord, dragOverCoord);
+        // 드롭된 좌표로 시설 이동
+        onFacilityMove(facilityId, coord, coord);
 
         setDraggedFacilityId(null);
         setDragOverCoord(null);
@@ -57,9 +57,25 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
         setDragOverCoord(null);
     };
 
-    // 특정 좌표에 시설이 있는지 확인
-    const getFacilityAtCoord = (coord: string) => {
-        return facilities.find((f) => f.startCoord === coord);
+    // 시설물들의 위치 정보를 계산 (셀 좌표 + 셀 내부 오프셋)
+    const facilityPositions = useMemo(() => {
+        return facilities.map((facility) => {
+            const position = latLngToPixelPosition(
+                facility.latitude,
+                facility.longitude
+            );
+            return {
+                facility,
+                position,
+            };
+        });
+    }, [facilities]);
+
+    // 특정 좌표에 있는 시설들 찾기
+    const getFacilitiesAtCoord = (coord: string) => {
+        return facilityPositions
+            .filter((fp) => fp.position?.coord === coord)
+            .map((fp) => fp);
     };
 
     return (
@@ -102,8 +118,8 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
                                     const coord = createCoordinate(colIndex, rowIndex);
                                     if (!coord) return null;
 
-                                    const facility = getFacilityAtCoord(coord);
-                                    const isDragging = draggedFacilityId === facility?.id;
+                                    // 이 셀에 있는 시설들 찾기
+                                    const facilitiesInCell = getFacilitiesAtCoord(coord);
                                     const isHighlighted = dragOverCoord === coord;
 
                                     return (
@@ -113,29 +129,42 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
                                                 isHighlighted ? 'bg-blue-100' : ''
                                             }`}
                                             onDragOver={(e) => handleDragOver(e, coord)}
-                                            onDrop={handleDrop}
+                                            onDrop={(e) => handleDrop(e, coord)}
                                         >
-                                            {/* 시설 원형 마커 */}
-                                            {facility && (
-                                                <div
-                                                    draggable
-                                                    onDragStart={(e) =>
-                                                        handleDragStart(e, facility.id)
-                                                    }
-                                                    onDragEnd={handleDragEnd}
-                                                    className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full cursor-move transition-all ${
-                                                        isDragging ? 'opacity-50 scale-110' : ''
-                                                    }`}
-                                                    style={{
-                                                        width: `${CIRCLE_RADIUS * 2}px`,
-                                                        height: `${CIRCLE_RADIUS * 2}px`,
-                                                        backgroundColor: facility.color,
-                                                        border: `2px solid ${facility.color}`,
-                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                                                    }}
-                                                    title={`${facility.name} (${facility.startCoord})`}
-                                                />
-                                            )}
+                                            {/* 이 셀에 있는 모든 시설 원형 마커 렌더링 */}
+                                            {facilitiesInCell.map(({ facility, position }) => {
+                                                if (!position) return null;
+
+                                                const isDragging = draggedFacilityId === facility.id;
+                                                // 셀 내부의 정확한 위치 계산 (0-1 비율을 백분율로 변환)
+                                                const leftPercent = position.offsetX * 100;
+                                                const topPercent = position.offsetY * 100;
+
+                                                return (
+                                                    <div
+                                                        key={facility.id}
+                                                        draggable
+                                                        onDragStart={(e) =>
+                                                            handleDragStart(e, facility.id)
+                                                        }
+                                                        onDragEnd={handleDragEnd}
+                                                        className={`absolute rounded-full cursor-move transition-all ${
+                                                            isDragging ? 'opacity-50 scale-110' : ''
+                                                        }`}
+                                                        style={{
+                                                            left: `${leftPercent}%`,
+                                                            top: `${topPercent}%`,
+                                                            transform: 'translate(-50%, -50%)',
+                                                            width: `${CIRCLE_RADIUS * 2}px`,
+                                                            height: `${CIRCLE_RADIUS * 2}px`,
+                                                            backgroundColor: facility.color,
+                                                            border: `2px solid ${facility.color}`,
+                                                            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                                                        }}
+                                                        title={`${facility.name}\n위도: ${facility.latitude.toFixed(4)}\n경도: ${facility.longitude.toFixed(4)}\n좌표: ${coord}`}
+                                                    />
+                                                );
+                                            })}
                                         </div>
                                     );
                                 })}

@@ -1650,23 +1650,28 @@ export const getSelfCheckInDataByTime = (timeInMinutes: number): SelfCheckInKios
 
 // 사용자 정보 Mock Data
 export const userInfoData: Record<string, { name: string; department: string }> = {
-    'user001': { name: '김철수', department: '운영관리팀' },
-    'user002': { name: '이영희', department: '공항운영팀' },
-    'user003': { name: '박민수', department: '여객서비스팀' },
+    user001: { name: '김철수', department: '운영관리팀' },
+    user002: { name: '이영희', department: '공항운영팀' },
+    user003: { name: '박민수', department: '여객서비스팀' },
     'test-key': { name: '홍길동', department: '시스템관리팀' },
-    'default': { name: '관리자', department: '운영본부' },
+    default: { name: '관리자', department: '운영본부' },
 };
 
 // 상업시설 위치 Mock Data
 import type { CommercialFacilityPosition, Terminal } from '@/types/api.types';
+import { GRID_COLUMNS } from '@/types/api.types';
 
-export const mockCommercialFacilities: CommercialFacilityPosition[] = [
+// 실제 위도/경도를 포함한 Mock 데이터 (셀 내부의 다양한 위치에 배치)
+// 일부 시설은 위도/경도를 가지고, 일부는 getCommercialFacilities에서 자동 계산됨
+export const mockCommercialFacilities: (CommercialFacilityPosition | Omit<CommercialFacilityPosition, 'latitude' | 'longitude'>)[] = [
     // T1 터미널 상업시설
     {
         id: 'COMM-001',
         name: '면세점 A',
         facilityType: 'commercial',
         terminal: 'T1',
+        latitude: 37.4587, // M2-05 셀 내부 왼쪽 상단 영역
+        longitude: 126.4492,
         startCoord: 'M2-05',
         endCoord: 'M3-05',
         color: '#9333ea',
@@ -1679,6 +1684,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '편의점 GS25',
         facilityType: 'commercial',
         terminal: 'T1',
+        latitude: 37.4530, // E2-12 셀 내부 오른쪽 하단 영역
+        longitude: 126.4562,
         startCoord: 'E2-12',
         endCoord: 'E2-13',
         color: '#9333ea',
@@ -1691,6 +1698,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '스타벅스',
         facilityType: 'commercial',
         terminal: 'T1',
+        latitude: 37.4528, // E4-12 셀 내부 중앙 약간 왼쪽
+        longitude: 126.4548,
         startCoord: 'E4-12',
         endCoord: 'E4-13',
         color: '#9333ea',
@@ -1703,6 +1712,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '한식당 비빔밥',
         facilityType: 'commercial',
         terminal: 'T1',
+        latitude: 37.4532, // M4-12 셀 내부 오른쪽 상단
+        longitude: 126.4458,
         startCoord: 'M4-12',
         endCoord: 'M4-13',
         color: '#9333ea',
@@ -1715,6 +1726,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '패션잡화 ABC',
         facilityType: 'commercial',
         terminal: 'T1',
+        latitude: 37.4529, // W2-12 셀 내부 왼쪽 하단
+        longitude: 126.4420,
         startCoord: 'W2-12',
         endCoord: 'W2-13',
         color: '#9333ea',
@@ -1727,6 +1740,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '북카페',
         facilityType: 'commercial',
         terminal: 'T1',
+        latitude: 37.4517, // W4-14 셀 내부 중앙 약간 오른쪽
+        longitude: 126.4395,
         startCoord: 'W4-14',
         endCoord: 'W4-15',
         color: '#9333ea',
@@ -1739,6 +1754,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '면세점 B',
         facilityType: 'commercial',
         terminal: 'T1',
+        latitude: 37.4518, // E1-14 셀 내부 가장자리
+        longitude: 126.4575,
         startCoord: 'E1-14',
         endCoord: 'E2-15',
         color: '#9333ea',
@@ -1751,6 +1768,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '푸드코트',
         facilityType: 'commercial',
         terminal: 'T1',
+        latitude: 37.4502, // M1-16 셀 내부 중앙 하단
+        longitude: 126.4505,
         startCoord: 'M1-16',
         endCoord: 'M2-16',
         color: '#9333ea',
@@ -1763,6 +1782,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '약국',
         facilityType: 'commercial',
         terminal: 'T1',
+        latitude: 37.4448, // E3-17 셀 하단 가장자리
+        longitude: 126.4555,
         startCoord: 'E3-17',
         endCoord: 'E4-17',
         color: '#9333ea',
@@ -1775,6 +1796,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '상업시설 E',
         facilityType: 'commercial',
         terminal: 'T1',
+        latitude: 37.4452, // M3-17 셀 왼쪽 하단 구석
+        longitude: 126.4475,
         startCoord: 'M3-17',
         endCoord: 'M3-17',
         color: '#9333ea',
@@ -1788,6 +1811,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '면세점 T2-A',
         facilityType: 'commercial',
         terminal: 'T2',
+        latitude: 37.4585, // M1-04 셀 상단 왼쪽
+        longitude: 126.4508,
         startCoord: 'M1-04',
         endCoord: 'M2-05',
         color: '#9333ea',
@@ -1800,6 +1825,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '베이커리',
         facilityType: 'commercial',
         terminal: 'T2',
+        latitude: 37.4468, // E1-14 셀 오른쪽 상단
+        longitude: 126.4578,
         startCoord: 'E1-14',
         endCoord: 'E1-14',
         color: '#9333ea',
@@ -1812,6 +1839,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '편의점 CU',
         facilityType: 'commercial',
         terminal: 'T2',
+        latitude: 37.4455, // E3-16 셀 왼쪽 중앙
+        longitude: 126.4550,
         startCoord: 'E3-16',
         endCoord: 'E3-17',
         color: '#9333ea',
@@ -1824,6 +1853,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '레스토랑 델리셔스',
         facilityType: 'commercial',
         terminal: 'T2',
+        latitude: 37.4472, // M4-14 셀 오른쪽 하단
+        longitude: 126.4465,
         startCoord: 'M4-14',
         endCoord: 'M4-15',
         color: '#9333ea',
@@ -1836,6 +1867,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '기념품점',
         facilityType: 'commercial',
         terminal: 'T2',
+        latitude: 37.4450, // W1-16 셀 중앙 하단
+        longitude: 126.4425,
         startCoord: 'W1-16',
         endCoord: 'W2-17',
         color: '#9333ea',
@@ -1848,6 +1881,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '카페 투썸플레이스',
         facilityType: 'commercial',
         terminal: 'T2',
+        latitude: 37.4458, // W4-16 셀 왼쪽 가장자리
+        longitude: 126.4390,
         startCoord: 'W4-16',
         endCoord: 'W4-16',
         color: '#9333ea',
@@ -1862,6 +1897,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '체크인카운터 A',
         facilityType: 'checkin',
         terminal: 'T1',
+        latitude: 37.4598, // E3-03 셀 오른쪽 상단
+        longitude: 126.4552,
         startCoord: 'E3-03',
         endCoord: 'E3-03',
         color: '#EAB308',
@@ -1872,6 +1909,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '체크인카운터 B',
         facilityType: 'checkin',
         terminal: 'T1',
+        latitude: 37.4475, // E2-14 셀 왼쪽 중앙
+        longitude: 126.4565,
         startCoord: 'E2-14',
         endCoord: 'E2-14',
         color: '#EAB308',
@@ -1882,6 +1921,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '체크인카운터 C',
         facilityType: 'checkin',
         terminal: 'T1',
+        latitude: 37.4460, // E4-16 셀 오른쪽 하단
+        longitude: 126.4545,
         startCoord: 'E4-16',
         endCoord: 'E4-16',
         color: '#EAB308',
@@ -1894,6 +1935,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '셀프체크인 A',
         facilityType: 'selfcheckin',
         terminal: 'T1',
+        latitude: 37.4449, // E2-17 셀 상단 중앙
+        longitude: 126.4568,
         startCoord: 'E2-17',
         endCoord: 'E2-17',
         color: '#9CA3AF',
@@ -1904,6 +1947,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '셀프체크인 B',
         facilityType: 'selfcheckin',
         terminal: 'T1',
+        latitude: 37.4478, // E4-14 셀 왼쪽 하단
+        longitude: 126.4542,
         startCoord: 'E4-14',
         endCoord: 'E4-14',
         color: '#9CA3AF',
@@ -1914,6 +1959,8 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
         name: '셀프체크인 C',
         facilityType: 'selfcheckin',
         terminal: 'T1',
+        latitude: 37.4470, // W1-14 셀 오른쪽 가장자리
+        longitude: 126.4432,
         startCoord: 'W1-14',
         endCoord: 'W1-14',
         color: '#9CA3AF',
@@ -2027,15 +2074,64 @@ export const mockCommercialFacilities: CommercialFacilityPosition[] = [
 
 /**
  * 터미널별 상업시설 조회
+ * latitude/longitude가 없는 경우 startCoord를 기반으로 자동 계산
  * @param terminal - 터미널 (T1 또는 T2), 미지정시 전체
- * @returns 상업시설 배열
+ * @returns 상업시설 배열 (위도/경도 포함)
  */
 export const getCommercialFacilities = (terminal?: Terminal): CommercialFacilityPosition[] => {
-    if (terminal) {
-        return mockCommercialFacilities.filter((f) => f.terminal === terminal);
-    }
-    return mockCommercialFacilities;
+    const facilities = terminal
+        ? mockCommercialFacilities.filter((f) => f.terminal === terminal)
+        : mockCommercialFacilities;
+
+    // latitude/longitude가 없는 시설만 자동 계산
+    return facilities.map((facility) => {
+        // 이미 위도/경도가 있으면 그대로 사용
+        if ('latitude' in facility && 'longitude' in facility) {
+            return facility as CommercialFacilityPosition;
+        }
+
+        // 없으면 startCoord를 기반으로 계산 (셀의 중앙점)
+        const latLng = gridCoordToLatLngHelper(facility.startCoord);
+        return {
+            ...facility,
+            latitude: latLng?.latitude ?? 37.4533,
+            longitude: latLng?.longitude ?? 126.4480,
+        } as CommercialFacilityPosition;
+    });
 };
+
+// gridCoordToLatLng를 여기서 직접 구현 (순환 참조 방지)
+function gridCoordToLatLngHelper(coord: string): { latitude: number; longitude: number } | null {
+    // 좌표 파싱
+    const match = coord.match(/^([EMWH][1-4])-(\d{2})$/);
+    if (!match) return null;
+
+    const [, colLabel, rowLabel] = match;
+    const col = GRID_COLUMNS.indexOf(colLabel as (typeof GRID_COLUMNS)[number]);
+    const row = parseInt(rowLabel, 10) - 1;
+
+    if (col === -1 || row < 0 || row >= 17) return null;
+
+    // 공항 범위 상수
+    const AIRPORT_BOUNDS = {
+        minLatitude: 37.4446,
+        maxLatitude: 37.462,
+        minLongitude: 126.438,
+        maxLongitude: 126.458,
+    };
+
+    // 셀의 중앙점 계산
+    const longitudeNormalized = (col + 0.5) / GRID_COLUMNS.length;
+    const latitudeNormalized = (row + 0.5) / 17;
+
+    const longitudeRange = AIRPORT_BOUNDS.maxLongitude - AIRPORT_BOUNDS.minLongitude;
+    const latitudeRange = AIRPORT_BOUNDS.maxLatitude - AIRPORT_BOUNDS.minLatitude;
+
+    const longitude = AIRPORT_BOUNDS.maxLongitude - longitudeNormalized * longitudeRange;
+    const latitude = AIRPORT_BOUNDS.maxLatitude - latitudeNormalized * latitudeRange;
+
+    return { latitude, longitude };
+}
 
 /**
  * 상업시설 저장 (localStorage)
