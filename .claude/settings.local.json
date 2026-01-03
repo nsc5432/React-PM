@@ -28,7 +28,8 @@
       "Bash(netstat:*)",
       "Bash(taskkill:*)",
       "Bash(xcopy:*)",
-      "Bash(copy publicsvg*.svg srcassetssvg)"
+      "Bash(copy publicsvg*.svg srcassetssvg)",
+      "Bash(tree:*)"
     ]
   }
 }
