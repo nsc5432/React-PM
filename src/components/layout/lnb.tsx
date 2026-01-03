@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, BarChart3, User, MonitorPlay, UserCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -37,6 +37,7 @@ export function Lnb() {
     const [width, setWidth] = useState(256); // 초기값 w-64 = 256px
     const [isResizing, setIsResizing] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
     const sidebarRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
@@ -86,24 +87,18 @@ export function Lnb() {
             style={{ width: isCollapsed ? '64px' : `${width}px` }}
         >
             {/* Header */}
-            <div className="flex items-center justify-between h-12 px-4 border-b">
-                {!isCollapsed && (
-                    <h2 className="text-sm font-semibold text-foreground truncate">PM 예측관리</h2>
-                )}
+            <div className="flex items-center h-12 px-4 border-b gap-2">
                 <button
-                    onClick={() => setIsCollapsed(!isCollapsed)}
-                    className={cn(
-                        'flex items-center justify-center h-8 w-8 rounded-md hover:bg-accent transition-colors',
-                        isCollapsed && 'mx-auto',
-                    )}
-                    aria-label={isCollapsed ? '메뉴 펼치기' : '메뉴 접기'}
+                    onClick={() => navigate(-1)}
+                    className="flex items-center justify-center h-8 w-8 rounded-md hover:bg-accent transition-colors shrink-0"
+                    aria-label="뒤로가기"
+                    title="뒤로가기"
                 >
-                    {isCollapsed ? (
-                        <ChevronRight className="h-4 w-4" />
-                    ) : (
-                        <ChevronLeft className="h-4 w-4" />
-                    )}
+                    <ChevronLeft className="h-4 w-4" />
                 </button>
+                {!isCollapsed && (
+                    <h2 className="text-sm font-semibold text-foreground truncate flex-1">PM 예측관리</h2>
+                )}
             </div>
 
             {/* Navigation Menu */}
@@ -179,6 +174,20 @@ export function Lnb() {
             >
                 <div className="absolute top-0 right-0 w-1 h-full bg-transparent group-hover:bg-primary/50" />
             </div>
+
+            {/* Collapse/Expand Toggle Button */}
+            <button
+                onClick={() => setIsCollapsed(!isCollapsed)}
+                className="absolute top-1/2 -right-3 -translate-y-1/2 flex items-center justify-center h-6 w-6 rounded-full bg-background border border-border shadow-sm hover:bg-accent transition-colors z-10"
+                aria-label={isCollapsed ? '메뉴 펼치기' : '메뉴 접기'}
+                title={isCollapsed ? '메뉴 펼치기' : '메뉴 접기'}
+            >
+                {isCollapsed ? (
+                    <ChevronRight className="h-3 w-3" />
+                ) : (
+                    <ChevronLeft className="h-3 w-3" />
+                )}
+            </button>
         </aside>
     );
 }
