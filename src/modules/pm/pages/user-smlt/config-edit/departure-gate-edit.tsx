@@ -1,4 +1,18 @@
+import { useState } from 'react';
+import { TimeRangeSelector } from '@/components/time-range-selector';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+
+interface TimeRange {
+    start: number;
+    end: number;
+}
+
+interface GateData {
+    id: number;
+    name: string;
+    isOperating: boolean;
+    ranges: TimeRange[];
+}
 
 interface DepartureGateEditProps {
     expanded: boolean;
@@ -7,6 +21,33 @@ interface DepartureGateEditProps {
 }
 
 export function DepartureGateEdit({ expanded, onToggle, disabled = false }: DepartureGateEditProps) {
+    // 6개의 출국장 상태 관리 (초기값: 06:00-18:00)
+    const [gates, setGates] = useState<GateData[]>([
+        { id: 1, name: '출국장 1', isOperating: true, ranges: [{ start: 6, end: 18 }] },
+        { id: 2, name: '출국장 2', isOperating: false, ranges: [{ start: 6, end: 18 }] },
+        { id: 3, name: '출국장 3', isOperating: true, ranges: [{ start: 6, end: 18 }] },
+        { id: 4, name: '출국장 4', isOperating: true, ranges: [{ start: 6, end: 18 }] },
+        { id: 5, name: '출국장 5', isOperating: true, ranges: [{ start: 6, end: 18 }] },
+        { id: 6, name: '출국장 6', isOperating: false, ranges: [{ start: 6, end: 18 }] },
+    ]);
+
+    // 특정 게이트의 운영 상태 변경
+    const handleGateOperatingChange = (gateId: number, isOperating: boolean) => {
+        setGates((prev) =>
+            prev.map((gate) => (gate.id === gateId ? { ...gate, isOperating } : gate))
+        );
+    };
+
+    // 특정 게이트의 시간 범위 변경
+    const handleGateRangesChange = (gateId: number, ranges: TimeRange[]) => {
+        setGates((prev) =>
+            prev.map((gate) => (gate.id === gateId ? { ...gate, ranges } : gate))
+        );
+    };
+
+    // 운영 중인 게이트 수 계산
+    const operatingCount = gates.filter((gate) => gate.isOperating).length;
+
     return (
         <div className="border rounded-lg bg-white">
             <button
@@ -24,103 +65,41 @@ export function DepartureGateEdit({ expanded, onToggle, disabled = false }: Depa
                     {/* Stats */}
                     <div className="text-center mb-6">
                         <span className="font-medium text-lg">
-                            전체 : 6 <span className="ml-8">운영 : 4</span>
+                            전체 : {gates.length} <span className="ml-8">운영 : {operatingCount}</span>
                         </span>
                     </div>
 
                     {/* Gate Timeline Visualizations */}
                     <div className="border rounded-lg p-6 bg-gray-50 mb-6 space-y-6">
-                        {/* Gate 1 */}
-                        <div>
-                            <div className="flex items-center justify-between mb-2">
-                                <h3 className="font-medium">출국장 1</h3>
-                                <select className="border rounded px-3 py-1 text-sm" disabled={disabled}>
-                                    <option>사용</option>
-                                    <option>미사용</option>
-                                </select>
-                            </div>
-                            <div className="h-8 bg-white rounded relative mb-2">
-                                <div className="absolute inset-0 flex">
-                                    {Array.from({ length: 24 }, (_, i) => (
-                                        <div
-                                            key={i}
-                                            className={`flex-1 border-r ${
-                                                i >= 5 && i < 17 ? 'bg-green-500' : 'bg-gray-200'
-                                            }`}
+                        {gates.map((gate) => (
+                            <div key={gate.id}>
+                                <div className="flex items-center justify-between mb-4">
+                                    <h3 className="font-medium">{gate.name}</h3>
+                                    <label className={`flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}>
+                                        <input
+                                            type="checkbox"
+                                            checked={!gate.isOperating}
+                                            onChange={(e) =>
+                                                handleGateOperatingChange(gate.id, !e.target.checked)
+                                            }
+                                            disabled={disabled}
                                         />
-                                    ))}
+                                        미운영
+                                    </label>
+                                </div>
+                                <TimeRangeSelector
+                                    ranges={gate.ranges}
+                                    onChange={(ranges) => handleGateRangesChange(gate.id, ranges)}
+                                    disabled={disabled || !gate.isOperating}
+                                />
+                                <div className="flex justify-between text-xs text-gray-500 mt-2">
+                                    <span>04:00</span>
+                                    <span>10:00</span>
+                                    <span>20:00</span>
+                                    <span>02:00</span>
                                 </div>
                             </div>
-                            <div className="flex justify-between text-xs text-gray-500">
-                                <span>04:00</span>
-                                <span>10:00</span>
-                                <span>20:00</span>
-                                <span>02:00</span>
-                            </div>
-                        </div>
-
-                        {/* Gate 2 */}
-                        <div>
-                            <div className="flex items-center justify-between mb-2">
-                                <h3 className="font-medium">출국장 2</h3>
-                                <select className="border rounded px-3 py-1 text-sm" disabled={disabled}>
-                                    <option>미사용</option>
-                                    <option>사용</option>
-                                </select>
-                            </div>
-                            <div className="h-8 bg-white rounded relative mb-2">
-                                <div className="absolute inset-0 flex">
-                                    {Array.from({ length: 24 }, (_, i) => (
-                                        <div
-                                            key={i}
-                                            className={`flex-1 border-r ${
-                                                i >= 5 && i < 17 ? 'bg-green-500' : 'bg-gray-200'
-                                            }`}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="flex justify-between text-xs text-gray-500">
-                                <span>04:00</span>
-                                <span>10:00</span>
-                                <span>20:00</span>
-                                <span>02:00</span>
-                            </div>
-                        </div>
-
-                        {/* Dots indicating more gates */}
-                        <div className="text-center text-gray-400">
-                            •<br />•<br />•
-                        </div>
-
-                        {/* Gate 6 */}
-                        <div>
-                            <div className="flex items-center justify-between mb-2">
-                                <h3 className="font-medium">출국장 6</h3>
-                                <select className="border rounded px-3 py-1 text-sm" disabled={disabled}>
-                                    <option>사용</option>
-                                    <option>미사용</option>
-                                </select>
-                            </div>
-                            <div className="h-8 bg-white rounded relative mb-2">
-                                <div className="absolute inset-0 flex">
-                                    {Array.from({ length: 24 }, (_, i) => (
-                                        <div
-                                            key={i}
-                                            className={`flex-1 border-r ${
-                                                i >= 5 && i < 17 ? 'bg-green-500' : 'bg-gray-200'
-                                            }`}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="flex justify-between text-xs text-gray-500">
-                                <span>04:00</span>
-                                <span>10:00</span>
-                                <span>20:00</span>
-                                <span>02:00</span>
-                            </div>
-                        </div>
+                        ))}
                     </div>
 
                     <div className="flex justify-center">
@@ -136,7 +115,7 @@ export function DepartureGateEdit({ expanded, onToggle, disabled = false }: Depa
                             cancelText="취소"
                             onConfirm={() => {
                                 // TODO: 실제 저장 로직 구현
-                                console.log('저장됨');
+                                console.log('저장됨', gates);
                             }}
                         />
                     </div>
