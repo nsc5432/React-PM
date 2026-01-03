@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, BarChart3, User, MonitorPlay, UserCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, BarChart3, User, MonitorPlay, UserCircle, MapPin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface MenuItem {
@@ -29,6 +29,12 @@ const menuItems: MenuItem[] = [
         label: '시뮬레이션 모니터링',
         path: '/pm/monitoring',
         icon: <MonitorPlay className="h-5 w-5" />,
+    },
+    {
+        id: 'facility-config',
+        label: '시설물 매핑',
+        path: '/pm/facility-config',
+        icon: <MapPin className="h-5 w-5" />,
     },
 ];
 

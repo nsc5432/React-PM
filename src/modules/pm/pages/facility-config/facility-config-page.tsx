@@ -13,14 +13,21 @@ import {
     saveCommercialFacilities,
     loadCommercialFacilitiesFromStorage,
 } from '@/lib/mock-data';
-import type { CommercialFacilityPosition, Terminal } from '@/types/api.types';
+import type { CommercialFacilityPosition, Terminal, FacilityType } from '@/types/api.types';
+import { FACILITY_TYPE_LABELS, FACILITY_TYPE_COLORS } from '@/types/api.types';
 import { useToast } from '@/hooks/use-toast';
 
 export default function FacilityConfigPage() {
     const { toast } = useToast();
     const [date, setDate] = useState<Date>(new Date(2024, 9, 18));
     const [terminal, setTerminal] = useState<Terminal>('T1');
+    const [selectedFacilityType, setSelectedFacilityType] = useState<FacilityType | 'all'>('all');
     const [facilities, setFacilities] = useState<CommercialFacilityPosition[]>([]);
+
+    // 필터링된 시설 목록
+    const filteredFacilities = selectedFacilityType === 'all'
+        ? facilities
+        : facilities.filter((f) => f.facilityType === selectedFacilityType);
 
     // 초기 데이터 로드
     useEffect(() => {
@@ -47,14 +54,15 @@ export default function FacilityConfigPage() {
 
     // 시설 추가 핸들러
     const handleAddFacility = () => {
+        const facilityType = selectedFacilityType === 'all' ? 'commercial' : selectedFacilityType;
         const newFacility: CommercialFacilityPosition = {
-            id: `COMM-${Date.now()}`,
-            name: `새 시설 ${facilities.length + 1}`,
-            facilityType: 'commercial',
+            id: `${facilityType.toUpperCase()}-${Date.now()}`,
+            name: `새 ${FACILITY_TYPE_LABELS[facilityType]} ${facilities.length + 1}`,
+            facilityType,
             terminal,
             startCoord: 'M2-08',
             endCoord: 'M3-09',
-            color: '#9333ea',
+            color: FACILITY_TYPE_COLORS[facilityType],
         };
         setFacilities((prev) => [...prev, newFacility]);
         toast({
@@ -126,67 +134,93 @@ export default function FacilityConfigPage() {
             <div className="max-w-7xl mx-auto space-y-6">
                 {/* 헤더 */}
                 <Card className="p-6">
-                    <div className="flex items-center justify-between">
-                        {/* 왼쪽: 날짜 및 터미널 선택 */}
-                        <div className="flex items-center gap-6">
-                            {/* 날짜 선택 */}
-                            <div className="flex items-center gap-3">
-                                <label className="flex items-center gap-2 text-sm font-semibold">
-                                    기준일자
-                                </label>
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <Button variant="outline" className="w-52 justify-start">
-                                            <CalendarIcon className="mr-2 h-4 w-4" />
-                                            {format(date, 'yyyy-MM-dd', { locale: ko })}
-                                        </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent align="start" className="w-auto p-0">
-                                        <Calendar
-                                            mode="single"
-                                            selected={date}
-                                            onSelect={(d) => d && setDate(d)}
-                                            locale={ko}
-                                        />
-                                    </PopoverContent>
-                                </Popover>
-                            </div>
+                    <div className="space-y-4">
+                        {/* 첫 번째 줄: 날짜, 터미널, 조회 */}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-6">
+                                {/* 날짜 선택 */}
+                                <div className="flex items-center gap-3">
+                                    <label className="text-sm font-semibold whitespace-nowrap">
+                                        기준일자
+                                    </label>
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                            <Button variant="outline" className="w-52 justify-start">
+                                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                                {format(date, 'yyyy-MM-dd', { locale: ko })}
+                                            </Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent align="start" className="w-auto p-0">
+                                            <Calendar
+                                                mode="single"
+                                                selected={date}
+                                                onSelect={(d) => d && setDate(d)}
+                                                locale={ko}
+                                            />
+                                        </PopoverContent>
+                                    </Popover>
+                                </div>
 
-                            {/* 터미널 선택 */}
-                            <div className="flex items-center gap-3">
-                                <label className="flex items-center gap-2 text-sm font-semibold">
-                                    <Building2 className="h-4 w-4" />
-                                    터미널선택
-                                </label>
-                                <div className="flex gap-2">
-                                    <Button
-                                        variant={terminal === 'T1' ? 'default' : 'outline'}
-                                        onClick={() => setTerminal('T1')}
-                                        className="w-28"
-                                    >
-                                        T1 터미널
-                                    </Button>
-                                    <Button
-                                        variant={terminal === 'T2' ? 'default' : 'outline'}
-                                        onClick={() => setTerminal('T2')}
-                                        className="w-28"
-                                    >
-                                        T2 터미널
-                                    </Button>
+                                {/* 터미널 선택 */}
+                                <div className="flex items-center gap-3">
+                                    <label className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
+                                        <Building2 className="h-4 w-4" />
+                                        터미널선택
+                                    </label>
+                                    <div className="flex gap-2">
+                                        <Button
+                                            variant={terminal === 'T1' ? 'default' : 'outline'}
+                                            onClick={() => setTerminal('T1')}
+                                            className="w-28"
+                                        >
+                                            T1 터미널
+                                        </Button>
+                                        <Button
+                                            variant={terminal === 'T2' ? 'default' : 'outline'}
+                                            onClick={() => setTerminal('T2')}
+                                            className="w-28"
+                                        >
+                                            T2 터미널
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
+
+                            {/* 조회 버튼 */}
+                            <Button onClick={handleSearch} className="gap-2">
+                                <Search className="h-4 w-4" />
+                                조회
+                            </Button>
                         </div>
 
-                        {/* 오른쪽: 조회 버튼 */}
-                        <Button onClick={handleSearch} className="gap-2">
-                            <Search className="h-4 w-4" />
-                            조회
-                        </Button>
+                        {/* 두 번째 줄: 시설 타입 필터 */}
+                        <div className="flex items-center gap-3">
+                            <label className="text-sm font-semibold whitespace-nowrap">시설유형</label>
+                            <div className="flex gap-2 flex-wrap">
+                                <Button
+                                    variant={selectedFacilityType === 'all' ? 'default' : 'outline'}
+                                    onClick={() => setSelectedFacilityType('all')}
+                                    size="sm"
+                                >
+                                    전체
+                                </Button>
+                                {(Object.keys(FACILITY_TYPE_LABELS) as FacilityType[]).map((type) => (
+                                    <Button
+                                        key={type}
+                                        variant={selectedFacilityType === type ? 'default' : 'outline'}
+                                        onClick={() => setSelectedFacilityType(type)}
+                                        size="sm"
+                                    >
+                                        {FACILITY_TYPE_LABELS[type]}
+                                    </Button>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </Card>
 
                 {/* 그리드 지도 */}
-                <FacilityGridMap facilities={facilities} onFacilityMove={handleFacilityMove} />
+                <FacilityGridMap facilities={filteredFacilities} onFacilityMove={handleFacilityMove} />
 
                 {/* 액션 버튼 */}
                 <div className="flex justify-end gap-3">
@@ -199,15 +233,14 @@ export default function FacilityConfigPage() {
                         엑셀저장
                     </Button>
 
-                    <Button className="gap-2">
+                    <Button onClick={handleSave} className="gap-2">
                         <Save className="h-4 w-4" />
                         저장
                     </Button>
-
                 </div>
 
                 {/* 시설 테이블 */}
-                <FacilityTable facilities={facilities} onUpdate={setFacilities} />
+                <FacilityTable facilities={filteredFacilities} onUpdate={setFacilities} />
             </div>
         </div>
     );
