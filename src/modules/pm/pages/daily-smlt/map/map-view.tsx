@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/card';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger, PopoverClose } from '@/components/ui/popover';
 import { Users, Clock } from 'lucide-react';
 import {
     getFacilityDataByTime,
@@ -61,13 +61,12 @@ export function MapView() {
                                     <Popover key={`security-${num}`}>
                                         <PopoverTrigger asChild>
                                             <button
-                                                className={`w-14 h-14 rounded-lg font-bold text-xl transition-all hover:scale-110 ${
-                                                    security?.status === 'busy'
+                                                className={`w-14 h-14 rounded-lg font-bold text-xl transition-all hover:scale-110 ${security?.status === 'busy'
                                                         ? 'bg-red-300 text-red-900'
                                                         : security?.status === 'warning'
-                                                          ? 'bg-yellow-300 text-yellow-900'
-                                                          : 'bg-green-200 text-green-800'
-                                                }`}
+                                                            ? 'bg-yellow-300 text-yellow-900'
+                                                            : 'bg-green-200 text-green-800'
+                                                    }`}
                                             >
                                                 {num}
                                             </button>
@@ -79,9 +78,11 @@ export function MapView() {
                                                         <h3 className="font-semibold">
                                                             보안검색대 {num}번 혼잡 현황
                                                         </h3>
-                                                        <button className="text-muted-foreground hover:text-foreground">
-                                                            ✕
-                                                        </button>
+                                                        <PopoverClose asChild>
+                                                            <button className="text-muted-foreground hover:text-foreground">
+                                                                ✕
+                                                            </button>
+                                                        </PopoverClose>
                                                     </div>
 
                                                     <div className="grid grid-cols-2 gap-4 text-center">
@@ -130,13 +131,12 @@ export function MapView() {
                                     <Popover key={`departure-${num}`}>
                                         <PopoverTrigger asChild>
                                             <button
-                                                className={`w-16 h-16 rounded-lg font-bold text-2xl transition-all hover:scale-110 ${
-                                                    facility?.status === 'busy'
+                                                className={`w-16 h-16 rounded-lg font-bold text-2xl transition-all hover:scale-110 ${facility?.status === 'busy'
                                                         ? 'bg-blue-300 text-blue-900'
                                                         : facility?.status === 'warning'
-                                                          ? 'bg-purple-300 text-purple-900'
-                                                          : 'bg-blue-200 text-blue-800'
-                                                }`}
+                                                            ? 'bg-purple-300 text-purple-900'
+                                                            : 'bg-blue-200 text-blue-800'
+                                                    }`}
                                             >
                                                 {num}
                                             </button>
@@ -148,9 +148,11 @@ export function MapView() {
                                                         <h3 className="font-semibold">
                                                             출국장 {num}번 혼잡 현황
                                                         </h3>
-                                                        <button className="text-muted-foreground hover:text-foreground">
-                                                            ✕
-                                                        </button>
+                                                        <PopoverClose asChild>
+                                                            <button className="text-muted-foreground hover:text-foreground">
+                                                                ✕
+                                                            </button>
+                                                        </PopoverClose>
                                                     </div>
 
                                                     <div className="grid grid-cols-2 gap-4 text-center">
@@ -201,13 +203,12 @@ export function MapView() {
                                     <Popover key={`counter-${letter}-${idx}`}>
                                         <PopoverTrigger asChild>
                                             <button
-                                                className={`w-12 h-12 rounded-lg font-bold text-lg transition-all hover:scale-110 ${
-                                                    counter?.status === 'busy'
+                                                className={`w-12 h-12 rounded-lg font-bold text-lg transition-all hover:scale-110 ${counter?.status === 'busy'
                                                         ? 'bg-orange-300 text-orange-900'
                                                         : counter?.status === 'warning'
-                                                          ? 'bg-amber-300 text-amber-900'
-                                                          : 'bg-emerald-200 text-emerald-800'
-                                                }`}
+                                                            ? 'bg-amber-300 text-amber-900'
+                                                            : 'bg-emerald-200 text-emerald-800'
+                                                    }`}
                                             >
                                                 {letter}
                                             </button>
@@ -223,9 +224,11 @@ export function MapView() {
                                                                 ? `(${counter.facilityCode})`
                                                                 : ''}
                                                         </h3>
-                                                        <button className="text-muted-foreground hover:text-foreground text-xl">
-                                                            ✕
-                                                        </button>
+                                                        <PopoverClose asChild>
+                                                            <button className="text-muted-foreground hover:text-foreground text-xl">
+                                                                ✕
+                                                            </button>
+                                                        </PopoverClose>
                                                     </div>
 
                                                     {/* 상단 3개 시설 카드 */}
@@ -340,7 +343,7 @@ export function MapView() {
                                                         </div>
                                                     </div>
 
-                                                    {/* 재정 정보 */}
+                                                    {/* 매출 정보 */}
                                                     <div className="border rounded-lg p-4 space-y-3 bg-gray-50">
                                                         <div className="grid grid-cols-2 gap-3 text-sm">
                                                             <div className="flex items-center justify-between border-r pr-3">
