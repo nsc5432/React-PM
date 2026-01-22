@@ -20,7 +20,7 @@ function TabsList({ className, ...props }: React.ComponentProps<typeof TabsPrimi
         <TabsPrimitive.List
             data-slot="tabs-list"
             className={cn(
-                'bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]',
+                'bg-muted/50 text-muted-foreground inline-flex h-11 w-fit items-center justify-center rounded-xl p-1 backdrop-blur-sm',
                 className,
             )}
             {...props}
@@ -33,30 +33,16 @@ function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPr
         <TabsPrimitive.Trigger
             data-slot="tabs-trigger"
             className={cn(
-                `
-                relative
-                inline-flex flex-1 items-center justify-center
-                px-4 py-3
-                text-sm font-medium whitespace-nowrap
-                text-slate-500
-                hover:text-slate-900
-                transition-colors duration-200
-                focus-visible:outline-none
-                disabled:pointer-events-none disabled:opacity-50
-                /* indicator line */
-                after:absolute
-                after:left-0
-                after:bottom-0
-                after:h-[2px]
-                after:w-full
-                after:scale-x-0
-                after:origin-center
-                after:bg-blue-600
-                after:transition-transform
-                after:duration-200
-                data-[state=active]:text-blue-900
-                data-[state=active]:after:scale-x-65
-            `,
+                'relative inline-flex flex-1 items-center justify-center gap-2',
+                'px-4 py-2 rounded-lg',
+                'text-sm font-medium whitespace-nowrap',
+                'text-muted-foreground',
+                'hover:text-foreground hover:bg-background/50',
+                'transition-all duration-200 ease-out',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20',
+                'disabled:pointer-events-none disabled:opacity-50',
+                'data-[state=active]:bg-background data-[state=active]:text-foreground',
+                'data-[state=active]:shadow-sm data-[state=active]:shadow-black/5',
                 className,
             )}
             {...props}
@@ -68,7 +54,7 @@ function TabsContent({ className, ...props }: React.ComponentProps<typeof TabsPr
     return (
         <TabsPrimitive.Content
             data-slot="tabs-content"
-            className={cn('flex-1 outline-none', className)}
+            className={cn('flex-1 outline-none animate-in fade-in-0 duration-200', className)}
             {...props}
         />
     );

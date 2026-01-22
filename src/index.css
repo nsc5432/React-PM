@@ -156,6 +156,52 @@
     }
 
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground antialiased;
+    }
+
+    /* Smooth scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: oklch(0.8 0 0);
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: oklch(0.7 0 0);
+    }
+
+    /* Focus visible styles */
+    :focus-visible {
+        outline: none;
+    }
+}
+
+@layer utilities {
+    /* Glass effect utility */
+    .glass {
+        @apply bg-background/80 backdrop-blur-md border-border/50;
+    }
+
+    /* Gradient text utility */
+    .text-gradient {
+        @apply bg-linear-to-r from-primary to-chart-4 bg-clip-text text-transparent;
+    }
+
+    /* Card hover effect */
+    .card-hover {
+        @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5;
+    }
+
+    /* Subtle animation */
+    .animate-subtle {
+        @apply transition-all duration-200 ease-out;
     }
 }

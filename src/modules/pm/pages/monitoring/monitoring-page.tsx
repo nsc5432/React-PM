@@ -4,7 +4,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/components/ui/table';
 import { CheckCircle2, Clock, PlayCircle, Loader2, Eye } from 'lucide-react';
 
 interface SimulationHistory {
@@ -117,14 +124,20 @@ export default function MonitoringPage() {
         switch (status) {
             case 'completed':
                 return (
-                    <Badge variant="default" className="bg-green-100 text-green-800 hover:bg-green-100">
+                    <Badge
+                        variant="default"
+                        className="bg-green-100 text-green-800 hover:bg-green-100"
+                    >
                         <CheckCircle2 className="w-3 h-3 mr-1" />
                         완료
                     </Badge>
                 );
             case 'running':
                 return (
-                    <Badge variant="default" className="bg-blue-100 text-blue-800 hover:bg-blue-100">
+                    <Badge
+                        variant="default"
+                        className="bg-blue-100 text-blue-800 hover:bg-blue-100"
+                    >
                         <Loader2 className="w-3 h-3 mr-1 animate-spin" />
                         진행중
                     </Badge>
@@ -150,13 +163,15 @@ export default function MonitoringPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
+        <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 p-8">
             <div className="max-w-7xl mx-auto space-y-6">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-3xl font-bold text-slate-900">시뮬레이션 모니터링</h1>
-                        <p className="text-slate-600 mt-1">실시간 시뮬레이션 진행 상황을 확인하세요</p>
+                        <p className="text-slate-600 mt-1">
+                            실시간 시뮬레이션 진행 상황을 확인하세요
+                        </p>
                     </div>
                     <div className="flex items-center gap-2 text-sm bg-white px-4 py-2 rounded-lg shadow-sm border">
                         <Clock className="w-4 h-4 text-slate-500" />
@@ -167,7 +182,7 @@ export default function MonitoringPage() {
 
                 {/* Current Simulation Progress */}
                 <Card className="border-2 shadow-lg">
-                    <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50">
+                    <CardHeader className="bg-linear-to-r from-blue-50 to-indigo-50">
                         <div className="flex items-center justify-between">
                             <div>
                                 <CardTitle className="text-xl flex items-center gap-2">
@@ -179,7 +194,9 @@ export default function MonitoringPage() {
                                 </CardDescription>
                             </div>
                             <div className="text-right">
-                                <div className="text-4xl font-bold text-blue-600">{progress.toFixed(1)}%</div>
+                                <div className="text-4xl font-bold text-blue-600">
+                                    {progress.toFixed(1)}%
+                                </div>
                                 <div className="text-sm text-slate-600">전체 진척률</div>
                             </div>
                         </div>
@@ -204,12 +221,13 @@ export default function MonitoringPage() {
                                 return (
                                     <div key={step.id} className="flex flex-col items-center">
                                         <div
-                                            className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold text-sm mb-2 transition-all ${status === 'completed'
-                                                ? 'bg-green-500 text-white shadow-lg'
-                                                : status === 'current'
-                                                    ? 'bg-blue-500 text-white shadow-lg ring-4 ring-blue-200 animate-pulse'
-                                                    : 'bg-slate-200 text-slate-500'
-                                                }`}
+                                            className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold text-sm mb-2 transition-all ${
+                                                status === 'completed'
+                                                    ? 'bg-green-500 text-white shadow-lg'
+                                                    : status === 'current'
+                                                      ? 'bg-blue-500 text-white shadow-lg ring-4 ring-blue-200 animate-pulse'
+                                                      : 'bg-slate-200 text-slate-500'
+                                            }`}
                                         >
                                             {status === 'completed' ? (
                                                 <CheckCircle2 className="w-6 h-6" />
@@ -218,12 +236,13 @@ export default function MonitoringPage() {
                                             )}
                                         </div>
                                         <div
-                                            className={`text-xs text-center font-medium ${status === 'current'
-                                                ? 'text-blue-600'
-                                                : status === 'completed'
-                                                    ? 'text-green-600'
-                                                    : 'text-slate-500'
-                                                }`}
+                                            className={`text-xs text-center font-medium ${
+                                                status === 'current'
+                                                    ? 'text-blue-600'
+                                                    : status === 'completed'
+                                                      ? 'text-green-600'
+                                                      : 'text-slate-500'
+                                            }`}
                                         >
                                             {step.label}
                                         </div>
@@ -251,14 +270,20 @@ export default function MonitoringPage() {
                         <Table>
                             <TableHeader>
                                 <TableRow className="bg-slate-50">
-                                    <TableHead className="font-semibold w-16 text-center">번호</TableHead>
+                                    <TableHead className="font-semibold w-16 text-center">
+                                        번호
+                                    </TableHead>
                                     <TableHead className="font-semibold">성명</TableHead>
                                     <TableHead className="font-semibold">부서</TableHead>
                                     <TableHead className="font-semibold">시작 시간</TableHead>
                                     <TableHead className="font-semibold">종료 시간</TableHead>
                                     <TableHead className="font-semibold">소요 시간</TableHead>
-                                    <TableHead className="font-semibold text-center">상태</TableHead>
-                                    <TableHead className="font-semibold text-center">결과보기</TableHead>
+                                    <TableHead className="font-semibold text-center">
+                                        상태
+                                    </TableHead>
+                                    <TableHead className="font-semibold text-center">
+                                        결과보기
+                                    </TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -270,7 +295,9 @@ export default function MonitoringPage() {
                                         <TableCell className="text-center font-medium text-slate-600">
                                             {index + 1}
                                         </TableCell>
-                                        <TableCell className="font-medium">{item.userName}</TableCell>
+                                        <TableCell className="font-medium">
+                                            {item.userName}
+                                        </TableCell>
                                         <TableCell className="text-slate-600">
                                             {item.department}
                                         </TableCell>
@@ -291,7 +318,9 @@ export default function MonitoringPage() {
                                                 variant="outline"
                                                 size="sm"
                                                 disabled={item.status !== 'completed'}
-                                                onClick={() => navigate(`/pm/user-smlt/config/${item.id}`)}
+                                                onClick={() =>
+                                                    navigate(`/pm/user-smlt/config/${item.id}`)
+                                                }
                                                 className="gap-1"
                                             >
                                                 <Eye className="w-4 h-4" />

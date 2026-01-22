@@ -60,11 +60,17 @@ export default function UserSmltConfigPage() {
                                             className="justify-start text-left font-normal text-sm border-gray-300 hover:border-indigo-400 hover:bg-white px-4 py-2 h-auto"
                                         >
                                             <CalendarIcon className="mr-2 h-4 w-4" />
-                                            {date ? format(date, 'yyyy-MM-dd', { locale: ko }) : '날짜 선택'}
+                                            {date
+                                                ? format(date, 'yyyy-MM-dd', { locale: ko })
+                                                : '날짜 선택'}
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-auto p-0" align="start">
-                                        <Calendar mode="single" selected={date} onSelect={(newDate) => newDate && setDate(newDate)} />
+                                        <Calendar
+                                            mode="single"
+                                            selected={date}
+                                            onSelect={(newDate) => newDate && setDate(newDate)}
+                                        />
                                     </PopoverContent>
                                 </Popover>
                             </div>
@@ -77,11 +83,24 @@ export default function UserSmltConfigPage() {
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <label className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors has-[:checked]:bg-indigo-50 has-[:checked]:border-indigo-500 has-[:checked]:text-indigo-700 has-[:disabled]:opacity-50 has-[:disabled]:cursor-not-allowed">
-                                        <input type="radio" name="terminal" value="T1" disabled={isReadOnly} className="w-4 h-4 text-indigo-600 focus:ring-indigo-500" />
+                                        <input
+                                            type="radio"
+                                            name="terminal"
+                                            value="T1"
+                                            disabled={isReadOnly}
+                                            className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
+                                        />
                                         <span className="text-sm font-medium">T1 터미널</span>
                                     </label>
                                     <label className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors has-[:checked]:bg-indigo-50 has-[:checked]:border-indigo-500 has-[:checked]:text-indigo-700 has-[:disabled]:opacity-50 has-[:disabled]:cursor-not-allowed">
-                                        <input type="radio" name="terminal" value="T2" defaultChecked disabled={isReadOnly} className="w-4 h-4 text-indigo-600 focus:ring-indigo-500" />
+                                        <input
+                                            type="radio"
+                                            name="terminal"
+                                            value="T2"
+                                            defaultChecked
+                                            disabled={isReadOnly}
+                                            className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
+                                        />
                                         <span className="text-sm font-medium">T2 터미널</span>
                                     </label>
                                 </div>
@@ -138,7 +157,7 @@ export default function UserSmltConfigPage() {
                     {isReadOnly ? (
                         <button
                             onClick={() => navigate(`/pm/user-smlt/result/${key}`)}
-                            className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-green-700 text-white px-16 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:from-green-700 hover:to-green-800 active:scale-[0.98] transition-all duration-200"
+                            className="group relative inline-flex items-center gap-3 bg-linear-to-r from-green-600 to-green-700 text-white px-16 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:from-green-700 hover:to-green-800 active:scale-[0.98] transition-all duration-200"
                         >
                             <BarChart3 className="w-5 h-5 group-hover:scale-110 transition-transform" />
                             시뮬레이션 결과
@@ -147,7 +166,7 @@ export default function UserSmltConfigPage() {
                     ) : (
                         <ConfirmDialog
                             trigger={
-                                <button className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-16 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:from-indigo-700 hover:to-indigo-800 active:scale-[0.98] transition-all duration-200">
+                                <button className="group relative inline-flex items-center gap-3 bg-linear-to-r from-indigo-600 to-indigo-700 text-white px-16 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:from-indigo-700 hover:to-indigo-800 active:scale-[0.98] transition-all duration-200">
                                     <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
                                     시뮬레이션 수행
                                     <div className="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
