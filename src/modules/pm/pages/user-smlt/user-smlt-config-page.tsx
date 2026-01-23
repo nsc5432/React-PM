@@ -82,7 +82,7 @@ export default function UserSmltConfigPage() {
                                     <label className="font-semibold text-sm">터미널 선택</label>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <label className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors has-[:checked]:bg-indigo-50 has-[:checked]:border-indigo-500 has-[:checked]:text-indigo-700 has-[:disabled]:opacity-50 has-[:disabled]:cursor-not-allowed">
+                                    <label className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors has-checked:bg-indigo-50 has-checked:border-indigo-500 has-checked:text-indigo-700 has-disabled:opacity-50 has-disabled:cursor-not-allowed">
                                         <input
                                             type="radio"
                                             name="terminal"
@@ -92,7 +92,7 @@ export default function UserSmltConfigPage() {
                                         />
                                         <span className="text-sm font-medium">T1 터미널</span>
                                     </label>
-                                    <label className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors has-[:checked]:bg-indigo-50 has-[:checked]:border-indigo-500 has-[:checked]:text-indigo-700 has-[:disabled]:opacity-50 has-[:disabled]:cursor-not-allowed">
+                                    <label className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors has-checked:bg-indigo-50 has-checked:border-indigo-500 has-checked:text-indigo-700 has-disabled:opacity-50 has-disabled:cursor-not-allowed">
                                         <input
                                             type="radio"
                                             name="terminal"
