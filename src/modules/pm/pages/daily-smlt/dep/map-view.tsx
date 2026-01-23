@@ -99,11 +99,10 @@ export function MapView() {
             <PopoverTrigger asChild>
                 <div className="relative">
                     <div
-                        className={`w-32 h-72 rounded-lg shadow-xl flex flex-col items-center cursor-pointer transition-all hover:scale-105 border-2 ${
-                            gate.status === 'busy'
+                        className={`w-32 h-72 rounded-lg shadow-xl flex flex-col items-center cursor-pointer transition-all hover:scale-105 border-2 ${gate.status === 'busy'
                                 ? 'bg-white border-gray-300'
                                 : 'bg-white border-gray-300'
-                        }`}
+                            }`}
                     >
                         {/* Header */}
                         <div className="w-full bg-gray-100 py-2 px-3 rounded-t-lg border-b border-gray-300">
@@ -115,11 +114,10 @@ export function MapView() {
                         {/* Status Badge */}
                         <div className="mt-3 mb-2">
                             <div
-                                className={`px-4 py-1 rounded text-xs font-bold ${
-                                    gate.status === 'busy'
+                                className={`px-4 py-1 rounded text-xs font-bold ${gate.status === 'busy'
                                         ? 'bg-red-500 text-white'
                                         : 'bg-cyan-400 text-white'
-                                }`}
+                                    }`}
                             >
                                 {getStatusLabel(gate.status)}
                             </div>
@@ -222,7 +220,7 @@ export function MapView() {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="flex-1 p-6 space-y-4 overflow-auto">
+            <div className="flex-1 p-6 space-y-4">
                 <div className="bg-orange-100 border-l-4 border-orange-500 p-4 rounded">
                     <div className="flex items-center">
                         <span className="text-orange-800 font-semibold">⚠ 혼잡</span>
@@ -340,8 +338,8 @@ export function MapView() {
                                     islandStatus === 'busy'
                                         ? 'bg-red-500'
                                         : islandStatus === 'warning'
-                                          ? 'bg-orange-400'
-                                          : 'bg-cyan-400';
+                                            ? 'bg-orange-400'
+                                            : 'bg-cyan-400';
                                 return (
                                     <div
                                         key={label}

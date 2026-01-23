@@ -36,7 +36,7 @@ function TabIcon({ src, activeSrc, isActive, alt }: TabIconProps) {
 export function DashboardTabs({ value, onValueChange }: DashboardTabsProps) {
     return (
         <Tabs value={value} onValueChange={onValueChange} className="w-full">
-            <TabsList className="w-full justify-start h-14 bg-background/80 backdrop-blur-md rounded-none border-b border-border/50 px-4 gap-1">
+            <TabsList className="w-full justify-start h-5 bg-background/80 backdrop-blur-md rounded-none border-border/50 px-4 gap-1">
                 <TabsTrigger value="summary" className="px-5 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md data-[state=active]:shadow-primary/20">
                     <TabIcon
                         src={TerminalPassengerIcon}

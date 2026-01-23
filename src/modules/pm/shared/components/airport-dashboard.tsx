@@ -32,11 +32,11 @@ export default function AirportDashboard({ simulationType = 'daily' }: AirportDa
     const [depViewMode, setDepViewMode] = useState<ViewMode>('map');
 
     return (
-        <div className="min-h-screen flex flex-col">
-            <div className="flex items-center justify-between px-6 pt-4 pb-2">
+        <div className="h-screen flex flex-col">
+            <div className="flex items-center justify-between px-6 pt-4 pb-2 bg-background border-b border-border/50">
                 <DashboardTabs value={activeTab} onValueChange={setActiveTab} />
             </div>
-            <main className="flex-1 overflow-auto">
+            <main className="flex-1 overflow-y-auto">
                 {activeTab === 'summary' && <SmltSmryRslt simulationType={simulationType} />}
                 {activeTab === 'map' && <MapView />}
                 {activeTab === 'counter' && (

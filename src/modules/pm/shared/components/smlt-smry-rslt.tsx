@@ -2,15 +2,20 @@ import { useState } from 'react';
 import type { SimulationType } from './airport-dashboard';
 import {
     Logo,
-    DeprecatedPeopleIcon,
-    DeprecatedCheckmarkIcon,
-    TableIcon,
-    DeprecatedShieldIcon,
+    AirplaneIcon,
+    PeopleIcon,
+    TerminalPassengerIcon,
+    TerminalPassengerOnIcon,
+    CounterConIcon,
+    CounterConOnOrangeIcon,
+    PoliceIcon,
+    PoliceOnPurpleIcon,
+    DepartureIcon,
+    DepartureOnGreenIcon,
     DeprecatedArrowLeftIcon,
     DeprecatedArrowRightIcon,
     SearchIcon,
     PlusIcon,
-    DepartureIcon
 } from '@/components/icons';
 
 // 차트 데이터 타입 정의
@@ -322,9 +327,9 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                         {/* 1. 운항계획 버튼 with Simulation Type Badge */}
                         <div className="flex flex-col gap-1 flex-0">
                             <div
-                                className={`${currentTheme.headerBg} text-white px-8 rounded-xl text-base font-bold shadow-md flex items-center gap-2 h-16 w-37.75`}
+                                className={`${currentTheme.headerBg} text-white px-4 rounded-xl text-base font-bold shadow-md flex items-center gap-2 h-16 w-37.75`}
                             >
-                                <Logo className="w-5 h-5" />
+                                <Logo className="w-12 h-12" />
                                 운항계획
                             </div>
                         </div>
@@ -334,7 +339,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                             {/* 총 운항편 */}
                             <div className="flex items-center gap-2.5 flex-1">
                                 <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center shrink-0">
-                                    <Logo className="w-4 h-4 text-white" />
+                                    <AirplaneIcon className="w-8 h-8 text-white" />
                                 </div>
                                 <div className="flex justify-center items-baseline gap-2">
                                     <span className="text-[11px] text-gray-500 font-medium leading-tight relative -top-0.5">
@@ -353,7 +358,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                             {/* 총여객수 */}
                             <div className="flex items-center gap-2.5 flex-1">
                                 <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
-                                    <DeprecatedPeopleIcon className="w-4 h-4 text-white" />
+                                    <PeopleIcon className="w-6 h-6 text-white" />
                                 </div>
                                 <div className="flex justify-center items-baseline gap-2">
                                     <span className="text-[11px] text-gray-500 font-medium leading-tight relative -top-0.5">
@@ -433,10 +438,10 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                 : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-lg'
                                 }`}
                         >
-                            {index === 0 && <DeprecatedCheckmarkIcon className="w-5 h-5" />}
-                            {index === 1 && <TableIcon className="w-5 h-5" />}
-                            {index === 2 && <DepartureIcon className="w-5 h-5" />}
-                            {index === 3 && <DeprecatedShieldIcon className="w-5 h-5" />}
+                            {index === 0 && (selectedTab === 0 ? <TerminalPassengerOnIcon className="w-10 h-10" /> : <TerminalPassengerIcon className="w-10 h-10" />)}
+                            {index === 1 && (selectedTab === 1 ? <CounterConOnOrangeIcon className="w-10 h-10" /> : <CounterConIcon className="w-10 h-10" />)}
+                            {index === 2 && (selectedTab === 2 ? <DepartureOnGreenIcon className="w-10 h-10" /> : <DepartureIcon className="w-10 h-10" />)}
+                            {index === 3 && (selectedTab === 3 ? <PoliceOnPurpleIcon className="w-10 h-10" /> : <PoliceIcon className="w-10 h-10" />)}
                             {tab}
                         </button>
                     ))}
@@ -652,7 +657,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                 <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
                                                     <div className="flex items-center justify-center gap-2 mb-3">
                                                         <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                                                            <DeprecatedPeopleIcon className="w-4 h-4 text-white" />
+                                                            <PeopleIcon className="w-4 h-4 text-white" />
                                                         </div>
                                                         <div className="text-xs text-gray-600 font-medium">
                                                             여객수
@@ -1265,7 +1270,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                             <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
                                                 <div className="flex items-center justify-center gap-2 mb-3">
                                                     <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                                                        <DeprecatedPeopleIcon className="w-4 h-4 text-white" />
+                                                        <PeopleIcon className="w-4 h-4 text-white" />
                                                     </div>
                                                     <div className="text-xs text-gray-600 font-medium">
                                                         여객수

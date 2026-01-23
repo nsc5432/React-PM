@@ -75,7 +75,7 @@ export function MapView() {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="flex-1 p-6 space-y-4 overflow-auto">
+            <div className="flex-1 p-6 space-y-4">
                 <div className="bg-orange-100 border-l-4 border-orange-500 p-4 rounded">
                     <div className="flex items-center">
                         <span className="text-orange-800 font-semibold">⚠ 혼잡</span>

@@ -99,7 +99,7 @@ export function Lnb() {
             style={{ width: isCollapsed ? '64px' : `${width}px` }}
         >
             {/* Header */}
-            <div className="flex items-center h-14 px-4 border-b border-border/50 gap-3 bg-background/80 backdrop-blur-sm">
+            <div className="flex items-center h-11 px-4 border-b border-border/50 gap-3 bg-background/80 backdrop-blur-sm">
                 <button
                     onClick={() => navigate(-1)}
                     className="flex items-center justify-center size-9 rounded-lg hover:bg-primary/10 hover:text-primary transition-all duration-200 shrink-0"

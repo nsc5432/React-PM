@@ -29,7 +29,8 @@
       "Bash(taskkill:*)",
       "Bash(xcopy:*)",
       "Bash(copy publicsvg*.svg srcassetssvg)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(tasklist:*)"
     ]
   }
 }
