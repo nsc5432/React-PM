@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import type { SimulationType } from './airport-dashboard';
 import {
-    AirplaneIcon,
-    PeopleIcon,
-    CheckmarkIcon,
+    Logo,
+    DeprecatedPeopleIcon,
+    DeprecatedCheckmarkIcon,
     TableIcon,
-    ShieldIcon,
-    ArrowLeftIcon,
-    ArrowRightIcon,
+    DeprecatedShieldIcon,
+    DeprecatedArrowLeftIcon,
+    DeprecatedArrowRightIcon,
     SearchIcon,
     PlusIcon,
+    DepartureIcon
 } from '@/components/icons';
 
 // 차트 데이터 타입 정의
@@ -23,7 +24,6 @@ interface ChartDataPoint {
 
 interface MiniChartData {
     title: string;
-    r2Score: number;
     data: ChartDataPoint[];
 }
 
@@ -48,7 +48,6 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
     const miniChartsData: MiniChartData[] = [
         {
             title: 'CAST/Xovis 비교선 그래프 T1',
-            r2Score: 86,
             data: [
                 { time: '04:00', cast: 45, xoivs: 40, actual: 30, hasAlert: false },
                 { time: '05:00', cast: 50, xoivs: 48, actual: 35, hasAlert: false },
@@ -78,7 +77,6 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
         },
         {
             title: 'CAST/Xovis 비교선 그래프 T2',
-            r2Score: 92,
             data: [
                 { time: '04:00', cast: 40, xoivs: 38, actual: 25, hasAlert: false },
                 { time: '05:00', cast: 45, xoivs: 43, actual: 30, hasAlert: false },
@@ -326,7 +324,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                             <div
                                 className={`${currentTheme.headerBg} text-white px-8 rounded-xl text-base font-bold shadow-md flex items-center gap-2 h-16 w-37.75`}
                             >
-                                <AirplaneIcon className="w-5 h-5" />
+                                <Logo className="w-5 h-5" />
                                 운항계획
                             </div>
                         </div>
@@ -336,7 +334,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                             {/* 총 운항편 */}
                             <div className="flex items-center gap-2.5 flex-1">
                                 <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center shrink-0">
-                                    <AirplaneIcon className="w-4 h-4 text-white" />
+                                    <Logo className="w-4 h-4 text-white" />
                                 </div>
                                 <div className="flex justify-center items-baseline gap-2">
                                     <span className="text-[11px] text-gray-500 font-medium leading-tight relative -top-0.5">
@@ -355,7 +353,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                             {/* 총여객수 */}
                             <div className="flex items-center gap-2.5 flex-1">
                                 <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
-                                    <PeopleIcon className="w-4 h-4 text-white" />
+                                    <DeprecatedPeopleIcon className="w-4 h-4 text-white" />
                                 </div>
                                 <div className="flex justify-center items-baseline gap-2">
                                     <span className="text-[11px] text-gray-500 font-medium leading-tight relative -top-0.5">
@@ -435,10 +433,10 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                 : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-lg'
                                 }`}
                         >
-                            {index === 0 && <CheckmarkIcon className="w-5 h-5" />}
+                            {index === 0 && <DeprecatedCheckmarkIcon className="w-5 h-5" />}
                             {index === 1 && <TableIcon className="w-5 h-5" />}
-                            {index === 2 && <AirplaneIcon className="w-5 h-5" />}
-                            {index === 3 && <ShieldIcon className="w-5 h-5" />}
+                            {index === 2 && <DepartureIcon className="w-5 h-5" />}
+                            {index === 3 && <DeprecatedShieldIcon className="w-5 h-5" />}
                             {tab}
                         </button>
                     ))}
@@ -618,7 +616,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                         className={`${currentTheme.simulationHeaderBg[tIdx]} flex justify-between items-center px-6 py-4 font-bold shadow-md`}
                                     >
                                         <div className="flex items-center gap-2 text-white">
-                                            <AirplaneIcon className="w-5 h-5" />
+                                            <Logo className="w-5 h-5" />
                                             <span className="text-lg">시뮬레이션 요약</span>
                                         </div>
                                         <button className="w-8 h-8 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all flex items-center justify-center">
@@ -632,7 +630,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                 <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center border-2 border-blue-200 shadow-sm">
                                                     <div className="flex items-center justify-center gap-2 mb-3">
                                                         <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
-                                                            <AirplaneIcon className="w-4 h-4 text-white" />
+                                                            <Logo className="w-4 h-4 text-white" />
                                                         </div>
                                                         <div className="text-xs text-gray-600 font-medium">
                                                             운항편수
@@ -654,7 +652,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                 <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
                                                     <div className="flex items-center justify-center gap-2 mb-3">
                                                         <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                                                            <PeopleIcon className="w-4 h-4 text-white" />
+                                                            <DeprecatedPeopleIcon className="w-4 h-4 text-white" />
                                                         </div>
                                                         <div className="text-xs text-gray-600 font-medium">
                                                             여객수
@@ -810,7 +808,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                     }}
                                                     className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                                 >
-                                                    <ArrowLeftIcon className="w-3 h-3 text-blue-500" />
+                                                    <DeprecatedArrowLeftIcon className="w-3 h-3 text-blue-500" />
                                                 </button>
                                                 <button
                                                     onClick={() => {
@@ -822,7 +820,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                     }}
                                                     className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                                 >
-                                                    <ArrowRightIcon className="w-3 h-3 text-blue-500" />
+                                                    <DeprecatedArrowRightIcon className="w-3 h-3 text-blue-500" />
                                                 </button>
 
                                                 <div className="overflow-hidden">
@@ -938,7 +936,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                     }}
                                                     className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                                 >
-                                                    <ArrowLeftIcon className="w-3 h-3 text-blue-500" />
+                                                    <DeprecatedArrowLeftIcon className="w-3 h-3 text-blue-500" />
                                                 </button>
                                                 <button
                                                     onClick={() => {
@@ -951,7 +949,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                     }}
                                                     className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                                 >
-                                                    <ArrowRightIcon className="w-3 h-3 text-blue-500" />
+                                                    <DeprecatedArrowRightIcon className="w-3 h-3 text-blue-500" />
                                                 </button>
 
                                                 <div className="overflow-hidden">
@@ -1231,7 +1229,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                     className={`${currentTheme.simulationHeaderBg[1]} flex justify-between items-center px-6 py-4 font-bold shadow-md`}
                                 >
                                     <div className="flex items-center gap-2 text-white">
-                                        <AirplaneIcon className="w-5 h-5" />
+                                        <Logo className="w-5 h-5" />
                                         <span className="text-lg">시뮬레이션 요약</span>
                                     </div>
                                     <button className="w-8 h-8 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all flex items-center justify-center">
@@ -1245,7 +1243,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                             <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center border-2 border-blue-200 shadow-sm">
                                                 <div className="flex items-center justify-center gap-2 mb-3">
                                                     <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
-                                                        <AirplaneIcon className="w-4 h-4 text-white" />
+                                                        <Logo className="w-4 h-4 text-white" />
                                                     </div>
                                                     <div className="text-xs text-gray-600 font-medium">
                                                         운항편수
@@ -1267,7 +1265,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                             <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
                                                 <div className="flex items-center justify-center gap-2 mb-3">
                                                     <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                                                        <PeopleIcon className="w-4 h-4 text-white" />
+                                                        <DeprecatedPeopleIcon className="w-4 h-4 text-white" />
                                                     </div>
                                                     <div className="text-xs text-gray-600 font-medium">
                                                         여객수
@@ -1423,7 +1421,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                 }}
                                                 className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                             >
-                                                <ArrowLeftIcon className="w-3 h-3 text-blue-500" />
+                                                <DeprecatedArrowLeftIcon className="w-3 h-3 text-blue-500" />
                                             </button>
                                             <button
                                                 onClick={() => {
@@ -1435,7 +1433,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                 }}
                                                 className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                             >
-                                                <ArrowRightIcon className="w-3 h-3 text-blue-500" />
+                                                <DeprecatedArrowRightIcon className="w-3 h-3 text-blue-500" />
                                             </button>
 
                                             <div className="overflow-hidden">
@@ -1537,7 +1535,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                 }}
                                                 className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                             >
-                                                <ArrowLeftIcon className="w-3 h-3 text-blue-500" />
+                                                <DeprecatedArrowLeftIcon className="w-3 h-3 text-blue-500" />
                                             </button>
                                             <button
                                                 onClick={() => {
@@ -1549,7 +1547,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                 }}
                                                 className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1.5 z-20 w-6 h-6 bg-white rounded-full shadow-md border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-all"
                                             >
-                                                <ArrowRightIcon className="w-3 h-3 text-blue-500" />
+                                                <DeprecatedArrowRightIcon className="w-3 h-3 text-blue-500" />
                                             </button>
 
                                             <div className="overflow-hidden">
