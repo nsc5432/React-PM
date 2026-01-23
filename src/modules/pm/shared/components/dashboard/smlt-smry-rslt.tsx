@@ -16,6 +16,8 @@ import {
     DeprecatedArrowRightIcon,
     SearchIcon,
     PlusIcon,
+    Terminal1Icon,
+    Terminal2Icon,
 } from '@/components/icons';
 
 // 차트 데이터 타입 정의
@@ -37,6 +39,7 @@ interface SmltSmryRsltProps {
 }
 
 const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsltProps) => {
+    console.log(_simulationType);
     // 선택된 탭 상태 (0: 터미널 여객수, 1: 체크인카운터, 2: 출국장, 3: 보안검색대)
     const [selectedTab, setSelectedTab] = useState(0);
 
@@ -433,15 +436,36 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                         <button
                             key={index}
                             onClick={() => setSelectedTab(index)}
-                            className={`rounded-xl text-center py-4 font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2 ${selectedTab === index
-                                ? `bg-linear-to-r ${currentTheme.gradient} text-white shadow-lg`
-                                : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-lg'
-                                }`}
+                            className={`rounded-xl text-center py-4 font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2 ${
+                                selectedTab === index
+                                    ? `bg-linear-to-r ${currentTheme.gradient} text-white shadow-lg`
+                                    : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-lg'
+                            }`}
                         >
-                            {index === 0 && (selectedTab === 0 ? <TerminalPassengerOnIcon className="w-10 h-10" /> : <TerminalPassengerIcon className="w-10 h-10" />)}
-                            {index === 1 && (selectedTab === 1 ? <CounterConOnOrangeIcon className="w-10 h-10" /> : <CounterConIcon className="w-10 h-10" />)}
-                            {index === 2 && (selectedTab === 2 ? <DepartureOnGreenIcon className="w-10 h-10" /> : <DepartureIcon className="w-10 h-10" />)}
-                            {index === 3 && (selectedTab === 3 ? <PoliceOnPurpleIcon className="w-10 h-10" /> : <PoliceIcon className="w-10 h-10" />)}
+                            {index === 0 &&
+                                (selectedTab === 0 ? (
+                                    <TerminalPassengerOnIcon className="w-10 h-10" />
+                                ) : (
+                                    <TerminalPassengerIcon className="w-10 h-10" />
+                                ))}
+                            {index === 1 &&
+                                (selectedTab === 1 ? (
+                                    <CounterConOnOrangeIcon className="w-10 h-10" />
+                                ) : (
+                                    <CounterConIcon className="w-10 h-10" />
+                                ))}
+                            {index === 2 &&
+                                (selectedTab === 2 ? (
+                                    <DepartureOnGreenIcon className="w-10 h-10" />
+                                ) : (
+                                    <DepartureIcon className="w-10 h-10" />
+                                ))}
+                            {index === 3 &&
+                                (selectedTab === 3 ? (
+                                    <PoliceOnPurpleIcon className="w-10 h-10" />
+                                ) : (
+                                    <PoliceIcon className="w-10 h-10" />
+                                ))}
                             {tab}
                         </button>
                     ))}
@@ -618,10 +642,10 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                     className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300"
                                 >
                                     <div
-                                        className={`${currentTheme.simulationHeaderBg[tIdx]} flex justify-between items-center px-6 py-4 font-bold shadow-md`}
+                                        className={`${currentTheme.simulationHeaderBg[tIdx]} flex justify-between items-center px-6 py-2 font-bold shadow-md`}
                                     >
                                         <div className="flex items-center gap-2 text-white">
-                                            <Logo className="w-5 h-5" />
+                                            <Terminal1Icon className="w-5 h-5" />
                                             <span className="text-lg">시뮬레이션 요약</span>
                                         </div>
                                         <button className="w-8 h-8 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all flex items-center justify-center">
@@ -634,8 +658,8 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                             <div className="space-y-4">
                                                 <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center border-2 border-blue-200 shadow-sm">
                                                     <div className="flex items-center justify-center gap-2 mb-3">
-                                                        <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
-                                                            <Logo className="w-4 h-4 text-white" />
+                                                        <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center">
+                                                            <AirplaneIcon className="w-7 h-7 text-white" />
                                                         </div>
                                                         <div className="text-xs text-gray-600 font-medium">
                                                             운항편수
@@ -656,8 +680,8 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                 </div>
                                                 <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
                                                     <div className="flex items-center justify-center gap-2 mb-3">
-                                                        <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                                                            <PeopleIcon className="w-4 h-4 text-white" />
+                                                        <div className="w-9 h-9 rounded-full bg-green-500 flex items-center justify-center">
+                                                            <PeopleIcon className="w-7 h-7 text-white" />
                                                         </div>
                                                         <div className="text-xs text-gray-600 font-medium">
                                                             여객수
@@ -897,25 +921,26 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                 ].blocks.map((b, bIdx) => (
                                                                     <div
                                                                         key={bIdx}
-                                                                        className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${checkinOptions[
-                                                                            t1CheckinIndex
-                                                                        ].blockColors[bIdx] ===
-                                                                            'darkgreen'
-                                                                            ? 'bg-green-800'
-                                                                            : checkinOptions[
+                                                                        className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
+                                                                            checkinOptions[
                                                                                 t1CheckinIndex
-                                                                            ].blockColors[
-                                                                                bIdx
-                                                                            ] === 'green'
-                                                                                ? 'bg-green-600'
+                                                                            ].blockColors[bIdx] ===
+                                                                            'darkgreen'
+                                                                                ? 'bg-green-800'
                                                                                 : checkinOptions[
-                                                                                    t1CheckinIndex
-                                                                                ].blockColors[
-                                                                                    bIdx
-                                                                                ] === 'red'
+                                                                                        t1CheckinIndex
+                                                                                    ].blockColors[
+                                                                                        bIdx
+                                                                                    ] === 'green'
+                                                                                  ? 'bg-green-600'
+                                                                                  : checkinOptions[
+                                                                                          t1CheckinIndex
+                                                                                      ].blockColors[
+                                                                                          bIdx
+                                                                                      ] === 'red'
                                                                                     ? 'bg-red-600'
                                                                                     : 'bg-orange-600'
-                                                                            }`}
+                                                                        }`}
                                                                     >
                                                                         {b}
                                                                     </div>
@@ -1030,25 +1055,26 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                 ].blocks.map((b, bIdx) => (
                                                                     <div
                                                                         key={bIdx}
-                                                                        className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${departureOptions[
-                                                                            t1DepartureIndex
-                                                                        ].blockColors[bIdx] ===
-                                                                            'darkgreen'
-                                                                            ? 'bg-green-800'
-                                                                            : departureOptions[
+                                                                        className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
+                                                                            departureOptions[
                                                                                 t1DepartureIndex
-                                                                            ].blockColors[
-                                                                                bIdx
-                                                                            ] === 'green'
-                                                                                ? 'bg-green-600'
+                                                                            ].blockColors[bIdx] ===
+                                                                            'darkgreen'
+                                                                                ? 'bg-green-800'
                                                                                 : departureOptions[
-                                                                                    t1DepartureIndex
-                                                                                ].blockColors[
-                                                                                    bIdx
-                                                                                ] === 'red'
+                                                                                        t1DepartureIndex
+                                                                                    ].blockColors[
+                                                                                        bIdx
+                                                                                    ] === 'green'
+                                                                                  ? 'bg-green-600'
+                                                                                  : departureOptions[
+                                                                                          t1DepartureIndex
+                                                                                      ].blockColors[
+                                                                                          bIdx
+                                                                                      ] === 'red'
                                                                                     ? 'bg-red-600'
                                                                                     : 'bg-orange-600'
-                                                                            }`}
+                                                                        }`}
                                                                     >
                                                                         {b}
                                                                     </div>
@@ -1231,10 +1257,10 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                 className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300"
                             >
                                 <div
-                                    className={`${currentTheme.simulationHeaderBg[1]} flex justify-between items-center px-6 py-4 font-bold shadow-md`}
+                                    className={`${currentTheme.simulationHeaderBg[1]} flex justify-between items-center px-6 py-2 font-bold shadow-md`}
                                 >
                                     <div className="flex items-center gap-2 text-white">
-                                        <Logo className="w-5 h-5" />
+                                        <Terminal2Icon className="w-5 h-5" />
                                         <span className="text-lg">시뮬레이션 요약</span>
                                     </div>
                                     <button className="w-8 h-8 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all flex items-center justify-center">
@@ -1247,8 +1273,8 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                         <div className="space-y-4">
                                             <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center border-2 border-blue-200 shadow-sm">
                                                 <div className="flex items-center justify-center gap-2 mb-3">
-                                                    <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
-                                                        <Logo className="w-4 h-4 text-white" />
+                                                    <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center">
+                                                        <AirplaneIcon className="w-7 h-7 text-white" />
                                                     </div>
                                                     <div className="text-xs text-gray-600 font-medium">
                                                         운항편수
@@ -1269,8 +1295,8 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                             </div>
                                             <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
                                                 <div className="flex items-center justify-center gap-2 mb-3">
-                                                    <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                                                        <PeopleIcon className="w-4 h-4 text-white" />
+                                                    <div className="w-9 h-9 rounded-full bg-green-500 flex items-center justify-center">
+                                                        <PeopleIcon className="w-7 h-7 text-white" />
                                                     </div>
                                                     <div className="text-xs text-gray-600 font-medium">
                                                         여객수
@@ -1498,25 +1524,26 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                             ].blocks.map((b, bIdx) => (
                                                                 <div
                                                                     key={bIdx}
-                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${checkinOptions[
-                                                                        t2CheckinIndex
-                                                                    ].blockColors[bIdx] ===
-                                                                        'darkgreen'
-                                                                        ? 'bg-green-800'
-                                                                        : checkinOptions[
+                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
+                                                                        checkinOptions[
                                                                             t2CheckinIndex
-                                                                        ].blockColors[
-                                                                            bIdx
-                                                                        ] === 'green'
-                                                                            ? 'bg-green-600'
+                                                                        ].blockColors[bIdx] ===
+                                                                        'darkgreen'
+                                                                            ? 'bg-green-800'
                                                                             : checkinOptions[
-                                                                                t2CheckinIndex
-                                                                            ].blockColors[
-                                                                                bIdx
-                                                                            ] === 'red'
+                                                                                    t2CheckinIndex
+                                                                                ].blockColors[
+                                                                                    bIdx
+                                                                                ] === 'green'
+                                                                              ? 'bg-green-600'
+                                                                              : checkinOptions[
+                                                                                      t2CheckinIndex
+                                                                                  ].blockColors[
+                                                                                      bIdx
+                                                                                  ] === 'red'
                                                                                 ? 'bg-red-600'
                                                                                 : 'bg-orange-600'
-                                                                        }`}
+                                                                    }`}
                                                                 >
                                                                     {b}
                                                                 </div>
@@ -1624,25 +1651,26 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                             ].blocks.map((b, bIdx) => (
                                                                 <div
                                                                     key={bIdx}
-                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${departureOptions[
-                                                                        t2DepartureIndex
-                                                                    ].blockColors[bIdx] ===
-                                                                        'darkgreen'
-                                                                        ? 'bg-green-800'
-                                                                        : departureOptions[
+                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
+                                                                        departureOptions[
                                                                             t2DepartureIndex
-                                                                        ].blockColors[
-                                                                            bIdx
-                                                                        ] === 'green'
-                                                                            ? 'bg-green-600'
+                                                                        ].blockColors[bIdx] ===
+                                                                        'darkgreen'
+                                                                            ? 'bg-green-800'
                                                                             : departureOptions[
-                                                                                t2DepartureIndex
-                                                                            ].blockColors[
-                                                                                bIdx
-                                                                            ] === 'red'
+                                                                                    t2DepartureIndex
+                                                                                ].blockColors[
+                                                                                    bIdx
+                                                                                ] === 'green'
+                                                                              ? 'bg-green-600'
+                                                                              : departureOptions[
+                                                                                      t2DepartureIndex
+                                                                                  ].blockColors[
+                                                                                      bIdx
+                                                                                  ] === 'red'
                                                                                 ? 'bg-red-600'
                                                                                 : 'bg-orange-600'
-                                                                        }`}
+                                                                    }`}
                                                                 >
                                                                     {b}
                                                                 </div>

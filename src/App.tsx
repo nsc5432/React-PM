@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import DailySmltPage from './modules/pm/shared/components/airport-dashboard';
+import DailySmltPage from './modules/pm/shared/components/dashboard/airport-dashboard';
 import UserSmltConfigPage from './modules/pm/pages/user-smlt/user-smlt-config-page';
 import UserSmltResultPage from './modules/pm/pages/user-smlt/user-smlt-result-page';
 import MonitoringPage from './modules/pm/pages/monitoring/monitoring-page';

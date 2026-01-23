@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import AirportDashboard from '../../shared/components/airport-dashboard';
+import AirportDashboard from '../../shared/components/dashboard/airport-dashboard';
 
 export default function UserSmltResultPage() {
     const { key } = useParams<{ key: string }>();
