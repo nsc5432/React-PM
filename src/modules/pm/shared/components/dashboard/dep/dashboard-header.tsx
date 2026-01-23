@@ -1,4 +1,4 @@
-import { Calendar, Search, MapPin, Table2, BarChart3 } from 'lucide-react';
+import { Calendar, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
     Select,
@@ -12,19 +12,12 @@ import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { useState } from 'react';
 
-type ViewMode = 'map' | 'table' | 'chart';
-
-interface DashboardHeaderProps {
-    viewMode?: ViewMode;
-    onViewModeChange?: (mode: ViewMode) => void;
-}
-
-export function DashboardHeader({ viewMode = 'map', onViewModeChange }: DashboardHeaderProps) {
+export function DashboardHeader() {
     const [date, setDate] = useState<Date | undefined>(new Date(2024, 9, 18));
 
     return (
         <div className="bg-linear-to-br from-green-600 via-green-500 to-emerald-400 shadow-lg mt-2">
-            <div className="px-8 py-6">
+            <div className="px-8 pt-3 pb-1">
                 <div className="flex items-start justify-between gap-6">
                     {/* Title Section */}
                     <div className="flex-1">
@@ -98,52 +91,6 @@ export function DashboardHeader({ viewMode = 'map', onViewModeChange }: Dashboar
                     </div>
                 </div>
 
-                {/* View Mode Toggle Buttons */}
-                {onViewModeChange && (
-                    <div className="bg-linear-to-r from-gray-50 to-gray-100 -mx-8 -mb-6 mt-5 px-8 py-4 rounded-b-lg">
-                        <div className="flex justify-end gap-3">
-                            <Button
-                                size="sm"
-                                variant={viewMode === 'map' ? 'default' : 'outline'}
-                                onClick={() => onViewModeChange('map')}
-                                className={
-                                    viewMode === 'map'
-                                        ? 'bg-indigo-600 text-white hover:bg-indigo-700 font-semibold shadow-md px-5 border-0'
-                                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-medium px-5 shadow-sm'
-                                }
-                            >
-                                <MapPin className="h-4 w-4 mr-1.5" />
-                                맵보기
-                            </Button>
-                            <Button
-                                size="sm"
-                                variant={viewMode === 'table' ? 'default' : 'outline'}
-                                onClick={() => onViewModeChange('table')}
-                                className={
-                                    viewMode === 'table'
-                                        ? 'bg-indigo-600 text-white hover:bg-indigo-700 font-semibold shadow-md px-5 border-0'
-                                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-medium px-5 shadow-sm'
-                                }
-                            >
-                                <Table2 className="h-4 w-4 mr-1.5" />
-                                표보기
-                            </Button>
-                            <Button
-                                size="sm"
-                                variant={viewMode === 'chart' ? 'default' : 'outline'}
-                                onClick={() => onViewModeChange('chart')}
-                                className={
-                                    viewMode === 'chart'
-                                        ? 'bg-indigo-600 text-white hover:bg-indigo-700 font-semibold shadow-md px-5 border-0'
-                                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 font-medium px-5 shadow-sm'
-                                }
-                            >
-                                <BarChart3 className="h-4 w-4 mr-1.5" />
-                                차트보기
-                            </Button>
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     );

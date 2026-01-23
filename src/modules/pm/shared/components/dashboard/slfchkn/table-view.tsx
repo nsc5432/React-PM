@@ -1,7 +1,13 @@
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { ViewModeToggle, type ViewMode } from '../view-mode-toggle';
 
-export function TableView() {
+interface TableViewProps {
+    viewMode: ViewMode;
+    onViewModeChange: (mode: ViewMode) => void;
+}
+
+export function TableView({ viewMode, onViewModeChange }: TableViewProps) {
     const times = [
         '04:00',
         '04:30',
@@ -39,6 +45,17 @@ export function TableView() {
 
     return (
         <div className="p-6">
+            <Card className="p-6 mb-4">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-2xl font-bold">셀프체크인/백드롭 N</h2>
+                    <ViewModeToggle
+                        viewMode={viewMode}
+                        onViewModeChange={onViewModeChange}
+                        colorScheme="indigo"
+                        inline
+                    />
+                </div>
+            </Card>
             <Card className="p-0 overflow-hidden">
                 <ScrollArea className="w-full">
                     <div className="min-w-400">

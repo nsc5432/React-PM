@@ -3,6 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { getCheckInCounterDataByTime } from '@/lib/mock-data';
 import { useState } from 'react';
 import { TimelinePlayer } from '@/modules/pm/shared/components/timeline-player';
+import { ViewModeToggle, type ViewMode } from '../view-mode-toggle';
 
 interface KioskData {
     number: number;
@@ -12,7 +13,12 @@ interface KioskData {
     waitTime: number;
 }
 
-export function MapView() {
+interface MapViewProps {
+    viewMode: ViewMode;
+    onViewModeChange: (mode: ViewMode) => void;
+}
+
+export function MapView({ viewMode, onViewModeChange }: MapViewProps) {
     // 시간 상태 관리 (10:00부터 시작)
     const [currentTime, setCurrentTime] = useState(600);
 
@@ -75,24 +81,28 @@ export function MapView() {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="flex-1 p-6 space-y-4">
-                <div className="bg-orange-100 border-l-4 border-orange-500 p-4 rounded">
-                    <div className="flex items-center">
-                        <span className="text-orange-800 font-semibold">⚠ 혼잡</span>
-                        <span className="ml-4 text-orange-700">N 1~7 (3개 부스 OPEN)</span>
-                    </div>
-                </div>
-
+            <div className="flex-1 p-6">
                 <Card className="p-8">
-                    <div className="mb-6">
-                        <h2 className="text-2xl font-bold text-center mb-2">셀프체크인/백드롭 N</h2>
-                        <p className="text-sm text-muted-foreground text-right">
-                            *키오스크 번호를 선택하세요.
-                        </p>
+                    <div className="flex items-center justify-between mb-2">
+                        <div className="bg-orange-100 border-l-4 border-orange-500 px-4 py-2 rounded">
+                            <div className="flex items-center">
+                                <span className="text-orange-800 font-semibold">⚠ 혼잡</span>
+                                <span className="ml-4 text-orange-700">N 1~7 (3개 부스 OPEN)</span>
+                            </div>
+                        </div>
+
+                        <h2 className="text-2xl font-bold -ml-20">셀프체크인/백드롭 N</h2>
+
+                        <ViewModeToggle
+                            viewMode={viewMode}
+                            onViewModeChange={onViewModeChange}
+                            colorScheme="indigo"
+                            inline
+                        />
                     </div>
 
                     {/* Map Layout Grid */}
-                    <div className="relative bg-gray-50 p-8 rounded-lg border-2 border-gray-200 min-h-125">
+                    <div className="relative bg-gray-50 px-4 py-8 rounded-lg border-2 border-gray-200 min-h-125">
                         {/* Top Row Labels (E1-E4, M1-M4, W1-W4) */}
                         <div className="absolute top-4 left-0 right-0 grid grid-cols-12 gap-2 px-8">
                             {[
@@ -119,7 +129,7 @@ export function MapView() {
                         </div>
 
                         {/* Left Column Numbers (01-13) */}
-                        <div className="absolute left-2 top-20 bottom-20 flex flex-col justify-between">
+                        <div className="absolute left-2 top-12 bottom-20 flex flex-col justify-between">
                             {Array.from({ length: 13 }, (_, i) => (
                                 <div
                                     key={i}
@@ -131,7 +141,7 @@ export function MapView() {
                         </div>
 
                         {/* Grid Cells */}
-                        <div className="mt-12 ml-8 grid grid-cols-12 gap-2 h-100">
+                        <div className="mt-4 ml-8 grid grid-cols-12 gap-2 h-100">
                             {Array.from({ length: 156 }, (_, i) => (
                                 <div key={i} className="border border-gray-200 bg-white"></div>
                             ))}

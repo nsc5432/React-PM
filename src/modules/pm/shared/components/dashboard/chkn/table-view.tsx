@@ -1,7 +1,13 @@
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { ViewModeToggle, type ViewMode } from '../view-mode-toggle';
 
-export function DetailedGridView() {
+interface TableViewProps {
+    viewMode: ViewMode;
+    onViewModeChange: (mode: ViewMode) => void;
+}
+
+export function TableView({ viewMode, onViewModeChange }: TableViewProps) {
     const times = ['04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00'];
     const counters = [
         { id: '13 (OZ)', airline: 'OZ' },
@@ -14,6 +20,17 @@ export function DetailedGridView() {
 
     return (
         <div className="p-6">
+            <Card className="p-6 mb-4">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-2xl font-bold">체크인카운터 N</h2>
+                    <ViewModeToggle
+                        viewMode={viewMode}
+                        onViewModeChange={onViewModeChange}
+                        colorScheme="orange"
+                        inline
+                    />
+                </div>
+            </Card>
             <Card className="p-0 overflow-hidden">
                 <ScrollArea className="w-full">
                     <div className="min-w-350">

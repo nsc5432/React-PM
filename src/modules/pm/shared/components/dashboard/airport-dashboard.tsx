@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { DashboardHeader } from '@/modules/pm/shared/components/dashboard/chkn/dashboard-header';
+import { DashboardHeader as ChknDashboardHeader } from '@/modules/pm/shared/components/dashboard/chkn/dashboard-header';
 import { DashboardTabs } from '@/modules/pm/shared/components/dashboard/dashboard-tabs';
 import { MapView } from '@/modules/pm/shared/components/dashboard/map/map-view';
-import { CounterStatusView } from '@/modules/pm/shared/components/dashboard/map/counter-status-view';
-import { DetailedGridView } from '@/modules/pm/shared/components/dashboard/chkn/detailed-grid-view';
+import { MapView as ChknMapView } from '@/modules/pm/shared/components/dashboard/chkn/map-view';
+import { TableView as ChknTableView } from '@/modules/pm/shared/components/dashboard/chkn/table-view';
 import { ChartView } from '@/modules/pm/shared/components/dashboard/chkn/chart-view';
 import { DashboardHeader as SlfChknDashboardHeader } from '@/modules/pm/shared/components/dashboard/slfchkn/dashboard-header';
 import { MapView as SlfChknMapView } from '@/modules/pm/shared/components/dashboard/slfchkn/map-view';
@@ -41,32 +41,26 @@ export default function AirportDashboard({ simulationType = 'daily' }: AirportDa
                 {activeTab === 'map' && <MapView />}
                 {activeTab === 'counter' && (
                     <div className="flex flex-col h-full">
-                        <DashboardHeader viewMode={viewMode} onViewModeChange={setViewMode} />
-                        {viewMode === 'map' && <CounterStatusView />}
-                        {viewMode === 'table' && <DetailedGridView />}
-                        {viewMode === 'chart' && <ChartView />}
+                        <ChknDashboardHeader />
+                        {viewMode === 'map' && <ChknMapView viewMode={viewMode} onViewModeChange={setViewMode} />}
+                        {viewMode === 'table' && <ChknTableView viewMode={viewMode} onViewModeChange={setViewMode} />}
+                        {viewMode === 'chart' && <ChartView viewMode={viewMode} onViewModeChange={setViewMode} />}
                     </div>
                 )}
                 {activeTab === 'self-checkin' && (
                     <div className="flex flex-col h-full">
-                        <SlfChknDashboardHeader
-                            viewMode={slfChknViewMode}
-                            onViewModeChange={setSlfChknViewMode}
-                        />
-                        {slfChknViewMode === 'map' && <SlfChknMapView />}
-                        {slfChknViewMode === 'table' && <SlfChknTableView />}
-                        {slfChknViewMode === 'chart' && <SlfChknChartView />}
+                        <SlfChknDashboardHeader />
+                        {slfChknViewMode === 'map' && <SlfChknMapView viewMode={slfChknViewMode} onViewModeChange={setSlfChknViewMode} />}
+                        {slfChknViewMode === 'table' && <SlfChknTableView viewMode={slfChknViewMode} onViewModeChange={setSlfChknViewMode} />}
+                        {slfChknViewMode === 'chart' && <SlfChknChartView viewMode={slfChknViewMode} onViewModeChange={setSlfChknViewMode} />}
                     </div>
                 )}
                 {activeTab === 'departure' && (
                     <div className="flex flex-col h-full">
-                        <DepDashboardHeader
-                            viewMode={depViewMode}
-                            onViewModeChange={setDepViewMode}
-                        />
-                        {depViewMode === 'map' && <DepMapView />}
-                        {depViewMode === 'table' && <DepTableView />}
-                        {depViewMode === 'chart' && <DepChartView />}
+                        <DepDashboardHeader />
+                        {depViewMode === 'map' && <DepMapView viewMode={depViewMode} onViewModeChange={setDepViewMode} />}
+                        {depViewMode === 'table' && <DepTableView viewMode={depViewMode} onViewModeChange={setDepViewMode} />}
+                        {depViewMode === 'chart' && <DepChartView viewMode={depViewMode} onViewModeChange={setDepViewMode} />}
                     </div>
                 )}
             </main>

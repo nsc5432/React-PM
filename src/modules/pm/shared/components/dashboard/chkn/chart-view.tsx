@@ -12,6 +12,7 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 import { useChartData } from '@/hooks/useChartData';
+import { ViewModeToggle, type ViewMode } from '../view-mode-toggle';
 
 // 예쁜 컬러 팔레트 정의
 const colors = {
@@ -90,7 +91,12 @@ const CustomDot = (props: CustomDotProps) => {
     );
 };
 
-export function ChartView() {
+interface ChartViewProps {
+    viewMode: ViewMode;
+    onViewModeChange: (mode: ViewMode) => void;
+}
+
+export function ChartView({ viewMode, onViewModeChange }: ChartViewProps) {
     const { data: chartData, loading } = useChartData();
 
     if (loading) {
@@ -99,6 +105,17 @@ export function ChartView() {
 
     return (
         <div className="p-6 space-y-6">
+            <Card className="p-6">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-2xl font-bold">체크인카운터 N</h2>
+                    <ViewModeToggle
+                        viewMode={viewMode}
+                        onViewModeChange={onViewModeChange}
+                        colorScheme="orange"
+                        inline
+                    />
+                </div>
+            </Card>
             {/* 메인 차트 - ComposedChart (Bar + Area + Line) */}
             <Card className="shadow-lg">
                 <CardHeader className="bg-linear-to-r from-indigo-50 to-purple-50 border-b">

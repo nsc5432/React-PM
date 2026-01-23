@@ -24,7 +24,7 @@ export function MapView() {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="flex-1 p-6 space-y-4 overflow-auto">
+            <div className="flex-1 p-6 space-y-2 overflow-auto">
                 <Card className="p-4">
                     <div className="bg-amber-50 border border-amber-200 px-4 py-2 rounded-md flex items-center gap-2">
                         <span className="text-lg">🏢</span>
@@ -35,7 +35,7 @@ export function MapView() {
                     </div>
                 </Card>
 
-                <div className="relative bg-muted/20 rounded-lg p-8" style={{ minHeight: '600px' }}>
+                <div className="relative bg-muted/20 rounded-lg p-4" style={{ minHeight: '600px' }}>
                     {/* Grid layout representing terminal islands */}
                     <div className="grid grid-cols-14 gap-2 mb-8">
                         {Array.from({ length: 10 }).map((_, rowIdx) => (
@@ -48,7 +48,7 @@ export function MapView() {
                     </div>
 
                     {/* 보안검색대 구역 - 상단 */}
-                    <div className="absolute top-8 left-0 right-0 px-8">
+                    <div className="absolute top-6 left-0 right-0 px-8">
                         <div className="flex justify-center items-center gap-2 mb-2">
                             <span className="text-sm font-semibold text-foreground">
                                 보안검색대
@@ -61,12 +61,13 @@ export function MapView() {
                                     <Popover key={`security-${num}`}>
                                         <PopoverTrigger asChild>
                                             <button
-                                                className={`w-14 h-14 rounded-lg font-bold text-xl transition-all hover:scale-110 ${security?.status === 'busy'
-                                                    ? 'bg-red-300 text-red-900'
-                                                    : security?.status === 'warning'
-                                                        ? 'bg-yellow-300 text-yellow-900'
-                                                        : 'bg-green-200 text-green-800'
-                                                    }`}
+                                                className={`w-14 h-14 rounded-lg font-bold text-xl transition-all hover:scale-110 ${
+                                                    security?.status === 'busy'
+                                                        ? 'bg-red-300 text-red-900'
+                                                        : security?.status === 'warning'
+                                                          ? 'bg-yellow-300 text-yellow-900'
+                                                          : 'bg-green-200 text-green-800'
+                                                }`}
                                             >
                                                 {num}
                                             </button>
@@ -120,7 +121,7 @@ export function MapView() {
                     </div>
 
                     {/* 출국장 구역 - 중간 */}
-                    <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 px-8">
+                    <div className="absolute top-60 -translate-y-1/2 left-0 right-0 px-8">
                         <div className="flex justify-center items-center gap-2 mb-2">
                             <span className="text-sm font-semibold text-foreground">출국장</span>
                         </div>
@@ -131,12 +132,13 @@ export function MapView() {
                                     <Popover key={`departure-${num}`}>
                                         <PopoverTrigger asChild>
                                             <button
-                                                className={`w-16 h-16 rounded-lg font-bold text-2xl transition-all hover:scale-110 ${facility?.status === 'busy'
-                                                    ? 'bg-blue-300 text-blue-900'
-                                                    : facility?.status === 'warning'
-                                                        ? 'bg-purple-300 text-purple-900'
-                                                        : 'bg-blue-200 text-blue-800'
-                                                    }`}
+                                                className={`w-16 h-16 rounded-lg font-bold text-2xl transition-all hover:scale-110 ${
+                                                    facility?.status === 'busy'
+                                                        ? 'bg-blue-300 text-blue-900'
+                                                        : facility?.status === 'warning'
+                                                          ? 'bg-purple-300 text-purple-900'
+                                                          : 'bg-blue-200 text-blue-800'
+                                                }`}
                                             >
                                                 {num}
                                             </button>
@@ -190,7 +192,7 @@ export function MapView() {
                     </div>
 
                     {/* 체크인카운터 구역 - 하단 */}
-                    <div className="absolute bottom-8 left-0 right-0 px-8">
+                    <div className="absolute bottom-30 left-0 right-0 px-8">
                         <div className="flex justify-center items-center gap-2 mb-2">
                             <span className="text-sm font-semibold text-foreground">
                                 체크인카운터
@@ -203,12 +205,13 @@ export function MapView() {
                                     <Popover key={`counter-${letter}-${idx}`}>
                                         <PopoverTrigger asChild>
                                             <button
-                                                className={`w-12 h-12 rounded-lg font-bold text-lg transition-all hover:scale-110 ${counter?.status === 'busy'
-                                                    ? 'bg-orange-300 text-orange-900'
-                                                    : counter?.status === 'warning'
-                                                        ? 'bg-amber-300 text-amber-900'
-                                                        : 'bg-emerald-200 text-emerald-800'
-                                                    }`}
+                                                className={`w-12 h-12 rounded-lg font-bold text-lg transition-all hover:scale-110 ${
+                                                    counter?.status === 'busy'
+                                                        ? 'bg-orange-300 text-orange-900'
+                                                        : counter?.status === 'warning'
+                                                          ? 'bg-amber-300 text-amber-900'
+                                                          : 'bg-emerald-200 text-emerald-800'
+                                                }`}
                                             >
                                                 {letter}
                                             </button>

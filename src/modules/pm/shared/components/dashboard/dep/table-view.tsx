@@ -1,5 +1,11 @@
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { ViewModeToggle, type ViewMode } from '../view-mode-toggle';
+
+interface TableViewProps {
+    viewMode: ViewMode;
+    onViewModeChange: (mode: ViewMode) => void;
+}
 
 interface TimeSlotData {
     processedPeople: number;
@@ -8,7 +14,7 @@ interface TimeSlotData {
     waitTime: string;
 }
 
-export function TableView() {
+export function TableView({ viewMode, onViewModeChange }: TableViewProps) {
     const times = ['04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '...'];
     const gateNumbers = [8, 7, 6, 5, 4, 3, 2, 1];
 
@@ -36,6 +42,17 @@ export function TableView() {
 
     return (
         <div className="p-6">
+            <Card className="p-6 mb-4">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-2xl font-bold">출국장 N</h2>
+                    <ViewModeToggle
+                        viewMode={viewMode}
+                        onViewModeChange={onViewModeChange}
+                        colorScheme="green"
+                        inline
+                    />
+                </div>
+            </Card>
             <Card className="p-0 overflow-hidden">
                 <ScrollArea className="w-full">
                     <div className="min-w-400">

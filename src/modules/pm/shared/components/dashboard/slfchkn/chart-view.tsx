@@ -17,6 +17,7 @@ import {
     Legend,
     ResponsiveContainer,
 } from 'recharts';
+import { ViewModeToggle, type ViewMode } from '../view-mode-toggle';
 
 // Mock data for the chart
 const chartData = [
@@ -104,9 +105,25 @@ const CustomDot = (props: CustomDotProps) => {
     );
 };
 
-export function ChartView() {
+interface ChartViewProps {
+    viewMode: ViewMode;
+    onViewModeChange: (mode: ViewMode) => void;
+}
+
+export function ChartView({ viewMode, onViewModeChange }: ChartViewProps) {
     return (
         <div className="p-6 space-y-6">
+            <Card className="p-6">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-2xl font-bold">셀프체크인/백드롭 N</h2>
+                    <ViewModeToggle
+                        viewMode={viewMode}
+                        onViewModeChange={onViewModeChange}
+                        colorScheme="indigo"
+                        inline
+                    />
+                </div>
+            </Card>
             {/* Header Controls */}
             <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-bold">N-3구역 셀프체크인/백드롭 현황</h2>

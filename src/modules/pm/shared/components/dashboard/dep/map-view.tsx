@@ -4,6 +4,7 @@ import { getCheckInCounterDataByTime } from '@/lib/mock-data';
 import { TimelinePlayer } from '@/modules/pm/shared/components/timeline-player';
 import { useState } from 'react';
 import { Users, Clock } from 'lucide-react';
+import { ViewModeToggle, type ViewMode } from '../view-mode-toggle';
 
 interface DepartureGateData {
     number: number;
@@ -14,7 +15,12 @@ interface DepartureGateData {
     processTime: number;
 }
 
-export function MapView() {
+interface MapViewProps {
+    viewMode: ViewMode;
+    onViewModeChange: (mode: ViewMode) => void;
+}
+
+export function MapView({ viewMode, onViewModeChange }: MapViewProps) {
     const [currentTime, setCurrentTime] = useState(600);
 
     // 현재 시간에 해당하는 체크인카운터(A~N 아일랜드) 혼잡도 데이터 가져오기
@@ -99,10 +105,11 @@ export function MapView() {
             <PopoverTrigger asChild>
                 <div className="relative">
                     <div
-                        className={`w-32 h-72 rounded-lg shadow-xl flex flex-col items-center cursor-pointer transition-all hover:scale-105 border-2 ${gate.status === 'busy'
+                        className={`w-32 h-72 rounded-lg shadow-xl flex flex-col items-center cursor-pointer transition-all hover:scale-105 border-2 ${
+                            gate.status === 'busy'
                                 ? 'bg-white border-gray-300'
                                 : 'bg-white border-gray-300'
-                            }`}
+                        }`}
                     >
                         {/* Header */}
                         <div className="w-full bg-gray-100 py-2 px-3 rounded-t-lg border-b border-gray-300">
@@ -114,10 +121,11 @@ export function MapView() {
                         {/* Status Badge */}
                         <div className="mt-3 mb-2">
                             <div
-                                className={`px-4 py-1 rounded text-xs font-bold ${gate.status === 'busy'
+                                className={`px-4 py-1 rounded text-xs font-bold ${
+                                    gate.status === 'busy'
                                         ? 'bg-red-500 text-white'
                                         : 'bg-cyan-400 text-white'
-                                    }`}
+                                }`}
                             >
                                 {getStatusLabel(gate.status)}
                             </div>
@@ -220,18 +228,24 @@ export function MapView() {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="flex-1 p-6 space-y-4">
-                <div className="bg-orange-100 border-l-4 border-orange-500 p-4 rounded">
-                    <div className="flex items-center">
-                        <span className="text-orange-800 font-semibold">⚠ 혼잡</span>
-                        <span className="ml-4 text-orange-700">출국장 3 (2개 부스 OPEN)</span>
-                        <span className="ml-8 text-orange-700">출국장 6 (2개 부스 OPEN)</span>
-                    </div>
-                </div>
-
+            <div className="flex-1 p-6">
                 <Card className="p-8">
-                    <div className="mb-6">
-                        <h2 className="text-2xl font-bold text-center mb-2">출국장 N</h2>
+                    <div className="flex items-center justify-between mb-2">
+                        <div className="bg-orange-100 border-l-4 border-orange-500 px-4 py-2 rounded">
+                            <div className="flex items-center">
+                                <span className="text-orange-800 font-semibold">⚠ 혼잡</span>
+                                <span className="ml-4 text-orange-700">출국장 3 (2개 부스 OPEN)</span>
+                            </div>
+                        </div>
+
+                        <h2 className="text-2xl font-bold -ml-20">출국장 N</h2>
+
+                        <ViewModeToggle
+                            viewMode={viewMode}
+                            onViewModeChange={onViewModeChange}
+                            colorScheme="green"
+                            inline
+                        />
                     </div>
 
                     {/* Map Layout Grid */}
@@ -338,8 +352,8 @@ export function MapView() {
                                     islandStatus === 'busy'
                                         ? 'bg-red-500'
                                         : islandStatus === 'warning'
-                                            ? 'bg-orange-400'
-                                            : 'bg-cyan-400';
+                                          ? 'bg-orange-400'
+                                          : 'bg-cyan-400';
                                 return (
                                     <div
                                         key={label}
