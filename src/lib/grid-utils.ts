@@ -118,11 +118,12 @@ export function isValidCoordinateRange(
 
 // 공항 그리드 경계 상수 (인천공항 T1 기준)
 // 실제 공항 구역의 위도/경도 범위를 정의
+// 10개 샘플 데이터 분석 기반으로 재계산됨 (2026-01-29)
 const AIRPORT_BOUNDS = {
-    minLatitude: 37.4446, // 남쪽 경계
-    maxLatitude: 37.4620, // 북쪽 경계
-    minLongitude: 126.4380, // 서쪽 경계 (W4)
-    maxLongitude: 126.4580, // 동쪽 경계 (E1)
+    minLatitude: 37.4460, // 남쪽 경계 (row 17 아래)
+    maxLatitude: 37.4510, // 북쪽 경계 (row 01 위)
+    minLongitude: 126.4475, // 동쪽 경계 (E1 왼쪽) - 주의: 경도가 낮을수록 동쪽
+    maxLongitude: 126.4550, // 서쪽 경계 (W4 오른쪽) - 주의: 경도가 높을수록 서쪽
 };
 
 /**
