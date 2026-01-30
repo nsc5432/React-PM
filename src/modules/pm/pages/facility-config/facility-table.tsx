@@ -24,12 +24,15 @@ import { gridCoordToLatLng } from '@/lib/grid-utils';
 
 interface Props {
     facilities: CommercialFacilityPosition[];
-    onUpdate: (facilities: CommercialFacilityPosition[]) => void;
+    selectedFacilityId?: string | null;
+    onDeleteFacility: (facilityId: string) => void;
+    onUpdateFacility: (facilityId: string, updates: Partial<CommercialFacilityPosition>) => void;
+    onSelectFacility?: (facilityId: string | null) => void;
 }
 
 const ITEMS_PER_PAGE = 10;
 
-export function FacilityTable({ facilities, onUpdate }: Props) {
+export function FacilityTable({ facilities, selectedFacilityId, onDeleteFacility, onUpdateFacility, onSelectFacility }: Props) {
     const [currentPage, setCurrentPage] = useState(1);
 
     const totalPages = Math.ceil(facilities.length / ITEMS_PER_PAGE);
@@ -38,40 +41,30 @@ export function FacilityTable({ facilities, onUpdate }: Props) {
     const currentFacilities = facilities.slice(startIndex, endIndex);
 
     const handleDelete = (facilityId: string) => {
-        onUpdate(facilities.filter((f) => f.id !== facilityId));
-        // 현재 페이지가 범위를 벗어나면 조정
+        onDeleteFacility(facilityId);
         if (currentFacilities.length === 1 && currentPage > 1) {
             setCurrentPage(currentPage - 1);
         }
     };
 
-    const handleCoordinateChange = (
+    const handleCoordinateBlur = (
         facilityId: string,
         field: 'startCoord' | 'endCoord',
         value: string,
     ) => {
-        onUpdate(
-            facilities.map((f) => {
-                if (f.id === facilityId) {
-                    // startCoord 변경 시 위도/경도도 함께 업데이트
-                    if (field === 'startCoord') {
-                        const newLatLng = gridCoordToLatLng(value);
-                        return {
-                            ...f,
-                            [field]: value,
-                            latitude: newLatLng?.latitude ?? f.latitude,
-                            longitude: newLatLng?.longitude ?? f.longitude,
-                        };
-                    }
-                    return { ...f, [field]: value };
-                }
-                return f;
-            }),
-        );
+        if (field === 'startCoord') {
+            const newLatLng = gridCoordToLatLng(value);
+            onUpdateFacility(facilityId, {
+                [field]: value,
+                ...(newLatLng && { latitude: newLatLng.latitude, longitude: newLatLng.longitude }),
+            });
+        } else {
+            onUpdateFacility(facilityId, { [field]: value });
+        }
     };
 
     const handleNameChange = (facilityId: string, name: string) => {
-        onUpdate(facilities.map((f) => (f.id === facilityId ? { ...f, name } : f)));
+        onUpdateFacility(facilityId, { name });
     };
 
     const handleFieldChange = (
@@ -79,7 +72,7 @@ export function FacilityTable({ facilities, onUpdate }: Props) {
         field: 'castSimulationCode' | 'adjacentFacilityCode',
         value: string,
     ) => {
-        onUpdate(facilities.map((f) => (f.id === facilityId ? { ...f, [field]: value } : f)));
+        onUpdateFacility(facilityId, { [field]: value });
     };
 
     return (
@@ -118,7 +111,11 @@ export function FacilityTable({ facilities, onUpdate }: Props) {
                                 </TableRow>
                             ) : (
                                 currentFacilities.map((facility, index) => (
-                                    <TableRow key={facility.id}>
+                                    <TableRow
+                                        key={facility.id}
+                                        className={`cursor-pointer ${selectedFacilityId === facility.id ? 'bg-blue-50' : 'hover:bg-gray-50'}`}
+                                        onClick={() => onSelectFacility?.(selectedFacilityId === facility.id ? null : facility.id)}
+                                    >
                                         <TableCell className="text-center">
                                             {startIndex + index + 1}
                                         </TableCell>
@@ -170,9 +167,9 @@ export function FacilityTable({ facilities, onUpdate }: Props) {
                                         </TableCell>
                                         <TableCell>
                                             <Input
-                                                value={facility.startCoord}
-                                                onChange={(e) =>
-                                                    handleCoordinateChange(
+                                                defaultValue={facility.startCoord}
+                                                onBlur={(e) =>
+                                                    handleCoordinateBlur(
                                                         facility.id,
                                                         'startCoord',
                                                         e.target.value,
@@ -184,9 +181,9 @@ export function FacilityTable({ facilities, onUpdate }: Props) {
                                         </TableCell>
                                         <TableCell>
                                             <Input
-                                                value={facility.endCoord}
-                                                onChange={(e) =>
-                                                    handleCoordinateChange(
+                                                defaultValue={facility.endCoord}
+                                                onBlur={(e) =>
+                                                    handleCoordinateBlur(
                                                         facility.id,
                                                         'endCoord',
                                                         e.target.value,
@@ -213,7 +210,7 @@ export function FacilityTable({ facilities, onUpdate }: Props) {
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                onClick={() => handleDelete(facility.id)}
+                                                onClick={(e) => { e.stopPropagation(); handleDelete(facility.id); }}
                                                 className="h-8 w-8"
                                             >
                                                 <Trash2 className="h-4 w-4 text-red-500" />

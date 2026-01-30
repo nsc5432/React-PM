@@ -8,20 +8,28 @@ import {
     FACILITY_TYPE_LABELS,
     type FacilityType,
 } from '@/types/api.types';
-import { createCoordinate, latLngToPixelPosition } from '@/lib/grid-utils';
+import { createCoordinate, parseCoordinate, latLngToPixelPosition, pixelToLatLng } from '@/lib/grid-utils';
 
 interface Props {
     facilities: CommercialFacilityPosition[];
-    onFacilityMove: (facilityId: string, newStartCoord: string, newEndCoord: string) => void;
+    selectedFacilityId?: string | null;
+    onFacilityMove: (
+        facilityId: string,
+        newStartCoord: string,
+        newEndCoord: string,
+        latitude?: number,
+        longitude?: number,
+    ) => void;
 }
 
 const CELL_SIZE = 40; // 셀 크기
 const CIRCLE_RADIUS = 5; // 원 반지름
 
-export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
+export function FacilityGridMap({ facilities, selectedFacilityId, onFacilityMove }: Props) {
     const gridRef = useRef<HTMLDivElement>(null);
     const [draggedFacilityId, setDraggedFacilityId] = useState<string | null>(null);
     const [dragOverCoord, setDragOverCoord] = useState<string | null>(null);
+    const [hoveredFacility, setHoveredFacility] = useState<{ facility: CommercialFacilityPosition; x: number; y: number; containerW: number; containerH: number } | null>(null);
 
     // 드래그 시작
     const handleDragStart = (e: React.DragEvent, facilityId: string) => {
@@ -44,8 +52,44 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
         const facilityId = e.dataTransfer.getData('facilityId');
         if (!facilityId || !coord) return;
 
-        // 드롭된 좌표로 시설 이동
-        onFacilityMove(facilityId, coord, coord);
+        // 픽셀 위치에서 정밀 위도/경도 계산
+        let latitude: number | undefined;
+        let longitude: number | undefined;
+
+        if (gridRef.current) {
+            const rect = gridRef.current.getBoundingClientRect();
+            const headerOffset = 40; // 헤더 행/열 크기
+            const x = e.clientX - rect.left - headerOffset + gridRef.current.scrollLeft;
+            const y = e.clientY - rect.top - headerOffset + gridRef.current.scrollTop;
+            const gridWidth = gridRef.current.scrollWidth - headerOffset;
+            const gridHeight = gridRef.current.scrollHeight - headerOffset;
+
+            const latLng = pixelToLatLng(x, y, gridWidth, gridHeight);
+            if (latLng) {
+                latitude = latLng.latitude;
+                longitude = latLng.longitude;
+            }
+        }
+
+        // 다중셀 시설의 크기(span) 보존
+        const facility = facilities.find((f) => f.id === facilityId);
+        let endCoord = coord;
+        if (facility) {
+            const startParsed = parseCoordinate(facility.startCoord);
+            const endParsed = parseCoordinate(facility.endCoord);
+            const newStartParsed = parseCoordinate(coord);
+            if (startParsed && endParsed && newStartParsed) {
+                const colOffset = endParsed.col - startParsed.col;
+                const rowOffset = endParsed.row - startParsed.row;
+                const newEndCoord = createCoordinate(
+                    newStartParsed.col + colOffset,
+                    newStartParsed.row + rowOffset,
+                );
+                if (newEndCoord) endCoord = newEndCoord;
+            }
+        }
+
+        onFacilityMove(facilityId, coord, endCoord, latitude, longitude);
 
         setDraggedFacilityId(null);
         setDragOverCoord(null);
@@ -71,12 +115,17 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
         });
     }, [facilities]);
 
-    // 특정 좌표에 있는 시설들 찾기
-    const getFacilitiesAtCoord = (coord: string) => {
-        return facilityPositions
-            .filter((fp) => fp.position?.coord === coord)
-            .map((fp) => fp);
-    };
+    // 좌표별 시설 맵 (O(1) 조회)
+    const facilitiesByCoord = useMemo(() => {
+        const map = new Map<string, typeof facilityPositions>();
+        for (const fp of facilityPositions) {
+            if (!fp.position) continue;
+            const list = map.get(fp.position.coord) ?? [];
+            list.push(fp);
+            map.set(fp.position.coord, list);
+        }
+        return map;
+    }, [facilityPositions]);
 
     return (
         <Card className="p-6">
@@ -84,7 +133,7 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
                 <h2 className="text-xl font-bold">시설 배치 지도</h2>
 
                 {/* 그리드 컨테이너 */}
-                <div ref={gridRef} className="overflow-auto w-full">
+                <div ref={gridRef} className="overflow-x-auto w-full relative">
                     <div
                         className="grid border border-gray-300 w-full"
                         style={{
@@ -119,7 +168,7 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
                                     if (!coord) return null;
 
                                     // 이 셀에 있는 시설들 찾기
-                                    const facilitiesInCell = getFacilitiesAtCoord(coord);
+                                    const facilitiesInCell = facilitiesByCoord.get(coord) ?? [];
                                     const isHighlighted = dragOverCoord === coord;
 
                                     return (
@@ -136,6 +185,7 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
                                                 if (!position) return null;
 
                                                 const isDragging = draggedFacilityId === facility.id;
+                                                const isSelected = selectedFacilityId === facility.id;
                                                 // 셀 내부의 정확한 위치 계산 (0-1 비율을 백분율로 변환)
                                                 const leftPercent = position.offsetX * 100;
                                                 const topPercent = position.offsetY * 100;
@@ -148,6 +198,20 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
                                                             handleDragStart(e, facility.id)
                                                         }
                                                         onDragEnd={handleDragEnd}
+                                                        onMouseEnter={(e) => {
+                                                            const container = gridRef.current;
+                                                            if (container) {
+                                                                const rect = container.getBoundingClientRect();
+                                                                setHoveredFacility({
+                                                                    facility,
+                                                                    x: e.clientX - rect.left + container.scrollLeft,
+                                                                    y: e.clientY - rect.top + container.scrollTop,
+                                                                    containerW: container.scrollWidth,
+                                                                    containerH: container.scrollHeight,
+                                                                });
+                                                            }
+                                                        }}
+                                                        onMouseLeave={() => setHoveredFacility(null)}
                                                         className={`absolute rounded-full cursor-move transition-all ${
                                                             isDragging ? 'opacity-50 scale-110' : ''
                                                         }`}
@@ -155,13 +219,15 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
                                                             left: `${leftPercent}%`,
                                                             top: `${topPercent}%`,
                                                             transform: 'translate(-50%, -50%)',
-                                                            width: `${CIRCLE_RADIUS * 2}px`,
-                                                            height: `${CIRCLE_RADIUS * 2}px`,
+                                                            width: isSelected ? `${CIRCLE_RADIUS * 4}px` : `${CIRCLE_RADIUS * 2}px`,
+                                                            height: isSelected ? `${CIRCLE_RADIUS * 4}px` : `${CIRCLE_RADIUS * 2}px`,
                                                             backgroundColor: facility.color,
-                                                            border: `2px solid ${facility.color}`,
-                                                            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                                                            border: isSelected ? '3px solid #1d4ed8' : `2px solid ${facility.color}`,
+                                                            boxShadow: isSelected
+                                                                ? '0 0 0 3px rgba(29,78,216,0.3), 0 2px 8px rgba(0,0,0,0.3)'
+                                                                : '0 2px 4px rgba(0,0,0,0.2)',
+                                                            zIndex: isSelected ? 20 : 1,
                                                         }}
-                                                        title={`${facility.name}\n위도: ${facility.latitude.toFixed(4)}\n경도: ${facility.longitude.toFixed(4)}\n좌표: ${coord}`}
                                                     />
                                                 );
                                             })}
@@ -171,6 +237,32 @@ export function FacilityGridMap({ facilities, onFacilityMove }: Props) {
                             </Fragment>
                         ))}
                     </div>
+
+                    {/* 툴팁 */}
+                    {hoveredFacility && (() => {
+                        const tooltipH = 100;
+                        const gap = 10;
+                        const nearRight = hoveredFacility.x + gap + 140 > hoveredFacility.containerW;
+                        const nearBottom = hoveredFacility.y + tooltipH > hoveredFacility.containerH;
+                        const hStyle: React.CSSProperties = nearRight
+                            ? { right: hoveredFacility.containerW - hoveredFacility.x + gap }
+                            : { left: hoveredFacility.x + gap };
+                        const top = nearBottom ? hoveredFacility.y - tooltipH : hoveredFacility.y;
+                        return (
+                        <div
+                            className="absolute pointer-events-none z-50 bg-gray-900 text-white text-xs rounded-lg px-3 py-2 shadow-lg whitespace-nowrap"
+                            style={{ ...hStyle, top }}
+                        >
+                            <div className="font-semibold mb-1">{hoveredFacility.facility.name}</div>
+                            <div className="text-gray-300 space-y-0.5">
+                                <div>유형: {FACILITY_TYPE_LABELS[hoveredFacility.facility.facilityType]}</div>
+                                <div>좌표: {hoveredFacility.facility.startCoord}</div>
+                                <div>위도: {hoveredFacility.facility.latitude.toFixed(4)}</div>
+                                <div>경도: {hoveredFacility.facility.longitude.toFixed(4)}</div>
+                            </div>
+                        </div>
+                        );
+                    })()}
                 </div>
 
                 {/* 범례 */}

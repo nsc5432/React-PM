@@ -18,4 +18,29 @@ export const facilityService = {
         );
         return response.data.data;
     },
+
+    // 시설물 위치 업데이트
+    updatePosition: async (
+        facilityId: string,
+        latitude: number,
+        longitude: number,
+    ): Promise<void> => {
+        await apiClient.put(
+            API_ENDPOINTS.UPDATE_FACILITY_POSITION(facilityId),
+            { latitude, longitude },
+        );
+    },
+
+    // 시설물 일괄 저장
+    saveBatch: async (
+        facilities: Array<{
+            id: string;
+            latitude: number;
+            longitude: number;
+            startCoord: string;
+            endCoord: string;
+        }>,
+    ): Promise<void> => {
+        await apiClient.post(API_ENDPOINTS.SAVE_FACILITIES_BATCH, { facilities });
+    },
 };

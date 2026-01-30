@@ -15,4 +15,8 @@ export const API_ENDPOINTS = {
 
     // 사용자 정보
     USER_INFO_BY_KEY: (key: string) => `/users/${key}`,
+
+    // 시설물 위치 업데이트
+    UPDATE_FACILITY_POSITION: (facilityId: string) => `/facilities/${facilityId}/position`,
+    SAVE_FACILITIES_BATCH: '/facilities/batch',
 } as const;

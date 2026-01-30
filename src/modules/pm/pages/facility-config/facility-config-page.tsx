@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { Calendar as CalendarIcon, Building2, Search, Save, Plus, FileDown } from 'lucide-react';
@@ -16,7 +16,8 @@ import {
 import type { CommercialFacilityPosition, Terminal, FacilityType } from '@/types/api.types';
 import { FACILITY_TYPE_LABELS, FACILITY_TYPE_COLORS } from '@/types/api.types';
 import { useToast } from '@/hooks/use-toast';
-import { gridCoordToLatLng } from '@/lib/grid-utils';
+import { gridCoordToLatLng, printCalibrationResults } from '@/lib/grid-utils';
+import { facilityService } from '@/api/services/facility.service';
 
 export default function FacilityConfigPage() {
     const { toast } = useToast();
@@ -24,6 +25,16 @@ export default function FacilityConfigPage() {
     const [terminal, setTerminal] = useState<Terminal>('T1');
     const [selectedFacilityType, setSelectedFacilityType] = useState<FacilityType | 'all'>('all');
     const [facilities, setFacilities] = useState<CommercialFacilityPosition[]>([]);
+    const [selectedFacilityId, setSelectedFacilityId] = useState<string | null>(null);
+    const [saving, setSaving] = useState(false);
+    const gridMapRef = useRef<HTMLDivElement>(null);
+
+    const handleSelectFacility = useCallback((facilityId: string | null) => {
+        setSelectedFacilityId(facilityId);
+        if (facilityId && gridMapRef.current) {
+            gridMapRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, []);
 
     // 필터링된 시설 목록
     const filteredFacilities = selectedFacilityType === 'all'
@@ -40,28 +51,47 @@ export default function FacilityConfigPage() {
         }
     }, [terminal]);
 
-    // 시설 이동 핸들러 (그리드 좌표를 위도/경도로 변환하여 저장)
+    // 시설 이동 핸들러 (정밀 위도/경도 또는 그리드 좌표 기반 변환)
     const handleFacilityMove = (
         facilityId: string,
         newStartCoord: string,
-        newEndCoord: string
+        newEndCoord: string,
+        latitude?: number,
+        longitude?: number,
     ) => {
+        const newLatLng = latitude != null && longitude != null
+            ? { latitude, longitude }
+            : gridCoordToLatLng(newStartCoord);
+
+        const finalLat = newLatLng?.latitude;
+        const finalLng = newLatLng?.longitude;
+
+        // UI 즉시 업데이트
         setFacilities((prev) =>
             prev.map((f) => {
                 if (f.id === facilityId) {
-                    // 새로운 그리드 좌표를 위도/경도로 변환
-                    const newLatLng = gridCoordToLatLng(newStartCoord);
                     return {
                         ...f,
                         startCoord: newStartCoord,
                         endCoord: newEndCoord,
-                        latitude: newLatLng?.latitude ?? f.latitude,
-                        longitude: newLatLng?.longitude ?? f.longitude,
+                        latitude: finalLat ?? f.latitude,
+                        longitude: finalLng ?? f.longitude,
                     };
                 }
                 return f;
             })
         );
+
+        // API 호출 (실패 시 toast 경고, mock 모드에서는 스킵)
+        if (finalLat != null && finalLng != null && import.meta.env.VITE_ENABLE_MOCK !== 'true') {
+            facilityService.updatePosition(facilityId, finalLat, finalLng).catch(() => {
+                toast({
+                    title: '위치 서버 저장 실패',
+                    description: '서버에 위치 정보를 저장하지 못했습니다. 로컬에는 반영되었습니다.',
+                    variant: 'destructive',
+                });
+            });
+        }
     };
 
     // 시설 추가 핸들러
@@ -89,7 +119,9 @@ export default function FacilityConfigPage() {
     };
 
     // 저장 핸들러
-    const handleSave = () => {
+    const handleSave = async () => {
+        if (saving) return;
+        setSaving(true);
         // 모든 터미널의 데이터 병합
         const stored = loadCommercialFacilitiesFromStorage();
         const otherTerminalFacilities = stored
@@ -97,12 +129,36 @@ export default function FacilityConfigPage() {
             : getCommercialFacilities().filter((f) => f.terminal !== terminal);
 
         const allFacilities = [...otherTerminalFacilities, ...facilities];
+
+        // API 호출 시도
+        if (import.meta.env.VITE_ENABLE_MOCK !== 'true') {
+            try {
+                await facilityService.saveBatch(
+                    facilities.map((f) => ({
+                        id: f.id,
+                        latitude: f.latitude,
+                        longitude: f.longitude,
+                        startCoord: f.startCoord,
+                        endCoord: f.endCoord,
+                    })),
+                );
+            } catch {
+                toast({
+                    title: '서버 저장 실패',
+                    description: 'localStorage에 백업 저장합니다.',
+                    variant: 'destructive',
+                });
+            }
+        }
+
+        // localStorage에도 저장 (백업)
         saveCommercialFacilities(allFacilities);
 
         toast({
             title: '저장 완료',
             description: `${facilities.length}개의 시설 정보가 저장되었습니다.`,
         });
+        setSaving(false);
     };
 
     // Excel 내보내기 핸들러
@@ -237,7 +293,9 @@ export default function FacilityConfigPage() {
                 </Card>
 
                 {/* 그리드 지도 */}
-                <FacilityGridMap facilities={filteredFacilities} onFacilityMove={handleFacilityMove} />
+                <div ref={gridMapRef}>
+                    <FacilityGridMap facilities={filteredFacilities} selectedFacilityId={selectedFacilityId} onFacilityMove={handleFacilityMove} />
+                </div>
 
                 {/* 액션 버튼 */}
                 <div className="flex justify-end gap-3">
@@ -250,14 +308,25 @@ export default function FacilityConfigPage() {
                         엑셀저장
                     </Button>
 
-                    <Button onClick={handleSave} className="gap-2">
+                    <Button onClick={handleSave} disabled={saving} className="gap-2">
                         <Save className="h-4 w-4" />
-                        저장
+                        {saving ? '저장 중...' : '저장'}
                     </Button>
+                    {import.meta.env.DEV && (
+                        <Button variant="outline" onClick={printCalibrationResults}>
+                            좌표 검증
+                        </Button>
+                    )}
                 </div>
 
                 {/* 시설 테이블 */}
-                <FacilityTable facilities={filteredFacilities} onUpdate={setFacilities} />
+                <FacilityTable
+                    facilities={filteredFacilities}
+                    selectedFacilityId={selectedFacilityId}
+                    onDeleteFacility={(id) => setFacilities((prev) => prev.filter((f) => f.id !== id))}
+                    onUpdateFacility={(id, updates) => setFacilities((prev) => prev.map((f) => f.id === id ? { ...f, ...updates } : f))}
+                    onSelectFacility={handleSelectFacility}
+                />
             </div>
         </div>
     );

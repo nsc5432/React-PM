@@ -30,7 +30,10 @@
       "Bash(xcopy:*)",
       "Bash(copy publicsvg*.svg srcassetssvg)",
       "Bash(tree:*)",
-      "Bash(tasklist:*)"
+      "Bash(tasklist:*)",
+      "Bash(node -e:*)",
+      "Bash(node download-packages.js:*)",
+      "Bash(node:*)"
     ]
   }
 }

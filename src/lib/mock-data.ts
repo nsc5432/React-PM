@@ -2070,6 +2070,117 @@ export const mockCommercialFacilities: (CommercialFacilityPosition | Omit<Commer
         color: '#EF4444',
         description: '탑승게이트 21-30',
     },
+    // 10개 캘리브레이션 샘플 (실측 위도/경도 포함)
+    {
+        id: 'DEP-GATE-01',
+        name: '출국장1',
+        facilityType: 'departure',
+        terminal: 'T1',
+        latitude: 37.45025103,
+        longitude: 126.4542537,
+        startCoord: 'W3-04',
+        endCoord: 'W3-04',
+        color: '#10B981',
+    },
+    {
+        id: 'DEP-GATE-02',
+        name: '출국장2',
+        facilityType: 'departure',
+        terminal: 'T1',
+        latitude: 37.45015237,
+        longitude: 126.4529945,
+        startCoord: 'W2-04',
+        endCoord: 'W2-04',
+        color: '#10B981',
+    },
+    {
+        id: 'DEP-GATE-03',
+        name: '출국장3',
+        facilityType: 'departure',
+        terminal: 'T1',
+        latitude: 37.44989135,
+        longitude: 126.4518183,
+        startCoord: 'M4-04',
+        endCoord: 'M4-04',
+        color: '#10B981',
+    },
+    {
+        id: 'DEP-GATE-04',
+        name: '출국장4',
+        facilityType: 'departure',
+        terminal: 'T1',
+        latitude: 37.44876023,
+        longitude: 126.4497998,
+        startCoord: 'M1-04',
+        endCoord: 'M1-04',
+        color: '#10B981',
+    },
+    {
+        id: 'DEP-GATE-05',
+        name: '출국장5',
+        facilityType: 'departure',
+        terminal: 'T1',
+        latitude: 37.44794488,
+        longitude: 126.4490817,
+        startCoord: 'E3-04',
+        endCoord: 'E3-04',
+        color: '#10B981',
+    },
+    {
+        id: 'DEP-GATE-06',
+        name: '출국장6',
+        facilityType: 'departure',
+        terminal: 'T1',
+        latitude: 37.4471604,
+        longitude: 126.4481759,
+        startCoord: 'E1-04',
+        endCoord: 'E1-04',
+        color: '#10B981',
+    },
+    {
+        id: 'COMM-PASCUCCI',
+        name: '파스쿠찌',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        latitude: 37.44897152,
+        longitude: 126.4506541,
+        startCoord: 'M2-08',
+        endCoord: 'M2-08',
+        color: '#9333EA',
+    },
+    {
+        id: 'COMM-CU',
+        name: 'CU',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        latitude: 37.44881024,
+        longitude: 126.450685,
+        startCoord: 'M2-10',
+        endCoord: 'M2-10',
+        color: '#9333EA',
+    },
+    {
+        id: 'COMM-SHUTTLE',
+        name: '셔틀버스',
+        facilityType: 'commercial',
+        terminal: 'T1',
+        latitude: 37.44873571,
+        longitude: 126.4514655,
+        startCoord: 'M3-16',
+        endCoord: 'M3-16',
+        color: '#9333EA',
+    },
+    {
+        id: 'COMM-AED',
+        name: 'AED',
+        facilityType: 'security',
+        terminal: 'T1',
+        latitude: 37.44719312,
+        longitude: 126.4489625,
+        startCoord: 'E1-08',
+        endCoord: 'E1-08',
+        color: '#EF4444',
+    },
 ];
 
 /**
@@ -2101,8 +2212,8 @@ export const getCommercialFacilities = (terminal?: Terminal): CommercialFacility
 };
 
 // gridCoordToLatLng를 여기서 직접 구현 (순환 참조 방지)
+// grid-utils.ts의 gridIndexToLatLng와 동일한 로직 사용
 function gridCoordToLatLngHelper(coord: string): { latitude: number; longitude: number } | null {
-    // 좌표 파싱
     const match = coord.match(/^([EMWH][1-4])-(\d{2})$/);
     if (!match) return null;
 
@@ -2112,25 +2223,52 @@ function gridCoordToLatLngHelper(coord: string): { latitude: number; longitude: 
 
     if (col === -1 || row < 0 || row >= 17) return null;
 
-    // 공항 범위 상수
-    const AIRPORT_BOUNDS = {
-        minLatitude: 37.4446,
-        maxLatitude: 37.462,
-        minLongitude: 126.438,
-        maxLongitude: 126.458,
+    // grid-utils.ts의 gridIndexToLatLng 로직과 동일
+    // 중심선 앵커 포인트 (row-04 출국장 실측 데이터)
+    const anchors: [number, number, number][] = [
+        [0, 37.4471604, 126.4481759],
+        [2, 37.44794488, 126.4490817],
+        [4, 37.44876023, 126.4497998],
+        [7, 37.44989135, 126.4518183],
+        [9, 37.45015237, 126.4529945],
+        [10, 37.45025103, 126.4542537],
+    ];
+
+    // 중심선 보간
+    const c = Math.max(-1, Math.min(12, col + 0.5));
+    let center = { lat: anchors[0][1], lng: anchors[0][2] };
+    for (let i = 0; i < anchors.length - 1; i++) {
+        if (c >= anchors[i][0] && c <= anchors[i + 1][0]) {
+            const t = (c - anchors[i][0]) / (anchors[i + 1][0] - anchors[i][0]);
+            center = {
+                lat: anchors[i][1] + t * (anchors[i + 1][1] - anchors[i][1]),
+                lng: anchors[i][2] + t * (anchors[i + 1][2] - anchors[i][2]),
+            };
+            break;
+        }
+    }
+    if (c > anchors[anchors.length - 1][0]) {
+        const n = anchors.length;
+        const sLat = (anchors[n - 1][1] - anchors[n - 2][1]) / (anchors[n - 1][0] - anchors[n - 2][0]);
+        const sLng = (anchors[n - 1][2] - anchors[n - 2][2]) / (anchors[n - 1][0] - anchors[n - 2][0]);
+        center = {
+            lat: anchors[n - 1][1] + (c - anchors[n - 1][0]) * sLat,
+            lng: anchors[n - 1][2] + (c - anchors[n - 1][0]) * sLng,
+        };
+    }
+
+    // 접선/직교 방향 계산 (간소화: per-row 벡터 보간)
+    const ratio = Math.max(0, Math.min(1, (col + 0.5) / 5));
+    const rowDir = {
+        lat: 0.0000082 + ratio * (-0.0000806 - 0.0000082),
+        lng: 0.0001967 + ratio * (0.0000155 - 0.0001967),
     };
 
-    // 셀의 중앙점 계산
-    const longitudeNormalized = (col + 0.5) / GRID_COLUMNS.length;
-    const latitudeNormalized = (row + 0.5) / 17;
-
-    const longitudeRange = AIRPORT_BOUNDS.maxLongitude - AIRPORT_BOUNDS.minLongitude;
-    const latitudeRange = AIRPORT_BOUNDS.maxLatitude - AIRPORT_BOUNDS.minLatitude;
-
-    const longitude = AIRPORT_BOUNDS.maxLongitude - longitudeNormalized * longitudeRange;
-    const latitude = AIRPORT_BOUNDS.maxLatitude - latitudeNormalized * latitudeRange;
-
-    return { latitude, longitude };
+    const rowOffset = (row + 0.5) - 3.5;
+    return {
+        latitude: center.lat + rowOffset * rowDir.lat,
+        longitude: center.lng + rowOffset * rowDir.lng,
+    };
 }
 
 /**
