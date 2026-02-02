@@ -63,17 +63,17 @@ className = 'shadow-lg shadow-primary/20';
 
 ```tsx
 // 기본 그라디언트 배경
-className = 'bg-linear-to-br from-primary/5 to-primary/10';
+className = 'bg-gradient-to-br from-primary/5 to-primary/10';
 
 // 헤더 그라디언트
-className = 'bg-linear-to-r from-primary to-primary/80';
+className = 'bg-gradient-to-r from-primary to-primary/80';
 
 // 미묘한 메시 그라디언트
 className =
     'bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent';
 
 // 유리 효과 카드
-className = 'bg-linear-to-br from-white/90 to-white/70 backdrop-blur-md';
+className = 'bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-md';
 ```
 
 ### 3. 애니메이션 (Animations)
@@ -105,7 +105,7 @@ className = 'animate-spin';
 <Card className="border-0 shadow-md hover:shadow-lg transition-shadow bg-card/80 backdrop-blur-sm">
 
 // 강조 카드
-<Card className="border-2 border-primary/20 shadow-lg shadow-primary/5 bg-linear-to-br from-primary/5 to-transparent">
+<Card className="border-2 border-primary/20 shadow-lg shadow-primary/5 bg-gradient-to-br from-primary/5 to-transparent">
 
 // 인터랙티브 카드
 <Card className="group cursor-pointer border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-200">
@@ -122,7 +122,7 @@ className = 'animate-spin';
 
 ```tsx
 // 그라디언트 버튼
-<Button className="bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg shadow-primary/25">
+<Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg shadow-primary/25">
 
 // 글로우 버튼
 <Button className="shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-shadow">
@@ -214,7 +214,7 @@ className = 'animate-spin';
 <h1 className="text-3xl font-bold tracking-tight">
 
 // 그라디언트 텍스트
-<span className="bg-linear-to-r from-primary to-chart-4 bg-clip-text text-transparent">
+<span className="bg-gradient-to-r from-primary to-chart-4 bg-clip-text text-transparent">
 
 // 부제목
 <p className="text-muted-foreground text-sm leading-relaxed">
@@ -229,7 +229,7 @@ className = 'animate-spin';
 
 ```tsx
 <Card className="overflow-hidden border-0 shadow-md">
-    <CardHeader className="bg-linear-to-r from-primary/5 to-transparent pb-2">
+    <CardHeader className="bg-gradient-to-r from-primary/5 to-transparent pb-2">
         <CardTitle className="text-lg font-semibold flex items-center gap-2">
             <Icon className="size-5 text-primary" />
             제목

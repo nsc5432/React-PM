@@ -163,7 +163,7 @@ export default function MonitoringPage() {
     };
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 p-8">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
             <div className="max-w-7xl mx-auto space-y-6">
                 {/* Header */}
                 <div className="flex items-center justify-between">
@@ -182,7 +182,7 @@ export default function MonitoringPage() {
 
                 {/* Current Simulation Progress */}
                 <Card className="border-2 shadow-lg">
-                    <CardHeader className="bg-linear-to-r from-blue-50 to-indigo-50">
+                    <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50">
                         <div className="flex items-center justify-between">
                             <div>
                                 <CardTitle className="text-xl flex items-center gap-2">
@@ -221,13 +221,12 @@ export default function MonitoringPage() {
                                 return (
                                     <div key={step.id} className="flex flex-col items-center">
                                         <div
-                                            className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold text-sm mb-2 transition-all ${
-                                                status === 'completed'
+                                            className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold text-sm mb-2 transition-all ${status === 'completed'
                                                     ? 'bg-green-500 text-white shadow-lg'
                                                     : status === 'current'
-                                                      ? 'bg-blue-500 text-white shadow-lg ring-4 ring-blue-200 animate-pulse'
-                                                      : 'bg-slate-200 text-slate-500'
-                                            }`}
+                                                        ? 'bg-blue-500 text-white shadow-lg ring-4 ring-blue-200 animate-pulse'
+                                                        : 'bg-slate-200 text-slate-500'
+                                                }`}
                                         >
                                             {status === 'completed' ? (
                                                 <CheckCircle2 className="w-6 h-6" />
@@ -236,13 +235,12 @@ export default function MonitoringPage() {
                                             )}
                                         </div>
                                         <div
-                                            className={`text-xs text-center font-medium ${
-                                                status === 'current'
+                                            className={`text-xs text-center font-medium ${status === 'current'
                                                     ? 'text-blue-600'
                                                     : status === 'completed'
-                                                      ? 'text-green-600'
-                                                      : 'text-slate-500'
-                                            }`}
+                                                        ? 'text-green-600'
+                                                        : 'text-slate-500'
+                                                }`}
                                         >
                                             {step.label}
                                         </div>

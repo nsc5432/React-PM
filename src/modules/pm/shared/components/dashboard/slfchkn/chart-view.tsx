@@ -198,8 +198,8 @@ export function ChartView({ viewMode, onViewModeChange }: ChartViewProps) {
 
             {/* Main Chart */}
             <Card className="shadow-lg">
-                <CardHeader className="bg-linear-to-r from-indigo-50 to-blue-50 border-b">
-                    <CardTitle className="text-xl font-bold bg-linear-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+                <CardHeader className="bg-gradient-to-r from-indigo-50 to-blue-50 border-b">
+                    <CardTitle className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
                         인원수
                     </CardTitle>
                 </CardHeader>

@@ -118,8 +118,8 @@ export function ChartView({ viewMode, onViewModeChange }: ChartViewProps) {
             </Card>
             {/* 메인 차트 - ComposedChart (Bar + Area + Line) */}
             <Card className="shadow-lg">
-                <CardHeader className="bg-linear-to-r from-indigo-50 to-purple-50 border-b">
-                    <CardTitle className="text-xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <CardHeader className="bg-gradient-to-r from-indigo-50 to-purple-50 border-b">
+                    <CardTitle className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                         N 19 구역 체크인카운터 현황
                     </CardTitle>
                 </CardHeader>
@@ -258,8 +258,8 @@ export function ChartView({ viewMode, onViewModeChange }: ChartViewProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* 처리인원 트렌드 */}
                 <Card className="shadow-lg">
-                    <CardHeader className="bg-linear-to-r from-indigo-50 to-cyan-50 border-b">
-                        <CardTitle className="text-lg font-bold bg-linear-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">
+                    <CardHeader className="bg-gradient-to-r from-indigo-50 to-cyan-50 border-b">
+                        <CardTitle className="text-lg font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">
                             처리인원 트렌드
                         </CardTitle>
                     </CardHeader>
@@ -310,8 +310,8 @@ export function ChartView({ viewMode, onViewModeChange }: ChartViewProps) {
 
                 {/* 대기인원 비교 */}
                 <Card className="shadow-lg">
-                    <CardHeader className="bg-linear-to-r from-pink-50 to-rose-50 border-b">
-                        <CardTitle className="text-lg font-bold bg-linear-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+                    <CardHeader className="bg-gradient-to-r from-pink-50 to-rose-50 border-b">
+                        <CardTitle className="text-lg font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
                             대기인원 비교
                         </CardTitle>
                     </CardHeader>

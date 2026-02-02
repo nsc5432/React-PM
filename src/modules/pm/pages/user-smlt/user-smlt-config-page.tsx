@@ -157,7 +157,7 @@ export default function UserSmltConfigPage() {
                     {isReadOnly ? (
                         <button
                             onClick={() => navigate(`/pm/user-smlt/result/${key}`)}
-                            className="group relative inline-flex items-center gap-3 bg-linear-to-r from-green-600 to-green-700 text-white px-16 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:from-green-700 hover:to-green-800 active:scale-[0.98] transition-all duration-200"
+                            className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-green-700 text-white px-16 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:from-green-700 hover:to-green-800 active:scale-[0.98] transition-all duration-200"
                         >
                             <BarChart3 className="w-5 h-5 group-hover:scale-110 transition-transform" />
                             시뮬레이션 결과
@@ -166,7 +166,7 @@ export default function UserSmltConfigPage() {
                     ) : (
                         <ConfirmDialog
                             trigger={
-                                <button className="group relative inline-flex items-center gap-3 bg-linear-to-r from-indigo-600 to-indigo-700 text-white px-16 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:from-indigo-700 hover:to-indigo-800 active:scale-[0.98] transition-all duration-200">
+                                <button className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-16 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl hover:from-indigo-700 hover:to-indigo-800 active:scale-[0.98] transition-all duration-200">
                                     <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
                                     시뮬레이션 수행
                                     <div className="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-10 transition-opacity" />

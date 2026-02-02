@@ -23,25 +23,25 @@ const menuItems: MenuItem[] = [
     {
         id: 'daily',
         label: '기준시뮬레이션',
-        path: '/pm/daily-smlt/result',
+        path: '/rui/pm/daily-smlt/result',
         icon: <BarChart3 className="size-5" />,
     },
     {
         id: 'user',
         label: '사용자시뮬레이션',
-        path: '/pm/user-smlt/config',
+        path: '/rui/pm/user-smlt/config',
         icon: <User className="size-5" />,
     },
     {
         id: 'monitoring',
         label: '시뮬레이션 모니터링',
-        path: '/pm/monitoring',
+        path: '/rui/pm/monitoring',
         icon: <MonitorPlay className="size-5" />,
     },
     {
         id: 'facility-config',
         label: '시설물 매핑',
-        path: '/pm/facility-config',
+        path: '/rui/pm/facility-config',
         icon: <MapPin className="size-5" />,
     },
 ];
@@ -95,7 +95,7 @@ export function Lnb() {
     return (
         <aside
             ref={sidebarRef}
-            className="relative flex flex-col bg-linear-to-b from-background to-muted/20 border-r border-border/50 shadow-sm"
+            className="relative flex flex-col bg-gradient-to-b from-background to-muted/20 border-r border-border/50 shadow-sm"
             style={{ width: isCollapsed ? '64px' : `${width}px` }}
         >
             {/* Header */}
@@ -177,7 +177,7 @@ export function Lnb() {
             {!isCollapsed && (
                 <div className="border-t border-border/50 p-4 bg-muted/30">
                     <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center size-10 rounded-xl bg-linear-to-br from-primary/20 to-primary/10 text-primary shrink-0 shadow-sm">
+                        <div className="flex items-center justify-center size-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary shrink-0 shadow-sm">
                             <UserCircle className="size-5" />
                         </div>
                         <div className="flex-1 min-w-0">

@@ -9,18 +9,18 @@ import FacilityConfigPage from './modules/pm/pages/facility-config/facility-conf
 function App() {
     return (
         <BrowserRouter>
-            <div className="flex h-screen overflow-hidden">
+            <div className="flex h-screen overflow-hidden select-none">
                 <Lnb />
                 <div className="flex-1 overflow-auto">
                     <Routes>
-                        <Route path="/" element={<UserSmltConfigPage />} />
-                        <Route path="/pm/daily-smlt/result" element={<DailySmltPage />} />
-                        <Route path="/pm/user-smlt/config" element={<UserSmltConfigPage />} />
-                        <Route path="/pm/user-smlt/config/:key" element={<UserSmltConfigPage />} />
-                        <Route path="/pm/user-smlt/result" element={<UserSmltResultPage />} />
-                        <Route path="/pm/user-smlt/result/:key" element={<UserSmltResultPage />} />
-                        <Route path="/pm/monitoring" element={<MonitoringPage />} />
-                        <Route path="/pm/facility-config" element={<FacilityConfigPage />} />
+                        <Route path="/rui/pm" element={<UserSmltConfigPage />} />
+                        <Route path="/rui/pm/daily-smlt/result" element={<DailySmltPage />} />
+                        <Route path="/rui/pm/user-smlt/config" element={<UserSmltConfigPage />} />
+                        <Route path="/rui/pm/user-smlt/config/:key" element={<UserSmltConfigPage />} />
+                        <Route path="/rui/pm/user-smlt/result" element={<UserSmltResultPage />} />
+                        <Route path="/rui/pm/user-smlt/result/:key" element={<UserSmltResultPage />} />
+                        <Route path="/rui/pm/monitoring" element={<MonitoringPage />} />
+                        <Route path="/rui/pm/facility-config" element={<FacilityConfigPage />} />
                     </Routes>
                 </div>
             </div>

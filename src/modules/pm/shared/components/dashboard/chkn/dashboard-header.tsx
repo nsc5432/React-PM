@@ -16,7 +16,7 @@ export function DashboardHeader() {
     const [date, setDate] = useState<Date | undefined>(new Date(2024, 9, 18));
 
     return (
-        <div className="bg-linear-to-br from-orange-600 via-orange-500 to-amber-400 shadow-lg mt-2">
+        <div className="bg-gradient-to-br from-orange-600 via-orange-500 to-amber-400 shadow-lg mt-2">
             <div className="px-8 pt-3 pb-1">
                 <div className="flex items-start justify-between gap-6">
                     {/* Title Section */}

@@ -72,7 +72,7 @@ export function ViewModeToggle({
     }
 
     return (
-        <div className="bg-linear-to-r from-gray-50 to-gray-100 -mx-8 -mb-6 mt-5 px-8 py-4 rounded-b-lg">
+        <div className="bg-gradient-to-r from-gray-50 to-gray-100 -mx-8 -mb-6 mt-5 px-8 py-4 rounded-b-lg">
             <div className="flex justify-end gap-3">{buttons}</div>
         </div>
     );

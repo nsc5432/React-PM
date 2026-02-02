@@ -120,52 +120,52 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
             // 터미널에 여객수가 가장 많을때 - 파란색
             primary: 'blue',
             gradient: 'from-blue-600 to-cyan-400',
-            headerBg: 'bg-linear-to-r from-[#003366] to-[#004d99]',
+            headerBg: 'bg-gradient-to-r from-[#003366] to-[#004d99]',
             chartGradient: 'from-blue-500 to-cyan-300',
             accentText: 'text-blue-600',
             terminalIcon: ['bg-blue-600', 'bg-teal-500'],
             simulationHeaderBg: [
-                'bg-linear-to-r from-cyan-500 to-teal-400',
-                'bg-linear-to-r from-teal-500 to-emerald-400',
+                'bg-gradient-to-r from-cyan-500 to-teal-400',
+                'bg-gradient-to-r from-teal-500 to-emerald-400',
             ],
         },
         1: {
             // 체크인카운터가 가장 혼잡할 때 - 주황색
             primary: 'orange',
             gradient: 'from-orange-600 to-amber-400',
-            headerBg: 'bg-linear-to-r from-orange-900 to-orange-700',
+            headerBg: 'bg-gradient-to-r from-orange-900 to-orange-700',
             chartGradient: 'from-orange-500 to-amber-300',
             accentText: 'text-orange-600',
             terminalIcon: ['bg-orange-500', 'bg-amber-500'],
             simulationHeaderBg: [
-                'bg-linear-to-r from-orange-500 to-amber-400',
-                'bg-linear-to-r from-amber-500 to-orange-400',
+                'bg-gradient-to-r from-orange-500 to-amber-400',
+                'bg-gradient-to-r from-amber-500 to-orange-400',
             ],
         },
         2: {
             // 셀프체크인/백드롭이 가장 혼잡할 때 - 초록색
             primary: 'green',
             gradient: 'from-green-600 to-emerald-400',
-            headerBg: 'bg-linear-to-r from-green-900 to-green-700',
+            headerBg: 'bg-gradient-to-r from-green-900 to-green-700',
             chartGradient: 'from-green-500 to-emerald-300',
             accentText: 'text-green-600',
             terminalIcon: ['bg-green-500', 'bg-emerald-500'],
             simulationHeaderBg: [
-                'bg-linear-to-r from-green-500 to-emerald-400',
-                'bg-linear-to-r from-emerald-500 to-green-400',
+                'bg-gradient-to-r from-green-500 to-emerald-400',
+                'bg-gradient-to-r from-emerald-500 to-green-400',
             ],
         },
         3: {
             // 출국장이 가장 혼잡할 때 - 보라색
             primary: 'purple',
             gradient: 'from-purple-600 to-violet-400',
-            headerBg: 'bg-linear-to-r from-purple-900 to-purple-700',
+            headerBg: 'bg-gradient-to-r from-purple-900 to-purple-700',
             chartGradient: 'from-purple-500 to-violet-300',
             accentText: 'text-purple-600',
             terminalIcon: ['bg-purple-500', 'bg-violet-500'],
             simulationHeaderBg: [
-                'bg-linear-to-r from-purple-500 to-violet-400',
-                'bg-linear-to-r from-violet-500 to-purple-400',
+                'bg-gradient-to-r from-purple-500 to-violet-400',
+                'bg-gradient-to-r from-violet-500 to-purple-400',
             ],
         },
     };
@@ -323,7 +323,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                     }
                 }
             `}</style>
-            <div className="min-w-358 max-w-450 mx-auto p-2 bg-linear-to-br from-gray-50 to-gray-100 min-h-screen">
+            <div className="min-w-358 max-w-450 mx-auto p-2 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
                 {/* Header */}
                 <header className="bg-white p-5 rounded-2xl mb-6 shadow-lg border border-gray-200">
                     <div className="flex justify-between items-center whitespace-nowrap gap-4">
@@ -409,7 +409,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                             <span className="text-xs text-gray-600 font-semibold">분</span>
                             <div className="flex-1" />
                             <button
-                                className={`bg-linear-to-r ${currentTheme.gradient} text-white px-4 lg:px-6 py-1.5 rounded-md font-bold text-xs shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-1.5 shrink-0`}
+                                className={`bg-gradient-to-r ${currentTheme.gradient} text-white px-4 lg:px-6 py-1.5 rounded-md font-bold text-xs shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-1.5 shrink-0`}
                             >
                                 <SearchIcon className="w-3.5 h-3.5" />
                                 SEARCH
@@ -436,11 +436,10 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                         <button
                             key={index}
                             onClick={() => setSelectedTab(index)}
-                            className={`rounded-xl text-center py-4 font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2 ${
-                                selectedTab === index
-                                    ? `bg-linear-to-r ${currentTheme.gradient} text-white shadow-lg`
+                            className={`rounded-xl text-center py-4 font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2 ${selectedTab === index
+                                    ? `bg-gradient-to-r ${currentTheme.gradient} text-white shadow-lg`
                                     : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-lg'
-                            }`}
+                                }`}
                         >
                             {index === 0 &&
                                 (selectedTab === 0 ? (
@@ -656,7 +655,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                         <div className="grid grid-cols-[1fr_2fr] gap-4 mb-6">
                                             {/* 왼쪽: 운항편수/여객수 */}
                                             <div className="space-y-4">
-                                                <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center border-2 border-blue-200 shadow-sm">
+                                                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center border-2 border-blue-200 shadow-sm">
                                                     <div className="flex items-center justify-center gap-2 mb-3">
                                                         <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center">
                                                             <AirplaneIcon className="w-7 h-7 text-white" />
@@ -678,7 +677,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
+                                                <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
                                                     <div className="flex items-center justify-center gap-2 mb-3">
                                                         <div className="w-9 h-9 rounded-full bg-green-500 flex items-center justify-center">
                                                             <PeopleIcon className="w-7 h-7 text-white" />
@@ -810,7 +809,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                         </div>
 
                                         <div
-                                            className={`flex items-center justify-between bg-linear-to-r ${currentTheme.gradient} text-white font-bold text-center py-3 rounded-xl mb-6 shadow-md px-4`}
+                                            className={`flex items-center justify-between bg-gradient-to-r ${currentTheme.gradient} text-white font-bold text-center py-3 rounded-xl mb-6 shadow-md px-4`}
                                         >
                                             <div className="flex items-center gap-2">
                                                 <span>2025-11-08 FRI</span>
@@ -890,7 +889,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                         .stats
                                                                 }
                                                             </div>
-                                                            <span className="inline-block bg-linear-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
+                                                            <span className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
                                                                 {
                                                                     checkinOptions[t1CheckinIndex]
                                                                         .status
@@ -903,7 +902,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                 ].circles.map((c, cIdx) => (
                                                                     <div
                                                                         key={cIdx}
-                                                                        className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-linear-to-br from-gray-50 to-white shadow-sm"
+                                                                        className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-gradient-to-br from-gray-50 to-white shadow-sm"
                                                                     >
                                                                         <span className="font-bold text-gray-700">
                                                                             {c.value}
@@ -921,26 +920,25 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                 ].blocks.map((b, bIdx) => (
                                                                     <div
                                                                         key={bIdx}
-                                                                        className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
-                                                                            checkinOptions[
+                                                                        className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${checkinOptions[
                                                                                 t1CheckinIndex
                                                                             ].blockColors[bIdx] ===
-                                                                            'darkgreen'
+                                                                                'darkgreen'
                                                                                 ? 'bg-green-800'
                                                                                 : checkinOptions[
+                                                                                    t1CheckinIndex
+                                                                                ].blockColors[
+                                                                                    bIdx
+                                                                                ] === 'green'
+                                                                                    ? 'bg-green-600'
+                                                                                    : checkinOptions[
                                                                                         t1CheckinIndex
                                                                                     ].blockColors[
                                                                                         bIdx
-                                                                                    ] === 'green'
-                                                                                  ? 'bg-green-600'
-                                                                                  : checkinOptions[
-                                                                                          t1CheckinIndex
-                                                                                      ].blockColors[
-                                                                                          bIdx
-                                                                                      ] === 'red'
-                                                                                    ? 'bg-red-600'
-                                                                                    : 'bg-orange-600'
-                                                                        }`}
+                                                                                    ] === 'red'
+                                                                                        ? 'bg-red-600'
+                                                                                        : 'bg-orange-600'
+                                                                            }`}
                                                                     >
                                                                         {b}
                                                                     </div>
@@ -1023,7 +1021,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                     ].stats
                                                                 }
                                                             </div>
-                                                            <span className="inline-block bg-linear-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
+                                                            <span className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
                                                                 {
                                                                     departureOptions[
                                                                         t1DepartureIndex
@@ -1037,7 +1035,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                 ].circles.map((c, cIdx) => (
                                                                     <div
                                                                         key={cIdx}
-                                                                        className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-linear-to-br from-gray-50 to-white shadow-sm"
+                                                                        className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-gradient-to-br from-gray-50 to-white shadow-sm"
                                                                     >
                                                                         <span className="font-bold text-gray-700">
                                                                             {c.value}
@@ -1055,26 +1053,25 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                 ].blocks.map((b, bIdx) => (
                                                                     <div
                                                                         key={bIdx}
-                                                                        className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
-                                                                            departureOptions[
+                                                                        className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${departureOptions[
                                                                                 t1DepartureIndex
                                                                             ].blockColors[bIdx] ===
-                                                                            'darkgreen'
+                                                                                'darkgreen'
                                                                                 ? 'bg-green-800'
                                                                                 : departureOptions[
+                                                                                    t1DepartureIndex
+                                                                                ].blockColors[
+                                                                                    bIdx
+                                                                                ] === 'green'
+                                                                                    ? 'bg-green-600'
+                                                                                    : departureOptions[
                                                                                         t1DepartureIndex
                                                                                     ].blockColors[
                                                                                         bIdx
-                                                                                    ] === 'green'
-                                                                                  ? 'bg-green-600'
-                                                                                  : departureOptions[
-                                                                                          t1DepartureIndex
-                                                                                      ].blockColors[
-                                                                                          bIdx
-                                                                                      ] === 'red'
-                                                                                    ? 'bg-red-600'
-                                                                                    : 'bg-orange-600'
-                                                                        }`}
+                                                                                    ] === 'red'
+                                                                                        ? 'bg-red-600'
+                                                                                        : 'bg-orange-600'
+                                                                            }`}
                                                                     >
                                                                         {b}
                                                                     </div>
@@ -1271,7 +1268,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                     <div className="grid grid-cols-[1fr_2fr] gap-4 mb-6">
                                         {/* 왼쪽: 운항편수/여객수 */}
                                         <div className="space-y-4">
-                                            <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center border-2 border-blue-200 shadow-sm">
+                                            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center border-2 border-blue-200 shadow-sm">
                                                 <div className="flex items-center justify-center gap-2 mb-3">
                                                     <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center">
                                                         <AirplaneIcon className="w-7 h-7 text-white" />
@@ -1293,7 +1290,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
+                                            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border-2 border-green-200 shadow-sm">
                                                 <div className="flex items-center justify-center gap-2 mb-3">
                                                     <div className="w-9 h-9 rounded-full bg-green-500 flex items-center justify-center">
                                                         <PeopleIcon className="w-7 h-7 text-white" />
@@ -1425,7 +1422,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                     </div>
 
                                     <div
-                                        className={`flex items-center justify-between bg-linear-to-r ${currentTheme.gradient} text-white font-bold text-center py-3 rounded-xl mb-6 shadow-md px-4`}
+                                        className={`flex items-center justify-between bg-gradient-to-r ${currentTheme.gradient} text-white font-bold text-center py-3 rounded-xl mb-6 shadow-md px-4`}
                                     >
                                         <div className="flex items-center gap-2">
                                             <span>2025-11-08 FRI</span>
@@ -1496,7 +1493,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                         <div className="text-xs text-gray-600 mb-3">
                                                             {checkinOptions[t2CheckinIndex].stats}
                                                         </div>
-                                                        <span className="inline-block bg-linear-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
+                                                        <span className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
                                                             {checkinOptions[t2CheckinIndex].status}
                                                         </span>
 
@@ -1506,7 +1503,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                             ].circles.map((c, cIdx) => (
                                                                 <div
                                                                     key={cIdx}
-                                                                    className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-linear-to-br from-gray-50 to-white shadow-sm"
+                                                                    className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-gradient-to-br from-gray-50 to-white shadow-sm"
                                                                 >
                                                                     <span className="font-bold text-gray-700">
                                                                         {c.value}
@@ -1524,26 +1521,25 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                             ].blocks.map((b, bIdx) => (
                                                                 <div
                                                                     key={bIdx}
-                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
-                                                                        checkinOptions[
+                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${checkinOptions[
                                                                             t2CheckinIndex
                                                                         ].blockColors[bIdx] ===
-                                                                        'darkgreen'
+                                                                            'darkgreen'
                                                                             ? 'bg-green-800'
                                                                             : checkinOptions[
+                                                                                t2CheckinIndex
+                                                                            ].blockColors[
+                                                                                bIdx
+                                                                            ] === 'green'
+                                                                                ? 'bg-green-600'
+                                                                                : checkinOptions[
                                                                                     t2CheckinIndex
                                                                                 ].blockColors[
                                                                                     bIdx
-                                                                                ] === 'green'
-                                                                              ? 'bg-green-600'
-                                                                              : checkinOptions[
-                                                                                      t2CheckinIndex
-                                                                                  ].blockColors[
-                                                                                      bIdx
-                                                                                  ] === 'red'
-                                                                                ? 'bg-red-600'
-                                                                                : 'bg-orange-600'
-                                                                    }`}
+                                                                                ] === 'red'
+                                                                                    ? 'bg-red-600'
+                                                                                    : 'bg-orange-600'
+                                                                        }`}
                                                                 >
                                                                     {b}
                                                                 </div>
@@ -1620,7 +1616,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                     .stats
                                                             }
                                                         </div>
-                                                        <span className="inline-block bg-linear-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
+                                                        <span className="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">
                                                             {
                                                                 departureOptions[t2DepartureIndex]
                                                                     .status
@@ -1633,7 +1629,7 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                             ].circles.map((c, cIdx) => (
                                                                 <div
                                                                     key={cIdx}
-                                                                    className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-linear-to-br from-gray-50 to-white shadow-sm"
+                                                                    className="w-16 h-16 rounded-full border-3 border-gray-300 flex flex-col items-center justify-center text-xs bg-gradient-to-br from-gray-50 to-white shadow-sm"
                                                                 >
                                                                     <span className="font-bold text-gray-700">
                                                                         {c.value}
@@ -1651,26 +1647,25 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                             ].blocks.map((b, bIdx) => (
                                                                 <div
                                                                     key={bIdx}
-                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${
-                                                                        departureOptions[
+                                                                    className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${departureOptions[
                                                                             t2DepartureIndex
                                                                         ].blockColors[bIdx] ===
-                                                                        'darkgreen'
+                                                                            'darkgreen'
                                                                             ? 'bg-green-800'
                                                                             : departureOptions[
+                                                                                t2DepartureIndex
+                                                                            ].blockColors[
+                                                                                bIdx
+                                                                            ] === 'green'
+                                                                                ? 'bg-green-600'
+                                                                                : departureOptions[
                                                                                     t2DepartureIndex
                                                                                 ].blockColors[
                                                                                     bIdx
-                                                                                ] === 'green'
-                                                                              ? 'bg-green-600'
-                                                                              : departureOptions[
-                                                                                      t2DepartureIndex
-                                                                                  ].blockColors[
-                                                                                      bIdx
-                                                                                  ] === 'red'
-                                                                                ? 'bg-red-600'
-                                                                                : 'bg-orange-600'
-                                                                    }`}
+                                                                                ] === 'red'
+                                                                                    ? 'bg-red-600'
+                                                                                    : 'bg-orange-600'
+                                                                        }`}
                                                                 >
                                                                     {b}
                                                                 </div>
