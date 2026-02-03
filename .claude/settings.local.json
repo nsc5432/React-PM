@@ -33,7 +33,17 @@
       "Bash(tasklist:*)",
       "Bash(node -e:*)",
       "Bash(node download-packages.js:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(powershell -Command \"$content = Get-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\dialog.tsx'' -Raw; $content = $content -replace ''data-state-open:'', ''data-[state=open]:''; $content = $content -replace ''data-state-closed:'', ''data-[state=closed]:''; $content = $content -replace ''outline-hidden'', ''outline-none''; $content = $content -replace ''rounded-xs'', ''rounded-sm''; Set-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\dialog.tsx'' -Value $content -NoNewline\")",
+      "Bash(powershell -Command \"$content = Get-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\sheet.tsx'' -Raw; $content = $content -replace ''data-state-open:'', ''data-[state=open]:''; $content = $content -replace ''data-state-closed:'', ''data-[state=closed]:''; $content = $content -replace ''outline-hidden'', ''outline-none''; $content = $content -replace ''rounded-xs'', ''rounded-sm''; Set-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\sheet.tsx'' -Value $content -NoNewline\")",
+      "Bash(powershell -Command:*)",
+      "Bash(powershell -Command \"$content = Get-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\popover.tsx'' -Raw; $content = $content -replace ''data-state-open:'', ''data-[state=open]:''; $content = $content -replace ''data-state-closed:'', ''data-[state=closed]:''; $content = $content -replace ''data-side-bottom:'', ''data-[side=bottom]:''; $content = $content -replace ''data-side-top:'', ''data-[side=top]:''; $content = $content -replace ''data-side-left:'', ''data-[side=left]:''; $content = $content -replace ''data-side-right:'', ''data-[side=right]:''; $content = $content -replace ''outline-hidden'', ''outline-none''; Set-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\popover.tsx'' -Value $content -NoNewline\")",
+      "Bash(powershell -Command \"$content = Get-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\alert-dialog.tsx'' -Raw; $content = $content -replace ''data-state-open:'', ''data-[state=open]:''; $content = $content -replace ''data-state-closed:'', ''data-[state=closed]:''; Set-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\alert-dialog.tsx'' -Value $content -NoNewline\")",
+      "Bash(powershell -Command \"$content = Get-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\tooltip.tsx'' -Raw; $content = $content -replace ''data-state-closed:'', ''data-[state=closed]:''; $content = $content -replace ''data-side-bottom:'', ''data-[side=bottom]:''; $content = $content -replace ''data-side-top:'', ''data-[side=top]:''; $content = $content -replace ''data-side-left:'', ''data-[side=left]:''; $content = $content -replace ''data-side-right:'', ''data-[side=right]:''; Set-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\tooltip.tsx'' -Value $content -NoNewline\")",
+      "Bash(powershell -Command \"$content = Get-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\toggle.tsx'' -Raw; $content = $content -replace ''data-state-on:'', ''data-[state=on]:''; $content = $content -replace ''shadow-xs'', ''shadow-sm''; Set-Content ''c:\\\\icn_airport\\\\RUI\\\\src\\\\components\\\\ui\\\\toggle.tsx'' -Value $content -NoNewline\")",
+      "Bash(powershell:*)",
+      "Bash(git -C c:/icn_airport/RUI checkout -- src/components/ui/label.tsx src/components/ui/textarea.tsx src/components/ui/button-group.tsx src/components/ui/calendar.tsx src/components/ui/chart.tsx)",
+      "Bash(git checkout:*)"
     ]
   }
 }

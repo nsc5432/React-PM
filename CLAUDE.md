@@ -164,7 +164,7 @@ VITE_ENABLE_MOCK=true                     # API 스킵, mock 사용
 
 ## Tech Stack
 
-React 19.2, TypeScript 5.9.3, Vite 7.2.4, Tailwind CSS 4.1.18, shadcn/ui, Recharts 2.15.4, React Hook Form + Zod, Axios
+React 19.2, TypeScript 5.9.3, Vite 7.2.4, Tailwind CSS 3.4.17, shadcn/ui, Recharts 2.15.4, React Hook Form, Axios, ECharts 6
 
 ## Development Notes
 

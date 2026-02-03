@@ -61,13 +61,12 @@ export function MapView() {
                                     <Popover key={`security-${num}`}>
                                         <PopoverTrigger asChild>
                                             <button
-                                                className={`w-14 h-14 rounded-lg font-bold text-xl transition-all hover:scale-110 ${
-                                                    security?.status === 'busy'
-                                                        ? 'bg-red-300 text-red-900'
-                                                        : security?.status === 'warning'
-                                                          ? 'bg-yellow-300 text-yellow-900'
-                                                          : 'bg-green-200 text-green-800'
-                                                }`}
+                                                className={`w-14 h-14 rounded-lg font-bold text-xl transition-all hover:scale-110 ${security?.status === 'busy'
+                                                    ? 'bg-red-300 text-red-900'
+                                                    : security?.status === 'warning'
+                                                        ? 'bg-yellow-300 text-yellow-900'
+                                                        : 'bg-green-200 text-green-800'
+                                                    }`}
                                             >
                                                 {num}
                                             </button>
@@ -132,13 +131,12 @@ export function MapView() {
                                     <Popover key={`departure-${num}`}>
                                         <PopoverTrigger asChild>
                                             <button
-                                                className={`w-16 h-16 rounded-lg font-bold text-2xl transition-all hover:scale-110 ${
-                                                    facility?.status === 'busy'
-                                                        ? 'bg-blue-300 text-blue-900'
-                                                        : facility?.status === 'warning'
-                                                          ? 'bg-purple-300 text-purple-900'
-                                                          : 'bg-blue-200 text-blue-800'
-                                                }`}
+                                                className={`w-16 h-16 rounded-lg font-bold text-2xl transition-all hover:scale-110 ${facility?.status === 'busy'
+                                                    ? 'bg-blue-300 text-blue-900'
+                                                    : facility?.status === 'warning'
+                                                        ? 'bg-purple-300 text-purple-900'
+                                                        : 'bg-blue-200 text-blue-800'
+                                                    }`}
                                             >
                                                 {num}
                                             </button>
@@ -205,13 +203,12 @@ export function MapView() {
                                     <Popover key={`counter-${letter}-${idx}`}>
                                         <PopoverTrigger asChild>
                                             <button
-                                                className={`w-12 h-12 rounded-lg font-bold text-lg transition-all hover:scale-110 ${
-                                                    counter?.status === 'busy'
-                                                        ? 'bg-orange-300 text-orange-900'
-                                                        : counter?.status === 'warning'
-                                                          ? 'bg-amber-300 text-amber-900'
-                                                          : 'bg-emerald-200 text-emerald-800'
-                                                }`}
+                                                className={`w-12 h-12 rounded-lg font-bold text-lg transition-all hover:scale-110 ${counter?.status === 'busy'
+                                                    ? 'bg-orange-300 text-orange-900'
+                                                    : counter?.status === 'warning'
+                                                        ? 'bg-amber-300 text-amber-900'
+                                                        : 'bg-emerald-200 text-emerald-800'
+                                                    }`}
                                             >
                                                 {letter}
                                             </button>

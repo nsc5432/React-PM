@@ -24,25 +24,25 @@ const menuItems: MenuItem[] = [
         id: 'daily',
         label: '기준시뮬레이션',
         path: '/rui/pm/daily-smlt/result',
-        icon: <BarChart3 className="size-5" />,
+        icon: <BarChart3 className="w-5 h-5" />,
     },
     {
         id: 'user',
         label: '사용자시뮬레이션',
         path: '/rui/pm/user-smlt/config',
-        icon: <User className="size-5" />,
+        icon: <User className="w-5 h-5" />,
     },
     {
         id: 'monitoring',
         label: '시뮬레이션 모니터링',
         path: '/rui/pm/monitoring',
-        icon: <MonitorPlay className="size-5" />,
+        icon: <MonitorPlay className="w-5 h-5" />,
     },
     {
         id: 'facility-config',
         label: '시설물 매핑',
         path: '/rui/pm/facility-config',
-        icon: <MapPin className="size-5" />,
+        icon: <MapPin className="w-5 h-5" />,
     },
 ];
 
@@ -102,11 +102,11 @@ export function Lnb() {
             <div className="flex items-center h-11 px-4 border-b border-border/50 gap-3 bg-background/80 backdrop-blur-sm">
                 <button
                     onClick={() => navigate(-1)}
-                    className="flex items-center justify-center size-9 rounded-lg hover:bg-primary/10 hover:text-primary transition-all duration-200 shrink-0"
+                    className="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-primary/10 hover:text-primary transition-all duration-200 shrink-0"
                     aria-label="뒤로가기"
                     title="뒤로가기"
                 >
-                    <ChevronLeft className="size-4" />
+                    <ChevronLeft className="w-4 h-4" />
                 </button>
                 {!isCollapsed && (
                     <h2 className="text-sm font-bold tracking-tight text-foreground truncate flex-1">
@@ -177,8 +177,8 @@ export function Lnb() {
             {!isCollapsed && (
                 <div className="border-t border-border/50 p-4 bg-muted/30">
                     <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center size-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary shrink-0 shadow-sm">
-                            <UserCircle className="size-5" />
+                        <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary shrink-0 shadow-sm">
+                            <UserCircle className="w-5 h-5" />
                         </div>
                         <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-foreground truncate">
@@ -201,14 +201,14 @@ export function Lnb() {
             {/* Collapse/Expand Toggle Button */}
             <button
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                className="absolute top-1/2 -right-3 -translate-y-1/2 flex items-center justify-center size-6 rounded-full bg-background border border-border/50 shadow-md hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 z-10"
+                className="absolute top-1/2 -right-3 -translate-y-1/2 flex items-center justify-center w-6 h-6 rounded-full bg-background border border-border/50 shadow-md hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 z-10"
                 aria-label={isCollapsed ? '메뉴 펼치기' : '메뉴 접기'}
                 title={isCollapsed ? '메뉴 펼치기' : '메뉴 접기'}
             >
                 {isCollapsed ? (
-                    <ChevronRight className="size-3" />
+                    <ChevronRight className="w-3 h-3" />
                 ) : (
-                    <ChevronLeft className="size-3" />
+                    <ChevronLeft className="w-3 h-3" />
                 )}
             </button>
         </aside>

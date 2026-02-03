@@ -13,32 +13,32 @@
 
 ## 프로젝트 디자인 시스템
 
-### 색상 팔레트 (OKLCH)
+### 색상 팔레트 (HSL)
 
 ```css
 /* Primary - Navy Blue */
---primary: oklch(0.51 0.177 264.05); /* #2563EB */
+--primary: 221 83% 53%; /* #2563EB */
 
 /* Status Colors */
---destructive: oklch(0.55 0.22 25); /* Red - 오류/위험 */
---warning: oklch(0.75 0.15 85); /* Yellow - 경고 */
---success: oklch(0.6 0.15 155); /* Green - 성공 */
+--destructive: 0 84% 60%; /* Red - 오류/위험 */
+--warning: 48 96% 53%; /* Yellow - 경고 */
+--success: 142 71% 45%; /* Green - 성공 */
 
 /* Chart Colors */
---chart-1: oklch(0.6 0.2 225); /* Blue */
---chart-2: oklch(0.75 0.15 85); /* Yellow */
---chart-3: oklch(0.55 0.22 25); /* Red */
---chart-4: oklch(0.7 0.18 145); /* Cyan */
---chart-5: oklch(0.65 0.2 305); /* Purple */
+--chart-1: 221 83% 53%; /* Blue */
+--chart-2: 48 96% 53%; /* Yellow */
+--chart-3: 0 84% 60%; /* Red */
+--chart-4: 199 89% 48%; /* Cyan */
+--chart-5: 280 67% 55%; /* Purple */
 ```
 
 ### 반경 (Border Radius)
 
 ```css
---radius-sm: 0.25rem; /* 4px - 작은 요소 */
---radius-md: 0.375rem; /* 6px - 기본 */
---radius-lg: 0.5rem; /* 8px - 카드 */
---radius-xl: 0.75rem; /* 12px - 모달/대형 카드 */
+--radius: 0.5rem; /* tailwind.config.js에서 lg/md/sm 자동 계산 */
+/* lg: var(--radius) = 0.5rem */
+/* md: calc(var(--radius) - 2px) */
+/* sm: calc(var(--radius) - 4px) */
 ```
 
 ## 세련된 디자인 패턴

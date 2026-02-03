@@ -39,7 +39,6 @@ interface SmltSmryRsltProps {
 }
 
 const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsltProps) => {
-    console.log(_simulationType);
     // 선택된 탭 상태 (0: 터미널 여객수, 1: 체크인카운터, 2: 출국장, 3: 보안검색대)
     const [selectedTab, setSelectedTab] = useState(0);
 
@@ -437,8 +436,8 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                             key={index}
                             onClick={() => setSelectedTab(index)}
                             className={`rounded-xl text-center py-4 font-semibold shadow-md transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2 ${selectedTab === index
-                                    ? `bg-gradient-to-r ${currentTheme.gradient} text-white shadow-lg`
-                                    : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-lg'
+                                ? `bg-gradient-to-r ${currentTheme.gradient} text-white shadow-lg`
+                                : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-gray-300 hover:shadow-lg'
                                 }`}
                         >
                             {index === 0 &&
@@ -921,23 +920,23 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                     <div
                                                                         key={bIdx}
                                                                         className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${checkinOptions[
+                                                                            t1CheckinIndex
+                                                                        ].blockColors[bIdx] ===
+                                                                            'darkgreen'
+                                                                            ? 'bg-green-800'
+                                                                            : checkinOptions[
                                                                                 t1CheckinIndex
-                                                                            ].blockColors[bIdx] ===
-                                                                                'darkgreen'
-                                                                                ? 'bg-green-800'
+                                                                            ].blockColors[
+                                                                                bIdx
+                                                                            ] === 'green'
+                                                                                ? 'bg-green-600'
                                                                                 : checkinOptions[
                                                                                     t1CheckinIndex
                                                                                 ].blockColors[
                                                                                     bIdx
-                                                                                ] === 'green'
-                                                                                    ? 'bg-green-600'
-                                                                                    : checkinOptions[
-                                                                                        t1CheckinIndex
-                                                                                    ].blockColors[
-                                                                                        bIdx
-                                                                                    ] === 'red'
-                                                                                        ? 'bg-red-600'
-                                                                                        : 'bg-orange-600'
+                                                                                ] === 'red'
+                                                                                    ? 'bg-red-600'
+                                                                                    : 'bg-orange-600'
                                                                             }`}
                                                                     >
                                                                         {b}
@@ -1054,23 +1053,23 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                     <div
                                                                         key={bIdx}
                                                                         className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${departureOptions[
+                                                                            t1DepartureIndex
+                                                                        ].blockColors[bIdx] ===
+                                                                            'darkgreen'
+                                                                            ? 'bg-green-800'
+                                                                            : departureOptions[
                                                                                 t1DepartureIndex
-                                                                            ].blockColors[bIdx] ===
-                                                                                'darkgreen'
-                                                                                ? 'bg-green-800'
+                                                                            ].blockColors[
+                                                                                bIdx
+                                                                            ] === 'green'
+                                                                                ? 'bg-green-600'
                                                                                 : departureOptions[
                                                                                     t1DepartureIndex
                                                                                 ].blockColors[
                                                                                     bIdx
-                                                                                ] === 'green'
-                                                                                    ? 'bg-green-600'
-                                                                                    : departureOptions[
-                                                                                        t1DepartureIndex
-                                                                                    ].blockColors[
-                                                                                        bIdx
-                                                                                    ] === 'red'
-                                                                                        ? 'bg-red-600'
-                                                                                        : 'bg-orange-600'
+                                                                                ] === 'red'
+                                                                                    ? 'bg-red-600'
+                                                                                    : 'bg-orange-600'
                                                                             }`}
                                                                     >
                                                                         {b}
@@ -1522,23 +1521,23 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                 <div
                                                                     key={bIdx}
                                                                     className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${checkinOptions[
+                                                                        t2CheckinIndex
+                                                                    ].blockColors[bIdx] ===
+                                                                        'darkgreen'
+                                                                        ? 'bg-green-800'
+                                                                        : checkinOptions[
                                                                             t2CheckinIndex
-                                                                        ].blockColors[bIdx] ===
-                                                                            'darkgreen'
-                                                                            ? 'bg-green-800'
+                                                                        ].blockColors[
+                                                                            bIdx
+                                                                        ] === 'green'
+                                                                            ? 'bg-green-600'
                                                                             : checkinOptions[
                                                                                 t2CheckinIndex
                                                                             ].blockColors[
                                                                                 bIdx
-                                                                            ] === 'green'
-                                                                                ? 'bg-green-600'
-                                                                                : checkinOptions[
-                                                                                    t2CheckinIndex
-                                                                                ].blockColors[
-                                                                                    bIdx
-                                                                                ] === 'red'
-                                                                                    ? 'bg-red-600'
-                                                                                    : 'bg-orange-600'
+                                                                            ] === 'red'
+                                                                                ? 'bg-red-600'
+                                                                                : 'bg-orange-600'
                                                                         }`}
                                                                 >
                                                                     {b}
@@ -1648,23 +1647,23 @@ const SmltSmryRslt = ({ simulationType: _simulationType = 'daily' }: SmltSmryRsl
                                                                 <div
                                                                     key={bIdx}
                                                                     className={`w-5 h-5 text-white text-[10px] flex items-center justify-center rounded font-bold shadow-sm ${departureOptions[
+                                                                        t2DepartureIndex
+                                                                    ].blockColors[bIdx] ===
+                                                                        'darkgreen'
+                                                                        ? 'bg-green-800'
+                                                                        : departureOptions[
                                                                             t2DepartureIndex
-                                                                        ].blockColors[bIdx] ===
-                                                                            'darkgreen'
-                                                                            ? 'bg-green-800'
+                                                                        ].blockColors[
+                                                                            bIdx
+                                                                        ] === 'green'
+                                                                            ? 'bg-green-600'
                                                                             : departureOptions[
                                                                                 t2DepartureIndex
                                                                             ].blockColors[
                                                                                 bIdx
-                                                                            ] === 'green'
-                                                                                ? 'bg-green-600'
-                                                                                : departureOptions[
-                                                                                    t2DepartureIndex
-                                                                                ].blockColors[
-                                                                                    bIdx
-                                                                                ] === 'red'
-                                                                                    ? 'bg-red-600'
-                                                                                    : 'bg-orange-600'
+                                                                            ] === 'red'
+                                                                                ? 'bg-red-600'
+                                                                                : 'bg-orange-600'
                                                                         }`}
                                                                 >
                                                                     {b}

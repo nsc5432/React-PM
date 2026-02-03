@@ -41,8 +41,8 @@ function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPr
                 'transition-all duration-200 ease-out',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20',
                 'disabled:pointer-events-none disabled:opacity-50',
-                'data-state-active:bg-background data-state-active:text-foreground',
-                'data-state-active:shadow-sm data-state-active:shadow-black/5',
+                'data-[state=active]:bg-background data-[state=active]:text-foreground',
+                'data-[state=active]:shadow-sm data-[state=active]:shadow-black/5',
                 className,
             )}
             {...props}

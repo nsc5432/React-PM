@@ -69,6 +69,34 @@ export default {
                 sans: ["Pretendard", "sans-serif"],
                 mono: ["Geist Mono", "monospace"],
             },
+            flex: {
+                '0': '0',
+                '2': '2',
+            },
+            spacing: {
+                '30': '7.5rem',
+                '37.75': '9.4375rem',
+                '100': '25rem',
+                '105': '26.25rem',
+                '112.5': '28.125rem',
+                '125': '31.25rem',
+                '150': '37.5rem',
+                '175': '43.75rem',
+                '350': '87.5rem',
+                '358': '89.5rem',
+                '400': '100rem',
+                '450': '112.5rem',
+            },
+            zIndex: {
+                '100': '100',
+            },
+            gridTemplateColumns: {
+                '14': 'repeat(14, minmax(0, 1fr))',
+                '19': 'repeat(19, minmax(0, 1fr))',
+            },
+            gridColumn: {
+                'span-14': 'span 14 / span 14',
+            },
         },
     },
     plugins: [

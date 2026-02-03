@@ -28,7 +28,7 @@ function TabIcon({ src, activeSrc, isActive, alt }: TabIconProps) {
         <img
             src={isActive ? activeSrc : src}
             alt={alt}
-            className="size-5"
+            className="w-5 h-5"
         />
     );
 }
